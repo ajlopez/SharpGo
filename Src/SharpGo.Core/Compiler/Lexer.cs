@@ -8,22 +8,30 @@
     public class Lexer
     {
         private string text;
+        private int length;
+        private int position;
 
         public Lexer(string text)
         {
             this.text = text;
+            this.length = text.Length;
+            this.position = 0;
         }
 
         public Token NextToken()
         {
-            if (this.text == null)
+            while (this.position < this.length && char.IsWhiteSpace(this.text[this.position]))
+                this.position++;
+
+            if (this.position >= this.length)
                 return null;
 
-            var token = new Token(TokenType.Name, this.text.Trim());
+            string name = string.Empty;
 
-            this.text = null;
+            while (this.position < this.length && char.IsLetter(this.text[this.position]))
+                name += this.text[this.position++];
 
-            return token;
+            return new Token(TokenType.Name, name);
         }
     }
 }

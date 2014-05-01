@@ -37,5 +37,25 @@
 
             Assert.IsNull(lexer.NextToken());
         }
+
+        [TestMethod]
+        public void GetTwoNames()
+        {
+            Lexer lexer = new Lexer("foo bar");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Name, token.Type);
+            Assert.AreEqual("foo", token.Value);
+
+            token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Name, token.Type);
+            Assert.AreEqual("bar", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
     }
 }
