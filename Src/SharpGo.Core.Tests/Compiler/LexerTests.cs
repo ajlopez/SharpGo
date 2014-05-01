@@ -23,5 +23,19 @@
 
             Assert.IsNull(lexer.NextToken());
         }
+
+        [TestMethod]
+        public void GetNameWithSpaces()
+        {
+            Lexer lexer = new Lexer("  name   ");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Name, token.Type);
+            Assert.AreEqual("name", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
     }
 }
