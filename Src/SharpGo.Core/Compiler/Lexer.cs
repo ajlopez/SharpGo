@@ -26,12 +26,39 @@
             if (this.position >= this.length)
                 return null;
 
-            string name = string.Empty;
+            char ch = this.text[this.position];
 
-            while (this.position < this.length && char.IsLetter(this.text[this.position]))
-                name += this.text[this.position++];
+            if (IsLetter(ch))
+                return this.NextName(ch);
 
-            return new Token(TokenType.Name, name);
+            throw new LexerException(string.Format("Unexpected '{0}'", ch));
+        }
+
+        private Token NextName(char ich)
+        {
+            string value = ich.ToString();
+
+            while (++this.position < this.length)
+            {
+                char ch = this.text[this.position];
+
+                if (!IsLetter(ch) && !IsDigit(ch))
+                    break;
+
+                value += ch;
+            }
+
+            return new Token(TokenType.Name, value);
+        }
+
+        private static bool IsLetter(char ch)
+        {
+            return ch == '_' || char.IsLetter(ch);
+        }
+
+        private static bool IsDigit(char ch)
+        {
+            return char.IsDigit(ch);
         }
     }
 }

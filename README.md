@@ -6,7 +6,7 @@ Work in Progress
 
 ## References
 
-TBD
+- [The Go Programming Language Specification](http://golang.org/ref/spec)
 
 ## License
 
