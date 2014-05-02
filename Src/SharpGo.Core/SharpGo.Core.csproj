@@ -40,8 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ast\ConstantNode.cs" />
+    <Compile Include="Ast\INode.cs" />
     <Compile Include="Compiler\Lexer.cs" />
     <Compile Include="Compiler\LexerException.cs" />
+    <Compile Include="Compiler\Parser.cs" />
     <Compile Include="Compiler\Token.cs" />
     <Compile Include="Compiler\TokenType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
