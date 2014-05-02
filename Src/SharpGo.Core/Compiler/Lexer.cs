@@ -31,6 +31,9 @@
             if (IsLetter(ch))
                 return this.NextName(ch);
 
+            if (IsDigit(ch))
+                return this.NextInteger(ch);
+
             throw new LexerException(string.Format("Unexpected '{0}'", ch));
         }
 
@@ -49,6 +52,23 @@
             }
 
             return new Token(TokenType.Name, value);
+        }
+
+        private Token NextInteger(char ich)
+        {
+            string value = ich.ToString();
+
+            while (++this.position < this.length)
+            {
+                char ch = this.text[this.position];
+
+                if (!IsDigit(ch))
+                    break;
+
+                value += ch;
+            }
+
+            return new Token(TokenType.Integer, value);
         }
 
         private static bool IsLetter(char ch)

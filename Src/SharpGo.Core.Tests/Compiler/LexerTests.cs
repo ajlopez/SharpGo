@@ -87,6 +87,20 @@
         }
 
         [TestMethod]
+        public void GetInteger()
+        {
+            Lexer lexer = new Lexer("42");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Integer, token.Type);
+            Assert.AreEqual("42", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
         public void UnexpectedCharacter()
         {
             Lexer lexer = new Lexer("@");
