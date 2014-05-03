@@ -7,6 +7,7 @@ Work in Progress
 ## References
 
 - [The Go Programming Language Specification](http://golang.org/ref/spec)
+- [Go for a Rubyist](http://supermar.in/go-for-a-rubyist/)
 
 ## License
 
