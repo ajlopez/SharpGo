@@ -34,7 +34,30 @@
             if (IsDigit(ch))
                 return this.NextInteger(ch);
 
+            if (ch == '"')
+                return this.NextString();
+
             throw new LexerException(string.Format("Unexpected '{0}'", ch));
+        }
+
+        private Token NextString()
+        {
+            string value = string.Empty;
+
+            while (++this.position < this.length)
+            {
+                char ch = this.text[this.position];
+
+                if (ch == '"')
+                {
+                    this.position++;
+                    break;
+                }
+
+                value += ch;
+            }
+
+            return new Token(TokenType.String, value);
         }
 
         private Token NextName(char ich)

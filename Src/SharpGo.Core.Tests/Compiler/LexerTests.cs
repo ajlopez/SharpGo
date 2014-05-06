@@ -101,6 +101,20 @@
         }
 
         [TestMethod]
+        public void GetString()
+        {
+            Lexer lexer = new Lexer("\"foo\"");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.String, token.Type);
+            Assert.AreEqual("foo", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
         public void UnexpectedCharacter()
         {
             Lexer lexer = new Lexer("@");
