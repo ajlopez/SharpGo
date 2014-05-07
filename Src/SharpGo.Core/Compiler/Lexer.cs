@@ -43,19 +43,24 @@
         private Token NextString()
         {
             string value = string.Empty;
+            bool closed = false;
 
             while (++this.position < this.length)
             {
-                char ch = this.text[this.position];
+                var ch = this.text[this.position];
 
                 if (ch == '"')
                 {
                     this.position++;
+                    closed = true;
                     break;
                 }
 
                 value += ch;
             }
+
+            if (!closed)
+                throw new LexerException("Unclosed string");
 
             return new Token(TokenType.String, value);
         }

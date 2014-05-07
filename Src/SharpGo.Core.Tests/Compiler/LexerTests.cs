@@ -115,6 +115,23 @@
         }
 
         [TestMethod]
+        public void UnclosedString()
+        {
+            Lexer lexer = new Lexer("\"foo");
+
+            try
+            {
+                var token = lexer.NextToken();
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOfType(ex, typeof(LexerException));
+                Assert.AreEqual("Unclosed string", ex.Message);
+            }
+        }
+
+        [TestMethod]
         public void UnexpectedCharacter()
         {
             Lexer lexer = new Lexer("@");
