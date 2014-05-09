@@ -26,6 +26,9 @@
             if (token.Type == TokenType.Integer)
                 return new ConstantNode(int.Parse(token.Value, CultureInfo.InvariantCulture));
 
+            if (token.Type == TokenType.String)
+                return new ConstantNode(token.Value);
+
             if (token.Type == TokenType.Name)
                 return new NameNode(token.Value);
 

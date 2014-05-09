@@ -23,7 +23,21 @@
         }
 
         [TestMethod]
-        public void ParseNameConstant()
+        public void ParseStringConstant()
+        {
+            Parser parser = new Parser("\"foo\"");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ConstantNode));
+            Assert.AreEqual("foo", ((ConstantNode)node).Value);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
+        [TestMethod]
+        public void ParseName()
         {
             Parser parser = new Parser("foo");
 
