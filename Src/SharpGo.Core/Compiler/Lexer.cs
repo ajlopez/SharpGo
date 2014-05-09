@@ -7,6 +7,8 @@
 
     public class Lexer
     {
+        private static string delimiters = ";.";
+
         private string text;
         private int length;
         private int position;
@@ -26,7 +28,10 @@
             if (this.position >= this.length)
                 return null;
 
-            char ch = this.text[this.position];
+            char ch = this.text[this.position++];
+
+            if (delimiters.Contains(ch))
+                return new Token(TokenType.Delimiter, ch.ToString());
 
             if (IsLetter(ch))
                 return this.NextName(ch);
@@ -45,13 +50,12 @@
             string value = string.Empty;
             bool closed = false;
 
-            while (++this.position < this.length)
+            while (this.position < this.length)
             {
-                var ch = this.text[this.position];
+                var ch = this.text[this.position++];
 
                 if (ch == '"')
                 {
-                    this.position++;
                     closed = true;
                     break;
                 }
@@ -69,9 +73,9 @@
         {
             string value = ich.ToString();
 
-            while (++this.position < this.length)
+            while (this.position < this.length)
             {
-                char ch = this.text[this.position];
+                char ch = this.text[this.position++];
 
                 if (!IsLetter(ch) && !IsDigit(ch))
                     break;
@@ -86,9 +90,9 @@
         {
             string value = ich.ToString();
 
-            while (++this.position < this.length)
+            while (this.position < this.length)
             {
-                char ch = this.text[this.position];
+                char ch = this.text[this.position++];
 
                 if (!IsDigit(ch))
                     break;

@@ -6,6 +6,7 @@ Work in Progress
 
 ## References
 
+- [A Tour of Go](http://tour.golang.org/#1)
 - [The Go Programming Language Specification](http://golang.org/ref/spec)
 - [Go for a Rubyist](http://supermar.in/go-for-a-rubyist/)
 

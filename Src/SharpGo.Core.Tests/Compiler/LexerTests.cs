@@ -101,6 +101,34 @@
         }
 
         [TestMethod]
+        public void GetPointAsDelimiter()
+        {
+            Lexer lexer = new Lexer(".");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Delimiter, token.Type);
+            Assert.AreEqual(".", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
+        public void GetSemicolonAsDelimiter()
+        {
+            Lexer lexer = new Lexer(";");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Delimiter, token.Type);
+            Assert.AreEqual(";", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
         public void GetString()
         {
             Lexer lexer = new Lexer("\"foo\"");
