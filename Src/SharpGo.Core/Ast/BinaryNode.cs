@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class BinaryNode
+    public class BinaryNode : INode
     {
         private INode leftnode;
         private INode rightnode;

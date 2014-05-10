@@ -96,11 +96,12 @@
 
             while (this.position < this.length)
             {
-                char ch = this.text[this.position++];
+                char ch = this.text[this.position];
 
                 if (!IsDigit(ch))
                     break;
 
+                this.position++;
                 value += ch;
             }
 

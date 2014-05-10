@@ -18,6 +18,27 @@
 
         public INode ParseExpressionNode()
         {
+            INode term = this.ParseTerm();
+
+            if (term == null)
+                return null;
+
+            var token = this.NextToken();
+
+            if (token == null)
+                return term;
+
+            if (token.Type == TokenType.Operator)
+                if (token.Value == "+")
+                    return new BinaryNode(term, BinaryOperator.Add, this.ParseTerm());
+                else if (token.Value == "-")
+                    return new BinaryNode(term, BinaryOperator.Substract, this.ParseTerm());
+
+            throw new ParserException(string.Format("Unexpected '{0}'", token.Value));
+        }
+
+        private INode ParseTerm()
+        {
             var token = this.NextToken();
 
             if (token == null)
