@@ -101,7 +101,7 @@
         }
 
         [TestMethod]
-        public void GetPointAsDelimiter()
+        public void GetDotAsDelimiter()
         {
             Lexer lexer = new Lexer(".");
 
@@ -124,6 +124,34 @@
             Assert.IsNotNull(token);
             Assert.AreEqual(TokenType.Delimiter, token.Type);
             Assert.AreEqual(";", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
+        public void GetPlusAsOperator()
+        {
+            Lexer lexer = new Lexer("+");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Operator, token.Type);
+            Assert.AreEqual("+", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
+        public void GetMinusAsOperator()
+        {
+            Lexer lexer = new Lexer("-");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Operator, token.Type);
+            Assert.AreEqual("-", token.Value);
 
             Assert.IsNull(lexer.NextToken());
         }

@@ -8,6 +8,7 @@
     public class Lexer
     {
         private static string delimiters = ";.";
+        private static string operators = "+-";
 
         private string text;
         private int length;
@@ -32,6 +33,9 @@
 
             if (delimiters.Contains(ch))
                 return new Token(TokenType.Delimiter, ch.ToString());
+
+            if (operators.Contains(ch))
+                return new Token(TokenType.Operator, ch.ToString());
 
             if (IsLetter(ch))
                 return this.NextName(ch);

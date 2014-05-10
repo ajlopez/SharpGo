@@ -40,9 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ast\BinaryNode.cs" />
     <Compile Include="Ast\ConstantNode.cs" />
     <Compile Include="Ast\NameNode.cs" />
     <Compile Include="Ast\INode.cs" />
+    <Compile Include="Ast\BinaryOperator.cs" />
     <Compile Include="Compiler\Lexer.cs" />
     <Compile Include="Compiler\LexerException.cs" />
     <Compile Include="Compiler\Parser.cs" />
