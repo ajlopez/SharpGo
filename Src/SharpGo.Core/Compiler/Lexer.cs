@@ -8,7 +8,7 @@
     public class Lexer
     {
         private static string delimiters = ";.";
-        private static string operators = "+-";
+        private static string operators = "+-*/";
 
         private string text;
         private int length;
