@@ -8,7 +8,7 @@
     public class Lexer
     {
         private static string delimiters = ";.";
-        private static string operators = "+-*/";
+        private static string[] operators = new string[] { "+", "-", "*", "/", "==", "!=", "<", ">", "<=", ">=" };
 
         private string text;
         private int length;
@@ -31,12 +31,6 @@
 
             char ch = this.text[this.position++];
 
-            if (delimiters.Contains(ch))
-                return new Token(TokenType.Delimiter, ch.ToString());
-
-            if (operators.Contains(ch))
-                return new Token(TokenType.Operator, ch.ToString());
-
             if (IsLetter(ch))
                 return this.NextName(ch);
 
@@ -45,6 +39,25 @@
 
             if (ch == '"')
                 return this.NextString();
+
+            if (delimiters.Contains(ch))
+                return new Token(TokenType.Delimiter, ch.ToString());
+
+            var str = ch.ToString();
+
+            if (this.position < this.length)
+            {
+                var str2 = str + this.text[this.position].ToString();
+
+                if (operators.Contains(str2))
+                {
+                    this.position++;
+                    return new Token(TokenType.Operator, str2);
+                }
+            }
+
+            if (operators.Contains(str))
+                return new Token(TokenType.Operator, str);
 
             throw new LexerException(string.Format("Unexpected '{0}'", ch));
         }
