@@ -33,6 +33,10 @@
                     return new BinaryNode(term, BinaryOperator.Add, this.ParseTerm());
                 else if (token.Value == "-")
                     return new BinaryNode(term, BinaryOperator.Substract, this.ParseTerm());
+                else if (token.Value == "*")
+                    return new BinaryNode(term, BinaryOperator.Multiply, this.ParseTerm());
+                else if (token.Value == "/")
+                    return new BinaryNode(term, BinaryOperator.Divide, this.ParseTerm());
 
             throw new ParserException(string.Format("Unexpected '{0}'", token.Value));
         }

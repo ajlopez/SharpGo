@@ -97,6 +97,15 @@
         }
 
         [TestMethod]
+        public void ParseArithmeticBinaryOperations()
+        {
+            ParseBinaryOperation("5+6", BinaryOperator.Add, 5, 6);
+            ParseBinaryOperation("7-8", BinaryOperator.Substract, 7, 8);
+            ParseBinaryOperation("1*2", BinaryOperator.Multiply, 1, 2);
+            ParseBinaryOperation("3/4", BinaryOperator.Divide, 3, 4);
+        }
+
+        [TestMethod]
         public void ParseUnexpectedInteger()
         {
             Parser parser = new Parser("1 2");
@@ -111,6 +120,28 @@
                 Assert.IsInstanceOfType(ex, typeof(ParserException));
                 Assert.AreEqual("Unexpected '2'", ex.Message);
             }
+        }
+
+        private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
+        {
+            Parser parser = new Parser(text);
+
+            var result = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(BinaryNode));
+
+            var bnode = (BinaryNode)result;
+
+            Assert.AreEqual(oper, bnode.Operator);
+            Assert.IsNotNull(bnode.LeftNode);
+            Assert.IsInstanceOfType(bnode.LeftNode, typeof(ConstantNode));
+            Assert.AreEqual(leftvalue, ((ConstantNode)bnode.LeftNode).Value);
+            Assert.IsNotNull(bnode.RightNode);
+            Assert.IsInstanceOfType(bnode.RightNode, typeof(ConstantNode));
+            Assert.AreEqual(rightvalue, ((ConstantNode)bnode.RightNode).Value);
+
+            Assert.IsNull(parser.ParseExpressionNode());
         }
     }
 }
