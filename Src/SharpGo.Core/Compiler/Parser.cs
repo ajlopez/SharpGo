@@ -37,6 +37,18 @@
                     return new BinaryNode(term, BinaryOperator.Multiply, this.ParseTerm());
                 else if (token.Value == "/")
                     return new BinaryNode(term, BinaryOperator.Divide, this.ParseTerm());
+                else if (token.Value == "==")
+                    return new BinaryNode(term, BinaryOperator.Equal, this.ParseTerm());
+                else if (token.Value == "!=")
+                    return new BinaryNode(term, BinaryOperator.NotEqual, this.ParseTerm());
+                else if (token.Value == "<")
+                    return new BinaryNode(term, BinaryOperator.Less, this.ParseTerm());
+                else if (token.Value == ">")
+                    return new BinaryNode(term, BinaryOperator.Greater, this.ParseTerm());
+                else if (token.Value == "<=")
+                    return new BinaryNode(term, BinaryOperator.LessEqual, this.ParseTerm());
+                else if (token.Value == ">=")
+                    return new BinaryNode(term, BinaryOperator.GreaterEqual, this.ParseTerm());
 
             throw new ParserException(string.Format("Unexpected '{0}'", token.Value));
         }

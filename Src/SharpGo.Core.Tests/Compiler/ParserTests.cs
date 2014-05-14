@@ -106,6 +106,17 @@
         }
 
         [TestMethod]
+        public void ParseComparisonOperations()
+        {
+            ParseBinaryOperation("5==6", BinaryOperator.Equal, 5, 6);
+            ParseBinaryOperation("7!=8", BinaryOperator.NotEqual, 7, 8);
+            ParseBinaryOperation("1<2", BinaryOperator.Less, 1, 2);
+            ParseBinaryOperation("3>4", BinaryOperator.Greater, 3, 4);
+            ParseBinaryOperation("1<=2", BinaryOperator.LessEqual, 1, 2);
+            ParseBinaryOperation("3>=4", BinaryOperator.GreaterEqual, 3, 4);
+        }
+
+        [TestMethod]
         public void ParseUnexpectedInteger()
         {
             Parser parser = new Parser("1 2");
