@@ -133,6 +133,24 @@
             }
         }
 
+        [TestMethod]
+        public void ParseExpressionStatement()
+        {
+            Parser parser = new Parser("1-2");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ExpressionStatementNode));
+
+            var exprnode = (ExpressionStatementNode)node;
+
+            Assert.IsNotNull(exprnode.ExpressionNode);
+            Assert.IsInstanceOfType(exprnode.ExpressionNode, typeof(BinaryNode));
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
         private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
         {
             Parser parser = new Parser(text);

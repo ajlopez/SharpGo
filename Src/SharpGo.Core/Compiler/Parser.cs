@@ -16,6 +16,16 @@
             this.lexer = new Lexer(text);
         }
 
+        public INode ParseStatementNode()
+        {
+            INode expression = this.ParseExpressionNode();
+
+            if (expression == null)
+                return null;
+
+            return new ExpressionStatementNode(expression);
+        }
+
         public INode ParseExpressionNode()
         {
             INode term = this.ParseTerm();
