@@ -9,6 +9,7 @@
 
     public class Parser
     {
+        private Stack<Token> tokens = new Stack<Token>();
         private Lexer lexer;
 
         public Parser(string text)
@@ -22,6 +23,9 @@
 
             if (expression == null)
                 return null;
+
+            if (this.TryParseToken(TokenType.Operator, "="))
+                return new AssignmentNode(expression, this.ParseExpressionNode());
 
             return new ExpressionStatementNode(expression);
         }
@@ -60,7 +64,9 @@
                 else if (token.Value == ">=")
                     return new BinaryNode(term, BinaryOperator.GreaterEqual, this.ParseTerm());
 
-            throw new ParserException(string.Format("Unexpected '{0}'", token.Value));
+            this.PushToken(token);
+
+            return term;
         }
 
         private INode ParseTerm()
@@ -84,7 +90,29 @@
 
         private Token NextToken()
         {
+            if (this.tokens.Count > 0)
+                return this.tokens.Pop();
+
             return this.lexer.NextToken();
+        }
+
+        private void PushToken(Token token)
+        {
+            this.tokens.Push(token);
+        }
+
+        private bool TryParseToken(TokenType type, string value)
+        {
+            var token = this.NextToken();
+
+            if (token == null)
+                return false;
+
+            if (token.Type == type && token.Value == value)
+                return true;
+
+            this.PushToken(token);
+            return false;
         }
     }
 }

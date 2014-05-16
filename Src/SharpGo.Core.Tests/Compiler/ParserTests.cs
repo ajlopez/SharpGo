@@ -117,23 +117,6 @@
         }
 
         [TestMethod]
-        public void ParseUnexpectedInteger()
-        {
-            Parser parser = new Parser("1 2");
-
-            try
-            {
-                parser.ParseExpressionNode();
-                Assert.Fail();
-            }
-            catch (Exception ex)
-            {
-                Assert.IsInstanceOfType(ex, typeof(ParserException));
-                Assert.AreEqual("Unexpected '2'", ex.Message);
-            }
-        }
-
-        [TestMethod]
         public void ParseExpressionStatement()
         {
             Parser parser = new Parser("1-2");
@@ -147,6 +130,29 @@
 
             Assert.IsNotNull(exprnode.ExpressionNode);
             Assert.IsInstanceOfType(exprnode.ExpressionNode, typeof(BinaryNode));
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseAssigmentStatement()
+        {
+            Parser parser = new Parser("a = 1");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(AssignmentNode));
+
+            var assignnode = (AssignmentNode)node;
+
+            Assert.IsNotNull(assignnode.ExpressionNode);
+            Assert.IsInstanceOfType(assignnode.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)assignnode.ExpressionNode).Value);
+
+            Assert.IsNotNull(assignnode.TargetNode);
+            Assert.IsInstanceOfType(assignnode.TargetNode, typeof(NameNode));
+            Assert.AreEqual("a", ((NameNode)assignnode.TargetNode).Name);
 
             Assert.IsNull(parser.ParseStatementNode());
         }
