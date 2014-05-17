@@ -23,13 +23,27 @@
 
         public Token NextToken()
         {
-            while (this.position < this.length && char.IsWhiteSpace(this.text[this.position]))
+            while (this.position < this.length && IsWhiteSpace(this.text[this.position]))
                 this.position++;
 
             if (this.position >= this.length)
                 return null;
 
             char ch = this.text[this.position++];
+
+            if (ch == '\n')
+                return new Token(TokenType.NewLine, "\n");
+
+            if (ch == '\r')
+            {
+                if (this.position < this.length && this.text[this.position] == '\n') 
+                {
+                    this.position++;
+                    return new Token(TokenType.NewLine, "\r\n");
+                }
+
+                return new Token(TokenType.NewLine, "\r");
+            }
 
             if (IsLetter(ch))
                 return this.NextName(ch);
@@ -92,11 +106,12 @@
 
             while (this.position < this.length)
             {
-                char ch = this.text[this.position++];
+                char ch = this.text[this.position];
 
                 if (!IsLetter(ch) && !IsDigit(ch))
                     break;
 
+                this.position++;
                 value += ch;
             }
 
@@ -129,6 +144,14 @@
         private static bool IsDigit(char ch)
         {
             return char.IsDigit(ch);
+        }
+
+        private static bool IsWhiteSpace(char ch)
+        {
+            if (ch == '\r' || ch == '\n')
+                return false;
+
+            return char.IsWhiteSpace(ch);
         }
     }
 }

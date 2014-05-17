@@ -253,6 +253,48 @@
         }
 
         [TestMethod]
+        public void GetNewLine()
+        {
+            Lexer lexer = new Lexer("\n");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.NewLine, token.Type);
+            Assert.AreEqual("\n", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
+        public void GetNewLineWithCarriageReturn()
+        {
+            Lexer lexer = new Lexer("\r\n");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.NewLine, token.Type);
+            Assert.AreEqual("\r\n", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
+        public void GetCarriageReturnAsNewLine()
+        {
+            Lexer lexer = new Lexer("\r");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.NewLine, token.Type);
+            Assert.AreEqual("\r", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
         public void UnexpectedCharacter()
         {
             Lexer lexer = new Lexer("@");

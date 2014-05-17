@@ -19,15 +19,21 @@
 
         public INode ParseStatementNode()
         {
-            INode expression = this.ParseExpressionNode();
+            INode node = this.ParseExpressionNode();
 
-            if (expression == null)
+            if (node == null)
                 return null;
 
             if (this.TryParseToken(TokenType.Operator, "="))
-                return new AssignmentNode(expression, this.ParseExpressionNode());
+            {
+                node = new AssignmentNode(node, this.ParseExpressionNode());
+                this.ParseEndOfStatement();
+                return node;
+            }
 
-            return new ExpressionStatementNode(expression);
+            node = new ExpressionStatementNode(node);
+            this.ParseEndOfStatement();
+            return node;
         }
 
         public INode ParseExpressionNode()
@@ -113,6 +119,19 @@
 
             this.PushToken(token);
             return false;
+        }
+
+        private void ParseEndOfStatement()
+        {
+            var token = this.NextToken();
+
+            if (token == null)
+                return;
+
+            if (token.Type == TokenType.NewLine)
+                return;
+
+            throw new ParserException(string.Format("Unexpected '{0}'", token.Value));
         }
     }
 }
