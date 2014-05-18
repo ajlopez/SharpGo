@@ -195,6 +195,33 @@
             Assert.IsNull(parser.ParseStatementNode());
         }
 
+        [TestMethod]
+        public void ParseBlockStatement()
+        {
+            Parser parser = new Parser("{ a = 1 }");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(BlockNode));
+
+            var blocknode = (BlockNode)node;
+
+            Assert.IsNotNull(blocknode.Statements);
+            Assert.AreEqual(1, blocknode.Statements);
+            Assert.IsInstanceOfType(blocknode.Statements[0], typeof(AssignmentNode));
+
+            var assignmentnode = (AssignmentNode)blocknode.Statements[0];
+
+            Assert.AreEqual(1, ((ConstantNode)assignmentnode.ExpressionNode).Value);
+
+            Assert.IsNotNull(assignmentnode.TargetNode);
+            Assert.IsInstanceOfType(assignmentnode.TargetNode, typeof(NameNode));
+            Assert.AreEqual("a", ((NameNode)assignmentnode.TargetNode).Name);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
         private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
         {
             Parser parser = new Parser(text);

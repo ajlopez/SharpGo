@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ast\BinaryNode.cs" />
+    <Compile Include="Ast\BlockNode.cs" />
     <Compile Include="Ast\ConstantNode.cs" />
     <Compile Include="Ast\AssignmentNode.cs" />
     <Compile Include="Ast\ExpressionStatementNode.cs" />
