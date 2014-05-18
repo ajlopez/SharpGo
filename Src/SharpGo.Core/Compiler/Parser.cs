@@ -19,6 +19,14 @@
 
         public INode ParseStatementNode()
         {
+            if (this.TryParseToken(TokenType.Delimiter, "{")) {
+                var stmts = new List<INode>();
+                var stmt = this.ParseStatementNode();
+                stmts.Add(stmt);
+                this.ParseToken(TokenType.Delimiter, "}");
+                return new BlockNode(stmts);
+            }
+
             INode node = this.ParseExpressionNode();
 
             if (node == null)
@@ -107,6 +115,14 @@
             this.tokens.Push(token);
         }
 
+        private void ParseToken(TokenType type, string value)
+        {
+            var token = this.NextToken();
+
+            if (token == null || !(token.Type == type && token.Value == value))
+                throw new ParserException(string.Format("Expected '{0}'", value));
+        }
+
         private bool TryParseToken(TokenType type, string value)
         {
             var token = this.NextToken();
@@ -130,6 +146,12 @@
 
             if (token.Type == TokenType.NewLine)
                 return;
+
+            if (token.Type == TokenType.Delimiter && token.Value == "}")
+            {
+                this.PushToken(token);
+                return;
+            }
 
             throw new ParserException(string.Format("Unexpected '{0}'", token.Value));
         }

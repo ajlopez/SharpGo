@@ -208,7 +208,7 @@
             var blocknode = (BlockNode)node;
 
             Assert.IsNotNull(blocknode.Statements);
-            Assert.AreEqual(1, blocknode.Statements);
+            Assert.AreEqual(1, blocknode.Statements.Count);
             Assert.IsInstanceOfType(blocknode.Statements[0], typeof(AssignmentNode));
 
             var assignmentnode = (AssignmentNode)blocknode.Statements[0];
