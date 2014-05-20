@@ -222,6 +222,42 @@
             Assert.IsNull(parser.ParseStatementNode());
         }
 
+        [TestMethod]
+        public void ParseBlockWithTwoStatements()
+        {
+            Parser parser = new Parser("{ a = 1\r\n b = 2 }");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(BlockNode));
+
+            var blocknode = (BlockNode)node;
+
+            Assert.IsNotNull(blocknode.Statements);
+            Assert.AreEqual(2, blocknode.Statements.Count);
+            Assert.IsInstanceOfType(blocknode.Statements[0], typeof(AssignmentNode));
+            Assert.IsInstanceOfType(blocknode.Statements[1], typeof(AssignmentNode));
+
+            var assignmentnode = (AssignmentNode)blocknode.Statements[0];
+
+            Assert.AreEqual(1, ((ConstantNode)assignmentnode.ExpressionNode).Value);
+
+            Assert.IsNotNull(assignmentnode.TargetNode);
+            Assert.IsInstanceOfType(assignmentnode.TargetNode, typeof(NameNode));
+            Assert.AreEqual("a", ((NameNode)assignmentnode.TargetNode).Name);
+
+            assignmentnode = (AssignmentNode)blocknode.Statements[1];
+
+            Assert.AreEqual(2, ((ConstantNode)assignmentnode.ExpressionNode).Value);
+
+            Assert.IsNotNull(assignmentnode.TargetNode);
+            Assert.IsInstanceOfType(assignmentnode.TargetNode, typeof(NameNode));
+            Assert.AreEqual("b", ((NameNode)assignmentnode.TargetNode).Name);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
         private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
         {
             Parser parser = new Parser(text);

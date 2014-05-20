@@ -21,9 +21,13 @@
         {
             if (this.TryParseToken(TokenType.Delimiter, "{")) {
                 var stmts = new List<INode>();
-                var stmt = this.ParseStatementNode();
-                stmts.Add(stmt);
-                this.ParseToken(TokenType.Delimiter, "}");
+
+                while (!this.TryParseToken(TokenType.Delimiter, "}"))
+                {
+                    var stmt = this.ParseStatementNode();
+                    stmts.Add(stmt);
+                }
+
                 return new BlockNode(stmts);
             }
 
@@ -145,6 +149,9 @@
                 return;
 
             if (token.Type == TokenType.NewLine)
+                return;
+
+            if (token.Type == TokenType.Delimiter && token.Value == ";")
                 return;
 
             if (token.Type == TokenType.Delimiter && token.Value == "}")
