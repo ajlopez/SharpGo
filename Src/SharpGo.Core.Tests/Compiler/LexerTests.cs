@@ -222,6 +222,25 @@
         }
 
         [TestMethod]
+        public void GetBitwiseArithmeticOperators()
+        {
+            var operators = new string[] { "&", "|", "^", "&^", "<<", ">>" };
+            var text = string.Join(" ", operators);
+            Lexer lexer = new Lexer(text);
+
+            for (int k = 0; k < operators.Count(); k++)
+            {
+                var token = lexer.NextToken();
+
+                Assert.IsNotNull(token);
+                Assert.AreEqual(TokenType.Operator, token.Type);
+                Assert.AreEqual(operators[k], token.Value);
+            }
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
         public void GetString()
         {
             Lexer lexer = new Lexer("\"foo\"");
