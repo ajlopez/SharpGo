@@ -173,71 +173,19 @@
         [TestMethod]
         public void GetArithmeticOperators()
         {
-            Lexer lexer = new Lexer("+ - * /");
-
-            var token = lexer.NextToken();
-
-            Assert.IsNotNull(token);
-            Assert.AreEqual(TokenType.Operator, token.Type);
-            Assert.AreEqual("+", token.Value);
-
-            token = lexer.NextToken();
-
-            Assert.IsNotNull(token);
-            Assert.AreEqual(TokenType.Operator, token.Type);
-            Assert.AreEqual("-", token.Value);
-
-            token = lexer.NextToken();
-
-            Assert.IsNotNull(token);
-            Assert.AreEqual(TokenType.Operator, token.Type);
-            Assert.AreEqual("*", token.Value);
-
-            token = lexer.NextToken();
-
-            Assert.IsNotNull(token);
-            Assert.AreEqual(TokenType.Operator, token.Type);
-            Assert.AreEqual("/", token.Value);
-
-            Assert.IsNull(lexer.NextToken());
+            GetOperators(new string[] { "+", "-", "*", "/", "%" });
         }
 
         [TestMethod]
         public void GetComparisonOperators()
         {
-            var operators = new string[] { "==", "!=", "<", ">", "<=", ">=" };
-            var text = string.Join(" ", operators);
-            Lexer lexer = new Lexer(text);
-
-            for (int k = 0; k < operators.Count(); k++)
-            {
-                var token = lexer.NextToken();
-
-                Assert.IsNotNull(token);
-                Assert.AreEqual(TokenType.Operator, token.Type);
-                Assert.AreEqual(operators[k], token.Value);
-            }
-
-            Assert.IsNull(lexer.NextToken());
+            GetOperators(new string[] { "==", "!=", "<", ">", "<=", ">=" });
         }
 
         [TestMethod]
         public void GetBitwiseArithmeticOperators()
         {
-            var operators = new string[] { "&", "|", "^", "&^", "<<", ">>" };
-            var text = string.Join(" ", operators);
-            Lexer lexer = new Lexer(text);
-
-            for (int k = 0; k < operators.Count(); k++)
-            {
-                var token = lexer.NextToken();
-
-                Assert.IsNotNull(token);
-                Assert.AreEqual(TokenType.Operator, token.Type);
-                Assert.AreEqual(operators[k], token.Value);
-            }
-
-            Assert.IsNull(lexer.NextToken());
+            GetOperators(new string[] { "&", "|", "^", "&^", "<<", ">>" });
         }
 
         [TestMethod]
@@ -348,6 +296,23 @@
                 Assert.IsInstanceOfType(ex, typeof(LexerException));
                 Assert.AreEqual("Unexpected '@'", ex.Message);
             }
+        }
+
+        private static void GetOperators(IList<string> operators)
+        {
+            var text = string.Join(" ", operators);
+            Lexer lexer = new Lexer(text);
+
+            for (int k = 0; k < operators.Count(); k++)
+            {
+                var token = lexer.NextToken();
+
+                Assert.IsNotNull(token);
+                Assert.AreEqual(TokenType.Operator, token.Type);
+                Assert.AreEqual(operators[k], token.Value);
+            }
+
+            Assert.IsNull(lexer.NextToken());
         }
     }
 }
