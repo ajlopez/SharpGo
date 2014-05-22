@@ -195,6 +195,12 @@
         }
 
         [TestMethod]
+        public void GetReceiveOperator()
+        {
+            GetOperators(new string[] { "<-" });
+        }
+
+        [TestMethod]
         public void GetString()
         {
             Lexer lexer = new Lexer("\"foo\"");
