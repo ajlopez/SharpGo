@@ -189,6 +189,12 @@
         }
 
         [TestMethod]
+        public void GetLogicalOperators()
+        {
+            GetOperators(new string[] { "&&", "||", "!" });
+        }
+
+        [TestMethod]
         public void GetString()
         {
             Lexer lexer = new Lexer("\"foo\"");
