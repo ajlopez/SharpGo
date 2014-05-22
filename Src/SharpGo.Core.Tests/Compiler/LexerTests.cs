@@ -201,6 +201,12 @@
         }
 
         [TestMethod]
+        public void GetAssigmentWithDeclarationOperator()
+        {
+            GetOperators(new string[] { ":=" });
+        }
+
+        [TestMethod]
         public void GetString()
         {
             Lexer lexer = new Lexer("\"foo\"");
