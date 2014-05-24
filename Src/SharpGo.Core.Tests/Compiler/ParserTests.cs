@@ -51,6 +51,21 @@
         }
 
         [TestMethod]
+        public void ParseQualifiedName()
+        {
+            Parser parser = new Parser("math.foo");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(QualifiedNameNode));
+            Assert.AreEqual("math", ((QualifiedNameNode)node).PackageName);
+            Assert.AreEqual("foo", ((QualifiedNameNode)node).Name);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
+        [TestMethod]
         public void ParseAddTwoIntegers()
         {
             Parser parser = new Parser("1+2");

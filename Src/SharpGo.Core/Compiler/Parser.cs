@@ -101,9 +101,27 @@
                 return new ConstantNode(token.Value);
 
             if (token.Type == TokenType.Name)
+            {
+                if (this.TryParseToken(TokenType.Delimiter, "."))
+                {
+                    string name2 = this.ParseName();
+                    return new QualifiedNameNode(token.Value, name2);
+                }
+
                 return new NameNode(token.Value);
+            }
 
             return null;
+        }
+
+        private string ParseName()
+        {
+            var token = this.NextToken();
+
+            if (token == null || token.Type != TokenType.Name)
+                throw new ParserException("Expected a name");
+
+            return token.Value;
         }
 
         private Token NextToken()

@@ -44,6 +44,7 @@
     <Compile Include="Ast\BlockNode.cs" />
     <Compile Include="Ast\ConstantNode.cs" />
     <Compile Include="Ast\AssignmentNode.cs" />
+    <Compile Include="Ast\QualifiedNameNode.cs" />
     <Compile Include="Ast\ExpressionStatementNode.cs" />
     <Compile Include="Ast\NameNode.cs" />
     <Compile Include="Ast\INode.cs" />
