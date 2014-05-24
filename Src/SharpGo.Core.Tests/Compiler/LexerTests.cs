@@ -241,6 +241,26 @@
         }
 
         [TestMethod]
+        public void GetParenthesisAsDelimiters()
+        {
+            Lexer lexer = new Lexer("()");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Delimiter, token.Type);
+            Assert.AreEqual("(", token.Value);
+
+            token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Delimiter, token.Type);
+            Assert.AreEqual(")", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
         public void UnclosedString()
         {
             Lexer lexer = new Lexer("\"foo");
@@ -328,6 +348,23 @@
                 Assert.IsNotNull(token);
                 Assert.AreEqual(TokenType.Operator, token.Type);
                 Assert.AreEqual(operators[k], token.Value);
+            }
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        private static void GetDelimiters(IList<string> delimiters)
+        {
+            var text = string.Join(" ", delimiters);
+            Lexer lexer = new Lexer(text);
+
+            for (int k = 0; k < delimiters.Count(); k++)
+            {
+                var token = lexer.NextToken();
+
+                Assert.IsNotNull(token);
+                Assert.AreEqual(TokenType.Delimiter, token.Type);
+                Assert.AreEqual(delimiters[k], token.Value);
             }
 
             Assert.IsNull(lexer.NextToken());

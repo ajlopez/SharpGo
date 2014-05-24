@@ -327,6 +327,30 @@
             Assert.IsNull(parser.ParseStatementNode());
         }
 
+        [TestMethod]
+        public void ParseFuncWithoutParametersAndWithEmptyBody()
+        {
+            Parser parser = new Parser("func foo() { }");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(FuncNode));
+
+            var fnode = (FuncNode)node;
+
+            Assert.AreEqual("foo", fnode.Name);
+            Assert.IsNotNull(fnode.BodyNode);
+            Assert.IsInstanceOfType(fnode.BodyNode, typeof(BlockNode));
+
+            var bnode = (BlockNode)fnode.BodyNode;
+
+            Assert.IsNotNull(bnode.Statements);
+            Assert.AreEqual(0, bnode.Statements.Count);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
         private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
         {
             Parser parser = new Parser(text);

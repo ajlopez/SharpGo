@@ -40,7 +40,20 @@
                     expr = this.ParseExpressionNode();
 
                 this.ParseEndOfStatement();
+
                 return new VarNode(name, expr);
+            }
+
+            if (this.TryParseToken(TokenType.Name, "func"))
+            {
+                var name = this.ParseName();
+                this.ParseToken(TokenType.Delimiter, "(");
+                this.ParseToken(TokenType.Delimiter, ")");
+                var body = this.ParseStatementNode();
+
+                this.ParseEndOfStatement();
+
+                return new FuncNode(name, body);
             }
 
             INode node = this.ParseExpressionNode();
