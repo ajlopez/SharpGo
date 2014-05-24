@@ -108,6 +108,13 @@
                     return new QualifiedNameNode(token.Value, name2);
                 }
 
+                if (token.Value == "true")
+                    return new ConstantNode(true);
+                if (token.Value == "false")
+                    return new ConstantNode(false);
+                if (token.Value == "nil")
+                    return new ConstantNode(null);
+
                 return new NameNode(token.Value);
             }
 

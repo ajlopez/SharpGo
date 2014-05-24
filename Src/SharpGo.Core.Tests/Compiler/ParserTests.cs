@@ -273,6 +273,25 @@
             Assert.IsNull(parser.ParseStatementNode());
         }
 
+        [TestMethod]
+        public void ParseConstants()
+        {
+            var values = new object[] { true, false, null };
+            var text = "true false nil";
+
+            Parser parser = new Parser(text);
+
+            foreach (var value in values)
+            {
+                var node = parser.ParseExpressionNode();
+                Assert.IsNotNull(node);
+                Assert.IsInstanceOfType(node, typeof(ConstantNode));
+                Assert.AreEqual(value, ((ConstantNode)node).Value);
+            }
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
         private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
         {
             Parser parser = new Parser(text);
