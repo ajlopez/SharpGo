@@ -307,6 +307,26 @@
             Assert.IsNull(parser.ParseStatementNode());
         }
 
+        [TestMethod]
+        public void ParseVarDeclarationWithConstantExpression()
+        {
+            Parser parser = new Parser("var foo = 1");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(VarNode));
+            Assert.AreEqual("foo", ((VarNode)node).Name);
+            Assert.IsNotNull(((VarNode)node).ExpressionNode);
+
+            var expr = ((VarNode)node).ExpressionNode;
+
+            Assert.IsInstanceOfType(expr, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)expr).Value);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
         private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
         {
             Parser parser = new Parser(text);

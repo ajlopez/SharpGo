@@ -34,8 +34,13 @@
             if (this.TryParseToken(TokenType.Name, "var"))
             {
                 var name = this.ParseName();
+                INode expr = null;
+
+                if (this.TryParseToken(TokenType.Operator, "="))
+                    expr = this.ParseExpressionNode();
+
                 this.ParseEndOfStatement();
-                return new VarNode(name, null);
+                return new VarNode(name, expr);
             }
 
             INode node = this.ParseExpressionNode();
