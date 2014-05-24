@@ -351,6 +351,23 @@
             Assert.IsNull(parser.ParseStatementNode());
         }
 
+        [TestMethod]
+        public void RaiseIfNoBlockInFunc()
+        {
+            Parser parser = new Parser("func foo() x = 1");
+
+            try
+            {
+                parser.ParseStatementNode();
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOfType(ex, typeof(ParserException));
+                Assert.AreEqual("Expected '{'", ex.Message);
+            }
+        }
+
         private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
         {
             Parser parser = new Parser(text);

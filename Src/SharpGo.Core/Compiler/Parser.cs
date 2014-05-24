@@ -49,6 +49,9 @@
                 var name = this.ParseName();
                 this.ParseToken(TokenType.Delimiter, "(");
                 this.ParseToken(TokenType.Delimiter, ")");
+
+                this.EnsureToken(TokenType.Delimiter, "{");
+
                 var body = this.ParseStatementNode();
 
                 this.ParseEndOfStatement();
@@ -175,6 +178,16 @@
 
             if (token == null || !(token.Type == type && token.Value == value))
                 throw new ParserException(string.Format("Expected '{0}'", value));
+        }
+
+        private void EnsureToken(TokenType type, string value)
+        {
+            var token = this.NextToken();
+
+            if (token == null || !(token.Type == type && token.Value == value))
+                throw new ParserException(string.Format("Expected '{0}'", value));
+
+            this.PushToken(token);
         }
 
         private bool TryParseToken(TokenType type, string value)
