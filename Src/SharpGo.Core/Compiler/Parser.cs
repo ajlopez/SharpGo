@@ -31,6 +31,13 @@
                 return new BlockNode(stmts);
             }
 
+            if (this.TryParseToken(TokenType.Name, "var"))
+            {
+                var name = this.ParseName();
+                this.ParseEndOfStatement();
+                return new VarNode(name, null);
+            }
+
             INode node = this.ParseExpressionNode();
 
             if (node == null)
