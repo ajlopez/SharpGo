@@ -19,6 +19,16 @@
 
         public INode ParseStatementNode()
         {
+            var token = this.NextToken();
+
+            while (token != null && token.Type == TokenType.NewLine)
+                token = this.NextToken();
+
+            if (token == null)
+                return null;
+
+            this.PushToken(token);
+
             if (this.TryParseToken(TokenType.Delimiter, "{")) {
                 var stmts = new List<INode>();
 

@@ -352,6 +352,78 @@
         }
 
         [TestMethod]
+        public void ParseFuncWithoutParametersAndWithAssignmentInBody()
+        {
+            Parser parser = new Parser("func foo() { a = 1 }");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(FuncNode));
+
+            var fnode = (FuncNode)node;
+
+            Assert.AreEqual("foo", fnode.Name);
+            Assert.IsNotNull(fnode.BodyNode);
+            Assert.IsInstanceOfType(fnode.BodyNode, typeof(BlockNode));
+
+            var bnode = (BlockNode)fnode.BodyNode;
+
+            Assert.IsNotNull(bnode.Statements);
+            Assert.AreEqual(1, bnode.Statements.Count);
+
+            var stmt = bnode.Statements[0];
+
+            Assert.IsInstanceOfType(stmt, typeof(AssignmentNode));
+
+            var astmt = (AssignmentNode)stmt;
+
+            Assert.IsInstanceOfType(astmt.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)astmt.ExpressionNode).Value);
+
+            Assert.IsInstanceOfType(astmt.TargetNode, typeof(NameNode));
+            Assert.AreEqual("a", ((NameNode)astmt.TargetNode).Name);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseFuncWithoutParametersAndWithAssignmentInBodyUsingNewLines()
+        {
+            Parser parser = new Parser("func foo() { \r\n a = 1 \r\n}");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(FuncNode));
+
+            var fnode = (FuncNode)node;
+
+            Assert.AreEqual("foo", fnode.Name);
+            Assert.IsNotNull(fnode.BodyNode);
+            Assert.IsInstanceOfType(fnode.BodyNode, typeof(BlockNode));
+
+            var bnode = (BlockNode)fnode.BodyNode;
+
+            Assert.IsNotNull(bnode.Statements);
+            Assert.AreEqual(1, bnode.Statements.Count);
+
+            var stmt = bnode.Statements[0];
+
+            Assert.IsInstanceOfType(stmt, typeof(AssignmentNode));
+
+            var astmt = (AssignmentNode)stmt;
+
+            Assert.IsInstanceOfType(astmt.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)astmt.ExpressionNode).Value);
+
+            Assert.IsInstanceOfType(astmt.TargetNode, typeof(NameNode));
+            Assert.AreEqual("a", ((NameNode)astmt.TargetNode).Name);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void RaiseIfNoBlockInFunc()
         {
             Parser parser = new Parser("func foo() x = 1");
