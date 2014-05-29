@@ -54,6 +54,21 @@
                 return new VarNode(name, expr);
             }
 
+            if (this.TryParseToken(TokenType.Name, "if"))
+            {
+                var expr = this.ParseExpressionNode();
+                this.ParseToken(TokenType.Delimiter, "{");
+                var stmts = new List<INode>();
+
+                while (!this.TryParseToken(TokenType.Delimiter, "}"))
+                {
+                    var stmt = this.ParseStatementNode();
+                    stmts.Add(stmt);
+                }
+
+                return new IfNode(expr, new BlockNode(stmts));
+            }
+
             if (this.TryParseToken(TokenType.Name, "func"))
             {
                 var name = this.ParseName();
