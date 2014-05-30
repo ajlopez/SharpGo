@@ -69,6 +69,14 @@
                 return new IfNode(expr, new BlockNode(stmts));
             }
 
+            if (this.TryParseToken(TokenType.Name, "return"))
+            {
+                var expr = this.ParseExpressionNode();
+                this.ParseEndOfStatement();
+
+                return new ReturnNode(expr);
+            }
+
             if (this.TryParseToken(TokenType.Name, "func"))
             {
                 var name = this.ParseName();

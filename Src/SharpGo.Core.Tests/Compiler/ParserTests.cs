@@ -328,6 +328,25 @@
         }
 
         [TestMethod]
+        public void ParseSimpleReturnWithExpression()
+        {
+            Parser parser = new Parser("return 2");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ReturnNode));
+
+            var rnode = (ReturnNode)node;
+
+            Assert.IsNotNull(rnode.Expression);
+            Assert.IsInstanceOfType(rnode.Expression, typeof(ConstantNode));
+            Assert.AreEqual(2, ((ConstantNode)rnode.Expression).Value);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseSimpleIf()
         {
             Parser parser = new Parser("if x == 1 { y = 2 }");
