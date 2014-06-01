@@ -347,6 +347,40 @@
         }
 
         [TestMethod]
+        public void ParseSimpleReturnWithoutExpression()
+        {
+            Parser parser = new Parser("return");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ReturnNode));
+
+            var rnode = (ReturnNode)node;
+
+            Assert.IsNull(rnode.Expression);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseSimpleReturnWithoutExpressionAndSemicolon()
+        {
+            Parser parser = new Parser("return;");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ReturnNode));
+
+            var rnode = (ReturnNode)node;
+
+            Assert.IsNull(rnode.Expression);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseSimpleIf()
         {
             Parser parser = new Parser("if x == 1 { y = 2 }");
