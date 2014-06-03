@@ -364,7 +364,7 @@
         }
 
         [TestMethod]
-        public void ParseSimpleReturnWithoutExpressionAndSemicolon()
+        public void ParseSimpleReturnWithoutExpressionAndWithSemicolon()
         {
             Parser parser = new Parser("return;");
 
@@ -376,6 +376,57 @@
             var rnode = (ReturnNode)node;
 
             Assert.IsNull(rnode.Expression);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseBreakWithoutLabel()
+        {
+            Parser parser = new Parser("break");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(BreakNode));
+
+            var bnode = (BreakNode)node;
+
+            Assert.IsNull(bnode.Label);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseBreakWithoutLabelAndWithSemicolon()
+        {
+            Parser parser = new Parser("break;");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(BreakNode));
+
+            var bnode = (BreakNode)node;
+
+            Assert.IsNull(bnode.Label);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseBreakWithLabel()
+        {
+            Parser parser = new Parser("break Foo");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(BreakNode));
+
+            var bnode = (BreakNode)node;
+
+            Assert.AreEqual("Foo", bnode.Label);
 
             Assert.IsNull(parser.ParseStatementNode());
         }

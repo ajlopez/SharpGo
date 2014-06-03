@@ -92,6 +92,15 @@
                 return new ReturnNode(expr);
             }
 
+            if (this.TryParseToken(TokenType.Name, "break"))
+            {
+                string label = this.TryParseName();
+                var expr = this.ParseExpressionNode();
+                this.ParseEndOfStatement();
+
+                return new BreakNode(label);
+            }
+
             if (this.TryParseToken(TokenType.Name, "func"))
             {
                 var name = this.ParseName();
@@ -250,6 +259,21 @@
 
             this.PushToken(token);
             return false;
+        }
+
+        private string TryParseName()
+        {
+            var token = this.NextToken();
+
+            if (token == null)
+                return null;
+
+            if (token.Type == TokenType.Name)
+                return token.Value;
+
+            this.PushToken(token);
+
+            return null;
         }
 
         private void ParseEndOfStatement()
