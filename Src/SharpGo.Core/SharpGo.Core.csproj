@@ -45,6 +45,7 @@
     <Compile Include="Ast\ConstantNode.cs" />
     <Compile Include="Ast\AssignmentNode.cs" />
     <Compile Include="Ast\BreakNode.cs" />
+    <Compile Include="Ast\ContinueNode.cs" />
     <Compile Include="Ast\ForNode.cs" />
     <Compile Include="Ast\ReturnNode.cs" />
     <Compile Include="Ast\IfNode.cs" />

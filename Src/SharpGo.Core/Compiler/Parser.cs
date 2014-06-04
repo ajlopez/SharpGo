@@ -101,6 +101,15 @@
                 return new BreakNode(label);
             }
 
+            if (this.TryParseToken(TokenType.Name, "continue"))
+            {
+                string label = this.TryParseName();
+                var expr = this.ParseExpressionNode();
+                this.ParseEndOfStatement();
+
+                return new ContinueNode(label);
+            }
+
             if (this.TryParseToken(TokenType.Name, "func"))
             {
                 var name = this.ParseName();

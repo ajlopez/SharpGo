@@ -432,6 +432,57 @@
         }
 
         [TestMethod]
+        public void ParseContinueWithoutLabel()
+        {
+            Parser parser = new Parser("continue");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ContinueNode));
+
+            var bnode = (ContinueNode)node;
+
+            Assert.IsNull(bnode.Label);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseContinueWithoutLabelAndWithSemicolon()
+        {
+            Parser parser = new Parser("continue;");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ContinueNode));
+
+            var bnode = (ContinueNode)node;
+
+            Assert.IsNull(bnode.Label);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseContinueWithLabel()
+        {
+            Parser parser = new Parser("continue Foo");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ContinueNode));
+
+            var bnode = (ContinueNode)node;
+
+            Assert.AreEqual("Foo", bnode.Label);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseSimpleIf()
         {
             Parser parser = new Parser("if x == 1 { y = 2 }");
