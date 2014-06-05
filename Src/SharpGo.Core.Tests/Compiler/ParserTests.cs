@@ -483,6 +483,23 @@
         }
 
         [TestMethod]
+        public void ParseGoto()
+        {
+            Parser parser = new Parser("goto Error");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(GotoNode));
+
+            var bnode = (GotoNode)node;
+
+            Assert.AreEqual("Error", bnode.Label);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseSimpleIf()
         {
             Parser parser = new Parser("if x == 1 { y = 2 }");

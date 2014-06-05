@@ -110,6 +110,15 @@
                 return new ContinueNode(label);
             }
 
+            if (this.TryParseToken(TokenType.Name, "goto"))
+            {
+                string label = this.ParseName();
+                var expr = this.ParseExpressionNode();
+                this.ParseEndOfStatement();
+
+                return new GotoNode(label);
+            }
+
             if (this.TryParseToken(TokenType.Name, "func"))
             {
                 var name = this.ParseName();
