@@ -211,6 +211,29 @@
         }
 
         [TestMethod]
+        public void ParseSendStatement()
+        {
+            Parser parser = new Parser("a <- 1");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(SendNode));
+
+            var assignnode = (SendNode)node;
+
+            Assert.IsNotNull(assignnode.ExpressionNode);
+            Assert.IsInstanceOfType(assignnode.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)assignnode.ExpressionNode).Value);
+
+            Assert.IsNotNull(assignnode.TargetNode);
+            Assert.IsInstanceOfType(assignnode.TargetNode, typeof(NameNode));
+            Assert.AreEqual("a", ((NameNode)assignnode.TargetNode).Name);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseBlockStatement()
         {
             Parser parser = new Parser("{ a = 1 }");
@@ -486,6 +509,23 @@
         public void ParseGoto()
         {
             Parser parser = new Parser("goto Error");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(GotoNode));
+
+            var bnode = (GotoNode)node;
+
+            Assert.AreEqual("Error", bnode.Label);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseGotoWithSemicolon()
+        {
+            Parser parser = new Parser("goto Error;");
 
             var node = parser.ParseStatementNode();
 

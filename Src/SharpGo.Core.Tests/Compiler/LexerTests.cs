@@ -171,6 +171,20 @@
         }
 
         [TestMethod]
+        public void GetLeftArrowAsSendOperator()
+        {
+            Lexer lexer = new Lexer("<-");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Operator, token.Type);
+            Assert.AreEqual("<-", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
         public void GetArithmeticOperators()
         {
             GetOperators(new string[] { "+", "-", "*", "/", "%" });

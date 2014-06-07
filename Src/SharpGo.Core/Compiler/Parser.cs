@@ -146,6 +146,13 @@
                 return node;
             }
 
+            if (this.TryParseToken(TokenType.Operator, "<-"))
+            {
+                node = new SendNode(node, this.ParseExpressionNode());
+                this.ParseEndOfStatement();
+                return node;
+            }
+
             node = new ExpressionStatementNode(node);
             this.ParseEndOfStatement();
             return node;
