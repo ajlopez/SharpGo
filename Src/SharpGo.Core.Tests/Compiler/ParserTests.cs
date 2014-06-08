@@ -220,15 +220,34 @@
             Assert.IsNotNull(node);
             Assert.IsInstanceOfType(node, typeof(SendNode));
 
-            var assignnode = (SendNode)node;
+            var sendnode = (SendNode)node;
 
-            Assert.IsNotNull(assignnode.ExpressionNode);
-            Assert.IsInstanceOfType(assignnode.ExpressionNode, typeof(ConstantNode));
-            Assert.AreEqual(1, ((ConstantNode)assignnode.ExpressionNode).Value);
+            Assert.IsNotNull(sendnode.ExpressionNode);
+            Assert.IsInstanceOfType(sendnode.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)sendnode.ExpressionNode).Value);
 
-            Assert.IsNotNull(assignnode.TargetNode);
-            Assert.IsInstanceOfType(assignnode.TargetNode, typeof(NameNode));
-            Assert.AreEqual("a", ((NameNode)assignnode.TargetNode).Name);
+            Assert.IsNotNull(sendnode.TargetNode);
+            Assert.IsInstanceOfType(sendnode.TargetNode, typeof(NameNode));
+            Assert.AreEqual("a", ((NameNode)sendnode.TargetNode).Name);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseDeferStatement()
+        {
+            Parser parser = new Parser("defer a");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(DeferNode));
+
+            var defernode = (DeferNode)node;
+
+            Assert.IsNotNull(defernode.ExpressionNode);
+            Assert.IsInstanceOfType(defernode.ExpressionNode, typeof(NameNode));
+            Assert.AreEqual("a", ((NameNode)defernode.ExpressionNode).Name);
 
             Assert.IsNull(parser.ParseStatementNode());
         }

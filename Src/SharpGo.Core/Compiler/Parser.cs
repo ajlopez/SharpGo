@@ -92,10 +92,17 @@
                 return new ReturnNode(expr);
             }
 
+            if (this.TryParseToken(TokenType.Name, "defer"))
+            {
+                var expr = this.ParseExpressionNode();
+                this.ParseEndOfStatement();
+
+                return new DeferNode(expr);
+            }
+
             if (this.TryParseToken(TokenType.Name, "break"))
             {
                 string label = this.TryParseName();
-                var expr = this.ParseExpressionNode();
                 this.ParseEndOfStatement();
 
                 return new BreakNode(label);
@@ -104,7 +111,6 @@
             if (this.TryParseToken(TokenType.Name, "continue"))
             {
                 string label = this.TryParseName();
-                var expr = this.ParseExpressionNode();
                 this.ParseEndOfStatement();
 
                 return new ContinueNode(label);
@@ -113,7 +119,6 @@
             if (this.TryParseToken(TokenType.Name, "goto"))
             {
                 string label = this.ParseName();
-                var expr = this.ParseExpressionNode();
                 this.ParseEndOfStatement();
 
                 return new GotoNode(label);
