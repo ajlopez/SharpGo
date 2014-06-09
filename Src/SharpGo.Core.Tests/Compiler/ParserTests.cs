@@ -551,9 +551,47 @@
             Assert.IsNotNull(node);
             Assert.IsInstanceOfType(node, typeof(GotoNode));
 
-            var bnode = (GotoNode)node;
+            var gotonode = (GotoNode)node;
 
-            Assert.AreEqual("Error", bnode.Label);
+            Assert.AreEqual("Error", gotonode.Label);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseGo()
+        {
+            Parser parser = new Parser("go 1");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(GoNode));
+
+            var gonode = (GoNode)node;
+
+            Assert.IsNotNull(gonode.ExpressionNode);
+            Assert.IsInstanceOfType(gonode.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)gonode.ExpressionNode).Value);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseGoWithSemicolon()
+        {
+            Parser parser = new Parser("go 2;");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(GoNode));
+
+            var gonode = (GoNode)node;
+
+            Assert.IsNotNull(gonode.ExpressionNode);
+            Assert.IsInstanceOfType(gonode.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual(2, ((ConstantNode)gonode.ExpressionNode).Value);
 
             Assert.IsNull(parser.ParseStatementNode());
         }

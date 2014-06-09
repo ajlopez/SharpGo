@@ -100,6 +100,14 @@
                 return new DeferNode(expr);
             }
 
+            if (this.TryParseToken(TokenType.Name, "go"))
+            {
+                var expr = this.ParseExpressionNode();
+                this.ParseEndOfStatement();
+
+                return new GoNode(expr);
+            }
+
             if (this.TryParseToken(TokenType.Name, "break"))
             {
                 string label = this.TryParseName();

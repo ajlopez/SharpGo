@@ -46,6 +46,7 @@
     <Compile Include="Ast\AssignmentNode.cs" />
     <Compile Include="Ast\BreakNode.cs" />
     <Compile Include="Ast\ContinueNode.cs" />
+    <Compile Include="Ast\GoNode.cs" />
     <Compile Include="Ast\DeferNode.cs" />
     <Compile Include="Ast\SendNode.cs" />
     <Compile Include="Ast\GotoNode.cs" />
