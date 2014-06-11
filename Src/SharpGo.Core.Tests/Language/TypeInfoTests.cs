@@ -24,5 +24,23 @@
             Assert.IsNotNull(result);
             Assert.AreSame(TypeInfo.String, result);
         }
+
+        [TestMethod]
+        public void GetNilTypeInfo()
+        {
+            var result = TypeInfo.GetTypeInfo(null);
+
+            Assert.IsNotNull(result);
+            Assert.AreSame(TypeInfo.Nil, result);
+        }
+
+        [TestMethod]
+        public void GetInt32TypeInfo()
+        {
+            var result = TypeInfo.GetTypeInfo(42);
+
+            Assert.IsNotNull(result);
+            Assert.AreSame(TypeInfo.Int32, result);
+        }
     }
 }

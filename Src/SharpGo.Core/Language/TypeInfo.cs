@@ -7,8 +7,10 @@
 
     public class TypeInfo
     {
+        private static TypeInfo tinil = new TypeInfo("nil");
         private static TypeInfo tibool = new TypeInfo("bool");
         private static TypeInfo tistring = new TypeInfo("string");
+        private static TypeInfo tiint32 = new TypeInfo("int32");
 
         private string name;
 
@@ -21,13 +23,23 @@
 
         public static TypeInfo String { get { return tistring; } }
 
+        public static TypeInfo Int32 { get { return tiint32; } }
+
+        public static TypeInfo Nil { get { return tinil; } }
+
         public static TypeInfo GetTypeInfo(object value)
         {
+            if (value == null)
+                return tinil;
+
             if (value is bool)
                 return tibool;
 
             if (value is string)
                 return tistring;
+
+            if (value is int)
+                return tiint32;
 
             throw new NotImplementedException();
         }
