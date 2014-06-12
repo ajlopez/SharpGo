@@ -6,7 +6,7 @@
     using System.Text;
     using SharpGo.Core.Language;
 
-    public class ConstantNode : ITypedNode
+    public class ConstantNode : IExpressionNode
     {
         private TypeInfo typeinfo;
         private object value;

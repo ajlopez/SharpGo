@@ -4,8 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using SharpGo.Core.Language;
 
-    public class BinaryNode : INode
+    public class BinaryNode : IExpressionNode
     {
         private INode leftnode;
         private INode rightnode;
@@ -23,5 +24,10 @@
         public INode RightNode { get { return this.rightnode; } }
 
         public BinaryOperator Operator { get { return this.@operator; } }
+
+        public TypeInfo TypeInfo
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

@@ -44,7 +44,7 @@
             if (this.TryParseToken(TokenType.Name, "var"))
             {
                 var name = this.ParseName();
-                INode expr = null;
+                IExpressionNode expr = null;
 
                 if (this.TryParseToken(TokenType.Operator, "="))
                     expr = this.ParseExpressionNode();
@@ -171,9 +171,9 @@
             return node;
         }
 
-        public INode ParseExpressionNode()
+        public IExpressionNode ParseExpressionNode()
         {
-            INode term = this.ParseTerm();
+            IExpressionNode term = this.ParseTerm();
 
             if (term == null)
                 return null;
@@ -210,7 +210,7 @@
             return term;
         }
 
-        private INode ParseTerm()
+        private IExpressionNode ParseTerm()
         {
             var token = this.NextToken();
 

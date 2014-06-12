@@ -1,11 +1,9 @@
 ﻿namespace SharpGo.Core.Ast
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using SharpGo.Core.Language;
 
-    public class QualifiedNameNode : INode
+    public class QualifiedNameNode : IExpressionNode
     {
         private string packagename;
         private string name;
@@ -19,5 +17,10 @@
         public string PackageName { get { return this.packagename; } }
 
         public string Name { get { return this.name; } }
+
+        public TypeInfo TypeInfo
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

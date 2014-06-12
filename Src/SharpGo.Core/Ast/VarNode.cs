@@ -7,10 +7,10 @@
 
     public class VarNode : INode
     {
-        private INode expression;
+        private IExpressionNode expression;
         private string name;
 
-        public VarNode(string name, INode expression)
+        public VarNode(string name, IExpressionNode expression)
         {
             this.name = name;
             this.expression = expression;
@@ -18,6 +18,6 @@
 
         public string Name { get { return this.name; } }
 
-        public INode ExpressionNode { get { return this.expression; } }
+        public IExpressionNode ExpressionNode { get { return this.expression; } }
     }
 }
