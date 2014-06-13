@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Text;
     using SharpGo.Core.Ast;
+    using SharpGo.Core.Language;
 
     public class Parser
     {
@@ -45,13 +46,14 @@
             {
                 var name = this.ParseName();
                 IExpressionNode expr = null;
+                TypeInfo typeinfo = this.TryParseTypeInfo();
 
                 if (this.TryParseToken(TokenType.Operator, "="))
                     expr = this.ParseExpressionNode();
 
                 this.ParseEndOfStatement();
 
-                return new VarNode(name, expr);
+                return new VarNode(name, typeinfo, expr);
             }
 
             if (this.TryParseToken(TokenType.Name, "if"))
@@ -169,6 +171,14 @@
             node = new ExpressionStatementNode(node);
             this.ParseEndOfStatement();
             return node;
+        }
+
+        public TypeInfo TryParseTypeInfo()
+        {
+            if (this.TryParseName("int32"))
+                return TypeInfo.Int32;
+
+            return null;
         }
 
         public IExpressionNode ParseExpressionNode()
@@ -312,6 +322,21 @@
             this.PushToken(token);
 
             return null;
+        }
+
+        private bool TryParseName(string name)
+        {
+            var token = this.NextToken();
+
+            if (token == null)
+                return false;
+
+            if (token.Type == TokenType.Name && token.Value == name)
+                return true;
+
+            this.PushToken(token);
+
+            return false;
         }
 
         private void ParseEndOfStatement()

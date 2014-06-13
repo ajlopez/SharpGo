@@ -4,6 +4,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SharpGo.Core.Ast;
     using SharpGo.Core.Compiler;
+    using SharpGo.Core.Language;
 
     [TestClass]
     public class ParserTests
@@ -335,15 +336,16 @@
         }
 
         [TestMethod]
-        public void ParseVarDeclaration()
+        public void ParseVarDeclarationWithType()
         {
-            Parser parser = new Parser("var foo");
+            Parser parser = new Parser("var foo int32");
 
             var node = parser.ParseStatementNode();
 
             Assert.IsNotNull(node);
             Assert.IsInstanceOfType(node, typeof(VarNode));
             Assert.AreEqual("foo", ((VarNode)node).Name);
+            Assert.AreEqual(TypeInfo.Int32, ((VarNode)node).TypeInfo);
             Assert.IsNull(((VarNode)node).ExpressionNode);
 
             Assert.IsNull(parser.ParseStatementNode());
@@ -359,6 +361,7 @@
             Assert.IsNotNull(node);
             Assert.IsInstanceOfType(node, typeof(VarNode));
             Assert.AreEqual("foo", ((VarNode)node).Name);
+            Assert.AreEqual(TypeInfo.Int32, ((VarNode)node).TypeInfo);
             Assert.IsNotNull(((VarNode)node).ExpressionNode);
 
             var expr = ((VarNode)node).ExpressionNode;
