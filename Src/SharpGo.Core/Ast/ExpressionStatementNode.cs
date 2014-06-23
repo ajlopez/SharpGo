@@ -7,13 +7,13 @@
 
     public class ExpressionStatementNode : INode
     {
-        private INode expression;
+        private IExpressionNode expression;
 
-        public ExpressionStatementNode(INode expression)
+        public ExpressionStatementNode(IExpressionNode expression)
         {
             this.expression = expression;
         }
 
-        public INode ExpressionNode { get { return this.expression; } }
+        public IExpressionNode ExpressionNode { get { return this.expression; } }
     }
 }

@@ -149,28 +149,28 @@
                 return new FuncNode(name, body);
             }
 
-            INode node = this.ParseExpressionNode();
+            IExpressionNode node = this.ParseExpressionNode();
 
             if (node == null)
                 return null;
 
             if (this.TryParseToken(TokenType.Operator, "="))
             {
-                node = new AssignmentNode(node, this.ParseExpressionNode());
+                var cmdnode = new AssignmentNode(node, this.ParseExpressionNode());
                 this.ParseEndOfStatement();
-                return node;
+                return cmdnode;
             }
 
             if (this.TryParseToken(TokenType.Operator, "<-"))
             {
-                node = new SendNode(node, this.ParseExpressionNode());
+                var cmdnode = new SendNode(node, this.ParseExpressionNode());
                 this.ParseEndOfStatement();
-                return node;
+                return cmdnode;
             }
 
-            node = new ExpressionStatementNode(node);
+            var cmd = new ExpressionStatementNode(node);
             this.ParseEndOfStatement();
-            return node;
+            return cmd;
         }
 
         public TypeInfo TryParseTypeInfo()
