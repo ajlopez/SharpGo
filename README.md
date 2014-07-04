@@ -10,6 +10,7 @@ Work in Progress
 - [The Go Programming Language Specification](http://golang.org/ref/spec)
 - [Go for a Rubyist](http://supermar.in/go-for-a-rubyist/)
 - [Go for C++ Programmers](https://code.google.com/p/go-wiki/wiki/GoForCPPProgrammers) 
+- [Google Go: The Good, the Bad, and the Meh](http://blog.carlsensei.com/post/42828735125)
 
 ## License
 
