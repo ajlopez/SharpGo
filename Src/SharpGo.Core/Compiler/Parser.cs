@@ -20,165 +20,14 @@
 
         public INode ParseStatementNode()
         {
-            var token = this.NextToken();
-
-            while (token != null && token.Type == TokenType.NewLine)
-                token = this.NextToken();
-
-            if (token == null)
-                return null;
-
-            this.PushToken(token);
-
-            if (this.TryParseToken(TokenType.Delimiter, "{")) {
-                var stmts = new List<INode>();
-
-                while (!this.TryParseToken(TokenType.Delimiter, "}"))
-                {
-                    var stmt = this.ParseStatementNode();
-                    stmts.Add(stmt);
-                }
-
-                return new BlockNode(stmts);
-            }
-
-            if (this.TryParseToken(TokenType.Name, "var"))
-            {
-                var name = this.ParseName();
-                IExpressionNode expr = null;
-                TypeInfo typeinfo = this.TryParseTypeInfo();
-
-                if (this.TryParseToken(TokenType.Operator, "="))
-                    expr = this.ParseExpressionNode();
-
-                this.ParseEndOfStatement();
-
-                return new VarNode(name, typeinfo, expr);
-            }
-
-            if (this.TryParseToken(TokenType.Name, "if"))
-            {
-                var expr = this.ParseExpressionNode();
-                this.ParseToken(TokenType.Delimiter, "{");
-                var stmts = new List<INode>();
-
-                while (!this.TryParseToken(TokenType.Delimiter, "}"))
-                {
-                    var stmt = this.ParseStatementNode();
-                    stmts.Add(stmt);
-                }
-
-                return new IfNode(expr, new BlockNode(stmts));
-            }
-
-            if (this.TryParseToken(TokenType.Name, "for"))
-            {
-                var expr = this.ParseExpressionNode();
-                this.ParseToken(TokenType.Delimiter, "{");
-                var stmts = new List<INode>();
-
-                while (!this.TryParseToken(TokenType.Delimiter, "}"))
-                {
-                    var stmt = this.ParseStatementNode();
-                    stmts.Add(stmt);
-                }
-
-                return new ForNode(expr, new BlockNode(stmts));
-            }
-
-            if (this.TryParseToken(TokenType.Name, "return"))
-            {
-                var expr = this.ParseExpressionNode();
-                this.ParseEndOfStatement();
-
-                return new ReturnNode(expr);
-            }
-
-            if (this.TryParseToken(TokenType.Name, "defer"))
-            {
-                var expr = this.ParseExpressionNode();
-                this.ParseEndOfStatement();
-
-                return new DeferNode(expr);
-            }
-
-            if (this.TryParseToken(TokenType.Name, "go"))
-            {
-                var expr = this.ParseExpressionNode();
-                this.ParseEndOfStatement();
-
-                return new GoNode(expr);
-            }
-
-            if (this.TryParseToken(TokenType.Name, "import"))
-            {
-                var expr = this.ParseExpressionNode();
-                this.ParseEndOfStatement();
-
-                return new ImportNode(expr);
-            }
-
-            if (this.TryParseToken(TokenType.Name, "break"))
-            {
-                string label = this.TryParseName();
-                this.ParseEndOfStatement();
-
-                return new BreakNode(label);
-            }
-
-            if (this.TryParseToken(TokenType.Name, "continue"))
-            {
-                string label = this.TryParseName();
-                this.ParseEndOfStatement();
-
-                return new ContinueNode(label);
-            }
-
-            if (this.TryParseToken(TokenType.Name, "goto"))
-            {
-                string label = this.ParseName();
-                this.ParseEndOfStatement();
-
-                return new GotoNode(label);
-            }
-
-            if (this.TryParseToken(TokenType.Name, "func"))
-            {
-                var name = this.ParseName();
-                this.ParseToken(TokenType.Delimiter, "(");
-                this.ParseToken(TokenType.Delimiter, ")");
-
-                this.EnsureToken(TokenType.Delimiter, "{");
-
-                var body = this.ParseStatementNode();
-
-                this.ParseEndOfStatement();
-
-                return new FuncNode(name, body);
-            }
-
-            IExpressionNode node = this.ParseExpressionNode();
+            var node = this.ParseSimpleStatementNode();
 
             if (node == null)
                 return null;
 
-            if (this.TryParseToken(TokenType.Operator, "="))
-            {
-                var cmdnode = new AssignmentNode(node, this.ParseExpressionNode());
-                this.ParseEndOfStatement();
-                return cmdnode;
-            }
-
-            if (this.TryParseToken(TokenType.Operator, "<-"))
-            {
-                var cmdnode = new SendNode(node, this.ParseExpressionNode());
-                this.ParseEndOfStatement();
-                return cmdnode;
-            }
-
-            var cmd = new ExpressionStatementNode(node);
             this.ParseEndOfStatement();
-            return cmd;
+
+            return node;
         }
 
         public TypeInfo TryParseTypeInfo()
@@ -226,6 +75,149 @@
             this.PushToken(token);
 
             return term;
+        }
+
+        private INode ParseSimpleStatementNode()
+        {
+            var token = this.NextToken();
+
+            while (token != null && token.Type == TokenType.NewLine)
+                token = this.NextToken();
+
+            if (token == null)
+                return null;
+
+            this.PushToken(token);
+
+            if (this.TryParseToken(TokenType.Delimiter, "{"))
+            {
+                var stmts = new List<INode>();
+
+                while (!this.TryParseToken(TokenType.Delimiter, "}"))
+                {
+                    var stmt = this.ParseStatementNode();
+                    stmts.Add(stmt);
+                }
+
+                return new BlockNode(stmts);
+            }
+
+            if (this.TryParseToken(TokenType.Name, "var"))
+            {
+                var name = this.ParseName();
+                IExpressionNode expr = null;
+                TypeInfo typeinfo = this.TryParseTypeInfo();
+
+                if (this.TryParseToken(TokenType.Operator, "="))
+                    expr = this.ParseExpressionNode();
+
+                return new VarNode(name, typeinfo, expr);
+            }
+
+            if (this.TryParseToken(TokenType.Name, "if"))
+            {
+                var expr = this.ParseExpressionNode();
+                this.ParseToken(TokenType.Delimiter, "{");
+                var stmts = new List<INode>();
+
+                while (!this.TryParseToken(TokenType.Delimiter, "}"))
+                {
+                    var stmt = this.ParseStatementNode();
+                    stmts.Add(stmt);
+                }
+
+                return new IfNode(expr, new BlockNode(stmts));
+            }
+
+            if (this.TryParseToken(TokenType.Name, "for"))
+            {
+                var expr = this.ParseExpressionNode();
+                this.ParseToken(TokenType.Delimiter, "{");
+                var stmts = new List<INode>();
+
+                while (!this.TryParseToken(TokenType.Delimiter, "}"))
+                {
+                    var stmt = this.ParseStatementNode();
+                    stmts.Add(stmt);
+                }
+
+                return new ForNode(expr, new BlockNode(stmts));
+            }
+
+            if (this.TryParseToken(TokenType.Name, "return"))
+            {
+                var expr = this.ParseExpressionNode();
+                return new ReturnNode(expr);
+            }
+
+            if (this.TryParseToken(TokenType.Name, "defer"))
+            {
+                var expr = this.ParseExpressionNode();
+                return new DeferNode(expr);
+            }
+
+            if (this.TryParseToken(TokenType.Name, "go"))
+            {
+                var expr = this.ParseExpressionNode();
+                return new GoNode(expr);
+            }
+
+            if (this.TryParseToken(TokenType.Name, "import"))
+            {
+                var expr = this.ParseExpressionNode();
+                return new ImportNode(expr);
+            }
+
+            if (this.TryParseToken(TokenType.Name, "break"))
+            {
+                string label = this.TryParseName();
+                return new BreakNode(label);
+            }
+
+            if (this.TryParseToken(TokenType.Name, "continue"))
+            {
+                string label = this.TryParseName();
+                return new ContinueNode(label);
+            }
+
+            if (this.TryParseToken(TokenType.Name, "goto"))
+            {
+                string label = this.ParseName();
+                return new GotoNode(label);
+            }
+
+            if (this.TryParseToken(TokenType.Name, "func"))
+            {
+                var name = this.ParseName();
+                this.ParseToken(TokenType.Delimiter, "(");
+                this.ParseToken(TokenType.Delimiter, ")");
+
+                this.EnsureToken(TokenType.Delimiter, "{");
+
+                var body = this.ParseStatementNode();
+
+                return new FuncNode(name, body);
+            }
+
+            IExpressionNode node = this.ParseExpressionNode();
+
+            if (node == null)
+                return null;
+
+            if (this.TryParseToken(TokenType.Operator, "="))
+            {
+                var cmdnode = new AssignmentNode(node, this.ParseExpressionNode());
+                return cmdnode;
+            }
+
+            if (this.TryParseToken(TokenType.Operator, "<-"))
+            {
+                var cmdnode = new SendNode(node, this.ParseExpressionNode());
+                return cmdnode;
+            }
+
+            var cmd = new ExpressionStatementNode(node);
+            return cmd;
         }
 
         private IExpressionNode ParseTerm()
