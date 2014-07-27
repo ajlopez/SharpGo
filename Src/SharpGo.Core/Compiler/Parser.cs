@@ -116,7 +116,8 @@
 
             if (this.TryParseToken(TokenType.Name, "if"))
             {
-                var expr = this.ParseExpressionNode();
+                var fstmt = this.ParseSimpleStatementNode();
+                var expr = ((ExpressionStatementNode)fstmt).ExpressionNode;
                 this.ParseToken(TokenType.Delimiter, "{");
                 var stmts = new List<INode>();
 

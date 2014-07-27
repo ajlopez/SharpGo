@@ -7,10 +7,10 @@
 
     public class IfNode : INode
     {
-        private INode expression;
+        private IExpressionNode expression;
         private BlockNode block;
 
-        public IfNode(INode expression, BlockNode block)
+        public IfNode(IExpressionNode expression, BlockNode block)
         {
             this.expression = expression;
             this.block = block;
