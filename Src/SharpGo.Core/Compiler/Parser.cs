@@ -110,6 +110,14 @@
                 return new GoNode(expr);
             }
 
+            if (this.TryParseToken(TokenType.Name, "import"))
+            {
+                var expr = this.ParseExpressionNode();
+                this.ParseEndOfStatement();
+
+                return new ImportNode(expr);
+            }
+
             if (this.TryParseToken(TokenType.Name, "break"))
             {
                 string label = this.TryParseName();

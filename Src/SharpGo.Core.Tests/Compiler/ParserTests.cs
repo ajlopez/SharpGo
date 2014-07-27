@@ -562,6 +562,25 @@
         }
 
         [TestMethod]
+        public void ParseImport()
+        {
+            Parser parser = new Parser("import \"fmt\"");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ImportNode));
+
+            var impnode = (ImportNode)node;
+
+            Assert.IsNotNull(impnode.ExpressionNode);
+            Assert.IsInstanceOfType(impnode.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual("fmt", ((ConstantNode)impnode.ExpressionNode).Value);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseGo()
         {
             Parser parser = new Parser("go 1");
