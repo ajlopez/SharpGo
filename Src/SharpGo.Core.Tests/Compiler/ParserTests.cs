@@ -823,6 +823,25 @@
             }
         }
 
+        [TestMethod]
+        public void ParseSimpleCall()
+        {
+            Parser parser = new Parser("foo()");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(CallNode));
+
+            var cnode = (CallNode)node;
+
+            Assert.AreEqual("foo", cnode.Name);
+            Assert.IsNotNull(cnode.Arguments);
+            Assert.AreEqual(0, cnode.Arguments.Count);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
         private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
         {
             Parser parser = new Parser(text);

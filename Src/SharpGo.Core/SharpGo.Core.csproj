@@ -46,6 +46,7 @@
     <Compile Include="Ast\AssignmentNode.cs" />
     <Compile Include="Ast\BreakNode.cs" />
     <Compile Include="Ast\ContinueNode.cs" />
+    <Compile Include="Ast\CallNode.cs" />
     <Compile Include="Ast\ImportNode.cs" />
     <Compile Include="Ast\IExpressionNode.cs" />
     <Compile Include="Ast\ITypedNode.cs" />
