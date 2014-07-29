@@ -824,7 +824,7 @@
         }
 
         [TestMethod]
-        public void ParseSimpleCall()
+        public void ParseCall()
         {
             Parser parser = new Parser("foo()");
 
@@ -838,6 +838,27 @@
             Assert.AreEqual("foo", cnode.Name);
             Assert.IsNotNull(cnode.Arguments);
             Assert.AreEqual(0, cnode.Arguments.Count);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
+        [TestMethod]
+        public void ParseCallWithArgument()
+        {
+            Parser parser = new Parser("foo(1)");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(CallNode));
+
+            var cnode = (CallNode)node;
+
+            Assert.AreEqual("foo", cnode.Name);
+            Assert.IsNotNull(cnode.Arguments);
+            Assert.AreEqual(1, cnode.Arguments.Count);
+            Assert.IsInstanceOfType(cnode.Arguments[0], typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)cnode.Arguments[0]).Value);
 
             Assert.IsNull(parser.ParseExpressionNode());
         }

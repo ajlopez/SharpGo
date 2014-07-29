@@ -238,8 +238,15 @@
             {
                 if (this.TryParseToken(TokenType.Delimiter, "("))
                 {
+                    IList<IExpressionNode> expressions = new List<IExpressionNode>();
+
+                    var expr = this.ParseExpressionNode();
+
+                    if (expr != null)
+                        expressions.Add(expr);
+
                     this.ParseToken(TokenType.Delimiter, ")");
-                    return new CallNode(token.Value, new List<IExpressionNode>());
+                    return new CallNode(token.Value, expressions);
                 }
 
                 if (this.TryParseToken(TokenType.Delimiter, "."))
@@ -257,6 +264,8 @@
 
                 return new NameNode(token.Value);
             }
+
+            this.PushToken(token);
 
             return null;
         }
