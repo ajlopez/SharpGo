@@ -236,6 +236,12 @@
 
             if (token.Type == TokenType.Name)
             {
+                if (this.TryParseToken(TokenType.Delimiter, "("))
+                {
+                    this.ParseToken(TokenType.Delimiter, ")");
+                    return new CallNode(token.Value, new List<IExpressionNode>());
+                }
+
                 if (this.TryParseToken(TokenType.Delimiter, "."))
                 {
                     string name2 = this.ParseName();
