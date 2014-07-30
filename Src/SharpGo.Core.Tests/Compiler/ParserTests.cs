@@ -863,6 +863,31 @@
             Assert.IsNull(parser.ParseExpressionNode());
         }
 
+        [TestMethod]
+        public void ParseCallWithThreeArguments()
+        {
+            Parser parser = new Parser("foo(1,a,3)");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(CallNode));
+
+            var cnode = (CallNode)node;
+
+            Assert.AreEqual("foo", cnode.Name);
+            Assert.IsNotNull(cnode.Arguments);
+            Assert.AreEqual(3, cnode.Arguments.Count);
+            Assert.IsInstanceOfType(cnode.Arguments[0], typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)cnode.Arguments[0]).Value);
+            Assert.IsInstanceOfType(cnode.Arguments[1], typeof(NameNode));
+            Assert.AreEqual("a", ((NameNode)cnode.Arguments[1]).Name);
+            Assert.IsInstanceOfType(cnode.Arguments[2], typeof(ConstantNode));
+            Assert.AreEqual(3, ((ConstantNode)cnode.Arguments[2]).Value);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
         private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
         {
             Parser parser = new Parser(text);

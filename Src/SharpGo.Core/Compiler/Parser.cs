@@ -240,10 +240,15 @@
                 {
                     IList<IExpressionNode> expressions = new List<IExpressionNode>();
 
-                    var expr = this.ParseExpressionNode();
-
-                    if (expr != null)
+                    for (var expr = this.ParseExpressionNode(); expr != null; )
+                    {
                         expressions.Add(expr);
+
+                        if (!TryParseToken(TokenType.Delimiter, ","))
+                            break;
+
+                        expr = this.ParseExpressionNode();
+                    }
 
                     this.ParseToken(TokenType.Delimiter, ")");
                     return new CallNode(token.Value, expressions);
