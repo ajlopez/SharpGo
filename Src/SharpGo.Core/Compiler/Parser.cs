@@ -47,32 +47,36 @@
 
             var token = this.NextToken();
 
-            if (token == null)
-                return term;
-
-            if (token.Type == TokenType.Operator)
+            while (token != null && token.Type == TokenType.Operator)
+            {
                 if (token.Value == "+")
-                    return new BinaryNode(term, BinaryOperator.Add, this.ParseTerm());
+                    term = new BinaryNode(term, BinaryOperator.Add, this.ParseTerm());
                 else if (token.Value == "-")
-                    return new BinaryNode(term, BinaryOperator.Substract, this.ParseTerm());
+                    term = new BinaryNode(term, BinaryOperator.Substract, this.ParseTerm());
                 else if (token.Value == "*")
-                    return new BinaryNode(term, BinaryOperator.Multiply, this.ParseTerm());
+                    term = new BinaryNode(term, BinaryOperator.Multiply, this.ParseTerm());
                 else if (token.Value == "/")
-                    return new BinaryNode(term, BinaryOperator.Divide, this.ParseTerm());
+                    term = new BinaryNode(term, BinaryOperator.Divide, this.ParseTerm());
                 else if (token.Value == "==")
-                    return new BinaryNode(term, BinaryOperator.Equal, this.ParseTerm());
+                    term = new BinaryNode(term, BinaryOperator.Equal, this.ParseTerm());
                 else if (token.Value == "!=")
-                    return new BinaryNode(term, BinaryOperator.NotEqual, this.ParseTerm());
+                    term = new BinaryNode(term, BinaryOperator.NotEqual, this.ParseTerm());
                 else if (token.Value == "<")
-                    return new BinaryNode(term, BinaryOperator.Less, this.ParseTerm());
+                    term = new BinaryNode(term, BinaryOperator.Less, this.ParseTerm());
                 else if (token.Value == ">")
-                    return new BinaryNode(term, BinaryOperator.Greater, this.ParseTerm());
+                    term = new BinaryNode(term, BinaryOperator.Greater, this.ParseTerm());
                 else if (token.Value == "<=")
-                    return new BinaryNode(term, BinaryOperator.LessEqual, this.ParseTerm());
+                    term = new BinaryNode(term, BinaryOperator.LessEqual, this.ParseTerm());
                 else if (token.Value == ">=")
-                    return new BinaryNode(term, BinaryOperator.GreaterEqual, this.ParseTerm());
+                    term = new BinaryNode(term, BinaryOperator.GreaterEqual, this.ParseTerm());
+                else
+                    break;
 
-            this.PushToken(token);
+                token = this.NextToken();
+            }
+
+            if (token != null)
+                this.PushToken(token);
 
             return term;
         }
