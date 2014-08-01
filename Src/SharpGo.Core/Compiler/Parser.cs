@@ -193,6 +193,8 @@
 
             if (this.TryParseToken(TokenType.Name, "func"))
             {
+                IList<NameNode> arguments = new List<NameNode>();
+
                 var name = this.ParseName();
                 this.ParseToken(TokenType.Delimiter, "(");
                 this.ParseToken(TokenType.Delimiter, ")");
@@ -201,7 +203,7 @@
 
                 var body = this.ParseStatementNode();
 
-                return new FuncNode(name, body);
+                return new FuncNode(name, arguments, body);
             }
 
             IExpressionNode node = this.ParseExpressionNode();

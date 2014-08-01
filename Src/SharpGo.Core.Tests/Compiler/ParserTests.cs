@@ -732,6 +732,8 @@
             var fnode = (FuncNode)node;
 
             Assert.AreEqual("foo", fnode.Name);
+            Assert.IsNotNull(fnode.Parameters);
+            Assert.AreEqual(0, fnode.Parameters.Count);
             Assert.IsNotNull(fnode.BodyNode);
             Assert.IsInstanceOfType(fnode.BodyNode, typeof(BlockNode));
 
