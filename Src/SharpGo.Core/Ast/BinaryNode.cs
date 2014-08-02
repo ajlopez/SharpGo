@@ -8,20 +8,20 @@
 
     public class BinaryNode : IExpressionNode
     {
-        private INode leftnode;
-        private INode rightnode;
+        private IExpressionNode leftnode;
+        private IExpressionNode rightnode;
         private BinaryOperator @operator;
 
-        public BinaryNode(INode leftnode, BinaryOperator @operator, INode rightnode)
+        public BinaryNode(IExpressionNode leftnode, BinaryOperator @operator, IExpressionNode rightnode)
         {
             this.leftnode = leftnode;
             this.@operator = @operator;
             this.rightnode = rightnode;
         }
 
-        public INode LeftNode { get { return this.leftnode; } }
+        public IExpressionNode LeftNode { get { return this.leftnode; } }
 
-        public INode RightNode { get { return this.rightnode; } }
+        public IExpressionNode RightNode { get { return this.rightnode; } }
 
         public BinaryOperator Operator { get { return this.@operator; } }
 
