@@ -12,6 +12,11 @@
     {
         private Stack<Token> tokens = new Stack<Token>();
         private Lexer lexer;
+        private string[][] binaryoperators = new string[][] {
+            new string[] { "==", "<", ">", "<=", ">=", "!=" },
+            new string[] { "+", "-" },
+            new string[] { "*", "/" }
+        };
 
         public Parser(string text)
         {
@@ -40,40 +45,43 @@
 
         public IExpressionNode ParseExpressionNode()
         {
-            return this.ParseBinaryExpressionNode();
+            return this.ParseBinaryExpressionNode(0);
         }
 
-        private IExpressionNode ParseBinaryExpressionNode()
+        private IExpressionNode ParseBinaryExpressionNode(int level)
         {
-            IExpressionNode term = this.ParseTerm();
+            if (level >= binaryoperators.Length)
+                return this.ParseTerm();
 
-            if (term == null)
+            IExpressionNode expr = this.ParseBinaryExpressionNode(level + 1);
+
+            if (expr == null)
                 return null;
 
             var token = this.NextToken();
 
-            while (token != null && token.Type == TokenType.Operator)
+            while (token != null && token.Type == TokenType.Operator && binaryoperators[level].Contains(token.Value))
             {
                 if (token.Value == "+")
-                    term = new BinaryNode(term, BinaryOperator.Add, this.ParseTerm());
+                    expr = new BinaryNode(expr, BinaryOperator.Add, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "-")
-                    term = new BinaryNode(term, BinaryOperator.Substract, this.ParseTerm());
+                    expr = new BinaryNode(expr, BinaryOperator.Substract, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "*")
-                    term = new BinaryNode(term, BinaryOperator.Multiply, this.ParseTerm());
+                    expr = new BinaryNode(expr, BinaryOperator.Multiply, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "/")
-                    term = new BinaryNode(term, BinaryOperator.Divide, this.ParseTerm());
+                    expr = new BinaryNode(expr, BinaryOperator.Divide, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "==")
-                    term = new BinaryNode(term, BinaryOperator.Equal, this.ParseTerm());
+                    expr = new BinaryNode(expr, BinaryOperator.Equal, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "!=")
-                    term = new BinaryNode(term, BinaryOperator.NotEqual, this.ParseTerm());
+                    expr = new BinaryNode(expr, BinaryOperator.NotEqual, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "<")
-                    term = new BinaryNode(term, BinaryOperator.Less, this.ParseTerm());
+                    expr = new BinaryNode(expr, BinaryOperator.Less, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == ">")
-                    term = new BinaryNode(term, BinaryOperator.Greater, this.ParseTerm());
+                    expr = new BinaryNode(expr, BinaryOperator.Greater, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "<=")
-                    term = new BinaryNode(term, BinaryOperator.LessEqual, this.ParseTerm());
+                    expr = new BinaryNode(expr, BinaryOperator.LessEqual, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == ">=")
-                    term = new BinaryNode(term, BinaryOperator.GreaterEqual, this.ParseTerm());
+                    expr = new BinaryNode(expr, BinaryOperator.GreaterEqual, this.ParseBinaryExpressionNode(level + 1));
                 else
                     break;
 
@@ -83,7 +91,7 @@
             if (token != null)
                 this.PushToken(token);
 
-            return term;
+            return expr;
         }
 
         private INode ParseSimpleStatementNode()
