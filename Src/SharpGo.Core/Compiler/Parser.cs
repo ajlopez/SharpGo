@@ -40,6 +40,11 @@
 
         public IExpressionNode ParseExpressionNode()
         {
+            return this.ParseBinaryExpressionNode();
+        }
+
+        private IExpressionNode ParseBinaryExpressionNode()
+        {
             IExpressionNode term = this.ParseTerm();
 
             if (term == null)
