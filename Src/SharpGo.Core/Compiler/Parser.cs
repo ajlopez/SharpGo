@@ -13,6 +13,7 @@
         private Stack<Token> tokens = new Stack<Token>();
         private Lexer lexer;
         private string[][] binaryoperators = new string[][] {
+            new string[] { "&&", "||" },
             new string[] { "==", "<", ">", "<=", ">=", "!=" },
             new string[] { "+", "-" },
             new string[] { "*", "/" }
@@ -82,6 +83,10 @@
                     expr = new BinaryNode(expr, BinaryOperator.LessEqual, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == ">=")
                     expr = new BinaryNode(expr, BinaryOperator.GreaterEqual, this.ParseBinaryExpressionNode(level + 1));
+                else if (token.Value == "&&")
+                    expr = new BinaryNode(expr, BinaryOperator.And, this.ParseBinaryExpressionNode(level + 1));
+                else if (token.Value == "||")
+                    expr = new BinaryNode(expr, BinaryOperator.Or, this.ParseBinaryExpressionNode(level + 1));
                 else
                     break;
 

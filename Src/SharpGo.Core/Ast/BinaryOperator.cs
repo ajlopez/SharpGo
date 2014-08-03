@@ -16,6 +16,8 @@
         Less,
         Greater,
         LessEqual,
-        GreaterEqual
+        GreaterEqual,
+        Or,
+        And
     }
 }
