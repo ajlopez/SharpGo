@@ -138,6 +138,13 @@
         }
 
         [TestMethod]
+        public void ParseLogicBinaryOperationsWithDifferentPrecedence()
+        {
+            ParseBinaryOperation("true || false && true", BinaryOperator.Or, true, BinaryOperator.And, false, true);
+            ParseBinaryOperation("true && false || true", BinaryOperator.And, true, false, BinaryOperator.Or, true);
+        }
+
+        [TestMethod]
         public void ParseArithmeticBinaryOperationsWithDifferentPrecedence()
         {
             ParseBinaryOperation("5+6*7", BinaryOperator.Add, 5, BinaryOperator.Multiply, 6, 7);
@@ -1016,6 +1023,39 @@
             Assert.IsInstanceOfType(bnode.LeftNode, typeof(ConstantNode));
             Assert.AreEqual(leftvalue, ((ConstantNode)bnode.LeftNode).Value);
             
+            Assert.IsNotNull(bnode.RightNode);
+            Assert.IsInstanceOfType(bnode.RightNode, typeof(BinaryNode));
+
+            var bnode2 = (BinaryNode)bnode.RightNode;
+
+            Assert.AreEqual(oper2, bnode2.Operator);
+            Assert.IsNotNull(bnode2.LeftNode);
+            Assert.IsInstanceOfType(bnode2.LeftNode, typeof(ConstantNode));
+            Assert.AreEqual(middlevalue, ((ConstantNode)bnode2.LeftNode).Value);
+            Assert.IsNotNull(bnode2.RightNode);
+            Assert.IsInstanceOfType(bnode2.RightNode, typeof(ConstantNode));
+            Assert.AreEqual(rightvalue, ((ConstantNode)bnode2.RightNode).Value);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
+        private static void ParseBinaryOperation(string text, BinaryOperator oper, bool leftvalue, BinaryOperator oper2, bool middlevalue, bool rightvalue)
+        {
+            Parser parser = new Parser(text);
+
+            var result = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(BinaryNode));
+
+            var bnode = (BinaryNode)result;
+
+            Assert.AreEqual(oper, bnode.Operator);
+
+            Assert.IsNotNull(bnode.LeftNode);
+            Assert.IsInstanceOfType(bnode.LeftNode, typeof(ConstantNode));
+            Assert.AreEqual(leftvalue, ((ConstantNode)bnode.LeftNode).Value);
+
             Assert.IsNotNull(bnode.RightNode);
             Assert.IsInstanceOfType(bnode.RightNode, typeof(BinaryNode));
 

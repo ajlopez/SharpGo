@@ -13,7 +13,8 @@
         private Stack<Token> tokens = new Stack<Token>();
         private Lexer lexer;
         private string[][] binaryoperators = new string[][] {
-            new string[] { "&&", "||" },
+            new string[] { "||" },
+            new string[] { "&&" },
             new string[] { "==", "<", ">", "<=", ">=", "!=" },
             new string[] { "+", "-" },
             new string[] { "*", "/" }
