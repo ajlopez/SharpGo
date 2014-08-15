@@ -592,6 +592,23 @@
         }
 
         [TestMethod]
+        public void ParsePackage()
+        {
+            Parser parser = new Parser("package math");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(PackageNode));
+
+            var pnode = (PackageNode)node;
+
+            Assert.AreEqual("math", pnode.Name);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseImport()
         {
             Parser parser = new Parser("import \"fmt\"");

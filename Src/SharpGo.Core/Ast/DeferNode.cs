@@ -7,13 +7,13 @@
 
     public class DeferNode : INode
     {
-        private INode expression;
+        private IExpressionNode expression;
 
-        public DeferNode(INode expression)
+        public DeferNode(IExpressionNode expression)
         {
             this.expression = expression;
         }
 
-        public INode ExpressionNode { get { return this.expression; } }
+        public IExpressionNode ExpressionNode { get { return this.expression; } }
     }
 }

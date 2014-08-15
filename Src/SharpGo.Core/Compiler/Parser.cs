@@ -210,6 +210,12 @@
                 return new GotoNode(label);
             }
 
+            if (this.TryParseToken(TokenType.Name, "package"))
+            {
+                string name = this.ParseName();
+                return new PackageNode(name);
+            }
+
             if (this.TryParseToken(TokenType.Name, "func"))
             {
                 IList<NameNode> arguments = new List<NameNode>();
