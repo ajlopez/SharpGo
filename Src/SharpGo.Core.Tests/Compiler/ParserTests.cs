@@ -24,6 +24,20 @@
         }
 
         [TestMethod]
+        public void ParseRealConstant()
+        {
+            Parser parser = new Parser("123.45");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ConstantNode));
+            Assert.AreEqual(123.45, ((ConstantNode)node).Value);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
+        [TestMethod]
         public void ParseStringConstant()
         {
             Parser parser = new Parser("\"foo\"");
