@@ -12,7 +12,8 @@
     {
         private Stack<Token> tokens = new Stack<Token>();
         private Lexer lexer;
-        private string[][] binaryoperators = new string[][] {
+        private string[][] binaryoperators = new string[][] 
+        {
             new string[] { "||" },
             new string[] { "&&" },
             new string[] { "==", "<", ">", "<=", ">=", "!=" },
@@ -52,7 +53,7 @@
 
         private IExpressionNode ParseBinaryExpressionNode(int level)
         {
-            if (level >= binaryoperators.Length)
+            if (level >= this.binaryoperators.Length)
                 return this.ParseTerm();
 
             IExpressionNode expr = this.ParseBinaryExpressionNode(level + 1);
@@ -62,7 +63,7 @@
 
             var token = this.NextToken();
 
-            while (token != null && token.Type == TokenType.Operator && binaryoperators[level].Contains(token.Value))
+            while (token != null && token.Type == TokenType.Operator && this.binaryoperators[level].Contains(token.Value))
             {
                 if (token.Value == "+")
                     expr = new BinaryNode(expr, BinaryOperator.Add, this.ParseBinaryExpressionNode(level + 1));
@@ -271,11 +272,11 @@
                 {
                     IList<IExpressionNode> expressions = new List<IExpressionNode>();
 
-                    for (var expr = this.ParseExpressionNode(); expr != null; )
+                    for (var expr = this.ParseExpressionNode(); expr != null;)
                     {
                         expressions.Add(expr);
 
-                        if (!TryParseToken(TokenType.Delimiter, ","))
+                        if (!this.TryParseToken(TokenType.Delimiter, ","))
                             break;
 
                         expr = this.ParseExpressionNode();

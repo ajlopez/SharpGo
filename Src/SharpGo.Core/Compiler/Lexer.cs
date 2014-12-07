@@ -76,6 +76,24 @@
             throw new LexerException(string.Format("Unexpected '{0}'", ch));
         }
 
+        private static bool IsLetter(char ch)
+        {
+            return ch == '_' || char.IsLetter(ch);
+        }
+
+        private static bool IsDigit(char ch)
+        {
+            return char.IsDigit(ch);
+        }
+
+        private static bool IsWhiteSpace(char ch)
+        {
+            if (ch == '\r' || ch == '\n')
+                return false;
+
+            return char.IsWhiteSpace(ch);
+        }
+
         private Token NextString()
         {
             string value = string.Empty;
@@ -134,24 +152,6 @@
             }
 
             return new Token(TokenType.Integer, value);
-        }
-
-        private static bool IsLetter(char ch)
-        {
-            return ch == '_' || char.IsLetter(ch);
-        }
-
-        private static bool IsDigit(char ch)
-        {
-            return char.IsDigit(ch);
-        }
-
-        private static bool IsWhiteSpace(char ch)
-        {
-            if (ch == '\r' || ch == '\n')
-                return false;
-
-            return char.IsWhiteSpace(ch);
         }
     }
 }
