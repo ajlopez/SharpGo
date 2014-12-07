@@ -9,6 +9,7 @@
     {
         Name,
         Integer,
+        Real,
         String,
         Operator,
         Delimiter,

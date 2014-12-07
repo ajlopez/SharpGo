@@ -101,6 +101,20 @@
         }
 
         [TestMethod]
+        public void GetReal()
+        {
+            Lexer lexer = new Lexer("12.34");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Real, token.Type);
+            Assert.AreEqual("12.34", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
         public void GetDotAsDelimiter()
         {
             Lexer lexer = new Lexer(".");

@@ -151,7 +151,31 @@
                 value += ch;
             }
 
+            if (this.position < this.length && this.text[this.position] == '.')
+            {
+                this.position++;
+                return this.NextReal(value);
+            }
+
             return new Token(TokenType.Integer, value);
+        }
+
+        private Token NextReal(string integers)
+        {
+            string value = integers + ".";
+
+            while (this.position < this.length)
+            {
+                char ch = this.text[this.position];
+
+                if (!IsDigit(ch))
+                    break;
+
+                this.position++;
+                value += ch;
+            }
+
+            return new Token(TokenType.Real, value);
         }
     }
 }
