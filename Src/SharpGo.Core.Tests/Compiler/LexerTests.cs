@@ -219,6 +219,12 @@
         }
 
         [TestMethod]
+        public void GetIncrementalOperators()
+        {
+            GetOperators(new string[] { "++", "--" });
+        }
+
+        [TestMethod]
         public void GetComparisonOperators()
         {
             GetOperators(new string[] { "==", "!=", "<", ">", "<=", ">=" });
