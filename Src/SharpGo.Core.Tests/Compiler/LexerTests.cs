@@ -225,6 +225,12 @@
         }
 
         [TestMethod]
+        public void GetArithmeticAssignOperators()
+        {
+            GetOperators(new string[] { "+=", "-=", "*=", "/=", "%=" });
+        }
+
+        [TestMethod]
         public void GetComparisonOperators()
         {
             GetOperators(new string[] { "==", "!=", "<", ">", "<=", ">=" });
