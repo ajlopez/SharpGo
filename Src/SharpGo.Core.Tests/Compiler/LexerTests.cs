@@ -225,7 +225,7 @@
         }
 
         [TestMethod]
-        public void GetArithmeticAssignOperators()
+        public void GetArithmeticAssignmentOperators()
         {
             GetOperators(new string[] { "+=", "-=", "*=", "/=", "%=" });
         }
@@ -240,6 +240,12 @@
         public void GetBitwiseArithmeticOperators()
         {
             GetOperators(new string[] { "&", "|", "^", "&^", "<<", ">>" });
+        }
+
+        [TestMethod]
+        public void GetBitwiseArithmeticAssignmentOperators()
+        {
+            GetOperators(new string[] { "&=", "|=", "^=", "&^=", "<<=", ">>=" });
         }
 
         [TestMethod]

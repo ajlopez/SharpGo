@@ -8,7 +8,7 @@
     public class Lexer
     {
         private static string delimiters = ";.{}(),";
-        private static string[] operators = new string[] { "+", "-", "*", "/", "%", "==", "!=", "<", ">", "<=", ">=", "=", "&", "|", "^", "&^", "<<", ">>", "&&", "||", "!", "<-", ":=", "++", "--", "+=", "-=", "*=", "/=", "%=" };
+        private static string[] operators = new string[] { "+", "-", "*", "/", "%", "==", "!=", "<", ">", "<=", ">=", "=", "&", "|", "^", "&^", "<<", ">>", "&&", "||", "!", "<-", ":=", "++", "--", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "&^=", "<<=", ">>=" };
 
         private string text;
         private int length;
@@ -62,6 +62,17 @@
             if (this.position < this.length)
             {
                 var str2 = str + this.text[this.position].ToString();
+
+                if (this.position + 1 < this.length)
+                {
+                    var str3 = str2 + this.text[this.position + 1].ToString();
+
+                    if (operators.Contains(str3))
+                    {
+                        this.position += 2;
+                        return new Token(TokenType.Operator, str3);
+                    }
+                }
 
                 if (operators.Contains(str2))
                 {
