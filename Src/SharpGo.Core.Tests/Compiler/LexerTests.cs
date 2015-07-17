@@ -101,6 +101,20 @@
         }
 
         [TestMethod]
+        public void GetHexadecimalInteger()
+        {
+            Lexer lexer = new Lexer("0xface");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Integer, token.Type);
+            Assert.AreEqual("0xface", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
         public void GetReal()
         {
             Lexer lexer = new Lexer("12.34");

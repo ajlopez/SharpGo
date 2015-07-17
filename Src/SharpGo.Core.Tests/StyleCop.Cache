@@ -17,17 +17,17 @@
       <timestamp>05/01/2014 08:31:29</timestamp>
       <milliseconds>910</milliseconds>
     </settings>
-    <timestamp>12/07/2014 11:14:07</timestamp>
-    <milliseconds>687</milliseconds>
+    <timestamp>07/16/2015 07:13:07</timestamp>
+    <milliseconds>867</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="TypeInfoTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+  <sourcecode name="ParserTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>05/01/2014 08:31:29</timestamp>
       <milliseconds>910</milliseconds>
     </settings>
-    <timestamp>07/09/2014 07:12:22</timestamp>
-    <milliseconds>800</milliseconds>
+    <timestamp>12/07/2014 11:18:18</timestamp>
+    <milliseconds>943</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="AssemblyInfo.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
@@ -39,13 +39,13 @@
     <milliseconds>741</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="ParserTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+  <sourcecode name="TypeInfoTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>05/01/2014 08:31:29</timestamp>
       <milliseconds>910</milliseconds>
     </settings>
-    <timestamp>12/07/2014 11:18:18</timestamp>
-    <milliseconds>943</milliseconds>
+    <timestamp>07/09/2014 07:12:22</timestamp>
+    <milliseconds>800</milliseconds>
     <violations />
   </sourcecode>
 </stylecopresultscache>

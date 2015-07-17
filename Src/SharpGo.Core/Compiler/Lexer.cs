@@ -49,7 +49,14 @@
                 return this.NextName(ch);
 
             if (IsDigit(ch))
+            {
+                if (ch == '0' && this.position < this.length && this.text[this.position] == 'x')
+                {
+                    this.position++;
+                    return this.NextHexadecimalInteger();
+                }
                 return this.NextInteger(ch);
+            }
 
             if (ch == '"')
                 return this.NextString();
@@ -95,6 +102,11 @@
         private static bool IsDigit(char ch)
         {
             return char.IsDigit(ch);
+        }
+
+        private static bool IsHexadecimalDigit(char ch)
+        {
+            return IsDigit(ch) || ch >= 'a' && ch <= 'f';
         }
 
         private static bool IsWhiteSpace(char ch)
@@ -166,6 +178,24 @@
             {
                 this.position++;
                 return this.NextReal(value);
+            }
+
+            return new Token(TokenType.Integer, value);
+        }
+
+        private Token NextHexadecimalInteger()
+        {
+            string value = "0x";
+
+            while (this.position < this.length)
+            {
+                char ch = this.text[this.position];
+
+                if (!IsHexadecimalDigit(ch))
+                    break;
+
+                this.position++;
+                value += ch;
             }
 
             return new Token(TokenType.Integer, value);
