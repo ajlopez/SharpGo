@@ -106,7 +106,7 @@
 
         private static bool IsHexadecimalDigit(char ch)
         {
-            return IsDigit(ch) || ch >= 'a' && ch <= 'f';
+            return IsDigit(ch) || ch >= 'a' && ch <= 'f' || ch >= 'A' && ch <= 'F';
         }
 
         private static bool IsWhiteSpace(char ch)
