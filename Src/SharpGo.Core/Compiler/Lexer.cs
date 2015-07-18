@@ -55,6 +55,7 @@
                     this.position++;
                     return this.NextHexadecimalInteger();
                 }
+
                 return this.NextInteger(ch);
             }
 
@@ -106,7 +107,7 @@
 
         private static bool IsHexadecimalDigit(char ch)
         {
-            return IsDigit(ch) || ch >= 'a' && ch <= 'f' || ch >= 'A' && ch <= 'F';
+            return IsDigit(ch) || (ch >= 'a' && ch <= 'f') || (ch >= 'A' && ch <= 'F');
         }
 
         private static bool IsWhiteSpace(char ch)
