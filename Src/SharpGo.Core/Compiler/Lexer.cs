@@ -127,6 +127,13 @@
             {
                 var ch = this.text[this.position++];
 
+                if (ch == '\\' && this.position < this.length && this.text[this.position] == 'n')
+                {
+                    value += '\n';
+                    this.position++;
+                    continue;
+                }
+
                 if (ch == '"')
                 {
                     closed = true;
