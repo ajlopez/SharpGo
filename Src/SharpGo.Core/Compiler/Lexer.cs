@@ -134,6 +134,13 @@
                     continue;
                 }
 
+                if (ch == '\\' && this.position < this.length && this.text[this.position] == 'r')
+                {
+                    value += '\r';
+                    this.position++;
+                    continue;
+                }
+
                 if (ch == '"')
                 {
                     closed = true;

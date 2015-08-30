@@ -323,6 +323,20 @@
         }
 
         [TestMethod]
+        public void GetStringWithNewLineAndCarriageReturn()
+        {
+            Lexer lexer = new Lexer("\"foo\\n\\rbar\"");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.String, token.Type);
+            Assert.AreEqual("foo\n\rbar", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
         public void GetBracketsAsDelimiters()
         {
             Lexer lexer = new Lexer("{}");
