@@ -141,6 +141,13 @@
                     continue;
                 }
 
+                if (ch == '\\' && this.position < this.length && this.text[this.position] == 't')
+                {
+                    value += '\t';
+                    this.position++;
+                    continue;
+                }
+
                 if (ch == '"')
                 {
                     closed = true;
