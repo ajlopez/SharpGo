@@ -351,6 +351,20 @@
         }
 
         [TestMethod]
+        public void GetStringWithDoubleQuote()
+        {
+            Lexer lexer = new Lexer("\"foo\\\"bar\"");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.String, token.Type);
+            Assert.AreEqual("foo\"bar", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
         public void GetBracketsAsDelimiters()
         {
             Lexer lexer = new Lexer("{}");
