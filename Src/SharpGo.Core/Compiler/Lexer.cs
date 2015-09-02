@@ -155,6 +155,13 @@
                     continue;
                 }
 
+                if (ch == '\\' && this.position < this.length && this.text[this.position] == '\\')
+                {
+                    value += '\\';
+                    this.position++;
+                    continue;
+                }
+
                 if (ch == '"')
                 {
                     closed = true;
