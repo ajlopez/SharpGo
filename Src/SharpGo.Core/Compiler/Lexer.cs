@@ -9,6 +9,7 @@
     {
         private static string delimiters = ";.{}(),";
         private static string[] operators = new string[] { "+", "-", "*", "/", "%", "==", "!=", "<", ">", "<=", ">=", "=", "&", "|", "^", "&^", "<<", ">>", "&&", "||", "!", "<-", ":=", "++", "--", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "&^=", "<<=", ">>=" };
+        private static Dictionary<char, char> escaped = new Dictionary<char, char>() { { 'n', '\n' }, { 'r', '\r' }, { 't', '\t' }, { '"', '"' }, { '\\', '\\' }, };
 
         private string text;
         private int length;
@@ -127,37 +128,9 @@
             {
                 var ch = this.text[this.position++];
 
-                if (ch == '\\' && this.position < this.length && this.text[this.position] == 'n')
+                if (ch == '\\' && this.position < this.length && escaped.ContainsKey(this.text[this.position]))
                 {
-                    value += '\n';
-                    this.position++;
-                    continue;
-                }
-
-                if (ch == '\\' && this.position < this.length && this.text[this.position] == 'r')
-                {
-                    value += '\r';
-                    this.position++;
-                    continue;
-                }
-
-                if (ch == '\\' && this.position < this.length && this.text[this.position] == 't')
-                {
-                    value += '\t';
-                    this.position++;
-                    continue;
-                }
-
-                if (ch == '\\' && this.position < this.length && this.text[this.position] == '"')
-                {
-                    value += '"';
-                    this.position++;
-                    continue;
-                }
-
-                if (ch == '\\' && this.position < this.length && this.text[this.position] == '\\')
-                {
-                    value += '\\';
+                    value += escaped[this.text[this.position]];
                     this.position++;
                     continue;
                 }
