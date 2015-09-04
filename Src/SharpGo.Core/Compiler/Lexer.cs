@@ -7,7 +7,7 @@
 
     public class Lexer
     {
-        private static string delimiters = ";.{}(),";
+        private static string[] delimiters = new string[] { "\"", ";", ".", "{", "}", "(", ")", "," };
         private static string[] operators = new string[] { "+", "-", "*", "/", "%", "==", "!=", "<", ">", "<=", ">=", "=", "&", "|", "^", "&^", "<<", ">>", "&&", "||", "!", "<-", ":=", "++", "--", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "&^=", "<<=", ">>=" };
         private static Dictionary<char, char> escaped = new Dictionary<char, char>() { { 'n', '\n' }, { 'r', '\r' }, { 't', '\t' }, { '"', '"' }, { '\\', '\\' }, };
 
@@ -63,10 +63,10 @@
             if (ch == '"')
                 return this.NextString();
 
-            if (delimiters.Contains(ch))
-                return new Token(TokenType.Delimiter, ch.ToString());
-
             var str = ch.ToString();
+
+            if (delimiters.Contains(str))
+                return new Token(TokenType.Delimiter, str);
 
             if (this.position < this.length)
             {
