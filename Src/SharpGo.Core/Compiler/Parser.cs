@@ -111,6 +111,9 @@
             if (token == null)
                 return null;
 
+            if (token.Type == TokenType.Name && this.TryParseToken(TokenType.Operator, ":="))
+                return new VarNode(token.Value, this.ParseExpressionNode());
+
             this.PushToken(token);
 
             if (this.TryParseToken(TokenType.Delimiter, "{"))

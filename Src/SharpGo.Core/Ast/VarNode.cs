@@ -12,6 +12,11 @@
         private string name;
         private TypeInfo typeinfo;
 
+        public VarNode(string name, IExpressionNode expression)
+            : this(name, null, expression)
+        {
+        }
+
         public VarNode(string name, TypeInfo typeinfo, IExpressionNode expression)
         {
             this.name = name;
