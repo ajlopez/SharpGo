@@ -7,7 +7,7 @@
 
     public class Lexer
     {
-        private static string[] delimiters = new string[] { "\"", ";", ".", "{", "}", "(", ")", "," };
+        private static string[] delimiters = new string[] { "\"", ";", ".", "{", "}", "(", ")", "," , "..." };
         private static string[] operators = new string[] { "+", "-", "*", "/", "%", "==", "!=", "<", ">", "<=", ">=", "=", "&", "|", "^", "&^", "<<", ">>", "&&", "||", "!", "<-", ":=", "++", "--", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "&^=", "<<=", ">>=" };
         private static Dictionary<char, char> escaped = new Dictionary<char, char>() { { 'n', '\n' }, { 'r', '\r' }, { 't', '\t' }, { '"', '"' }, { '\\', '\\' }, };
 
@@ -65,9 +65,6 @@
 
             var str = ch.ToString();
 
-            if (delimiters.Contains(str))
-                return new Token(TokenType.Delimiter, str);
-
             if (this.position < this.length)
             {
                 var str2 = str + this.text[this.position].ToString();
@@ -81,6 +78,12 @@
                         this.position += 2;
                         return new Token(TokenType.Operator, str3);
                     }
+
+                    if (delimiters.Contains(str3))
+                    {
+                        this.position += 2;
+                        return new Token(TokenType.Delimiter, str3);
+                    }
                 }
 
                 if (operators.Contains(str2))
@@ -89,6 +92,9 @@
                     return new Token(TokenType.Operator, str2);
                 }
             }
+
+            if (delimiters.Contains(str))
+                return new Token(TokenType.Delimiter, str);
 
             if (operators.Contains(str))
                 return new Token(TokenType.Operator, str);
