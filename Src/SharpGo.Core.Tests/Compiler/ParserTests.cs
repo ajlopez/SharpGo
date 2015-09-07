@@ -972,6 +972,26 @@
             Assert.IsNull(parser.ParseExpressionNode());
         }
 
+        [TestMethod]
+        public void ParseIndexed()
+        {
+            Parser parser = new Parser("foo[1]");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(IndexedNode));
+
+            var inode = (IndexedNode)node;
+
+            Assert.AreEqual("foo", inode.Name);
+            Assert.IsNotNull(inode.Index);
+            Assert.IsInstanceOfType(inode.Index, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)inode.Index).Value);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
         private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
         {
             Parser parser = new Parser(text);
