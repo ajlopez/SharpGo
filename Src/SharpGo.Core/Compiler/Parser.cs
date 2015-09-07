@@ -274,6 +274,14 @@
 
             if (token.Type == TokenType.Name)
             {
+                if (this.TryParseToken(TokenType.Delimiter, "["))
+                {
+                    IExpressionNode expression = this.ParseExpressionNode();
+                    this.ParseToken(TokenType.Delimiter, "]");
+
+                    return new IndexedNode(token.Value, expression);
+                }
+
                 if (this.TryParseToken(TokenType.Delimiter, "("))
                 {
                     IList<IExpressionNode> expressions = new List<IExpressionNode>();
