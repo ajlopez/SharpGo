@@ -992,6 +992,29 @@
             Assert.IsNull(parser.ParseExpressionNode());
         }
 
+        [TestMethod]
+        public void ParseSimpleSlice()
+        {
+            Parser parser = new Parser("foo[1:2]");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(SliceNode));
+
+            var snode = (SliceNode)node;
+
+            Assert.AreEqual("foo", snode.Name);
+            Assert.IsNotNull(snode.Low);
+            Assert.IsInstanceOfType(snode.Low, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)snode.Low).Value);
+            Assert.IsNotNull(snode.Hight);
+            Assert.IsInstanceOfType(snode.Hight, typeof(ConstantNode));
+            Assert.AreEqual(2, ((ConstantNode)snode.Hight).Value);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
         private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
         {
             Parser parser = new Parser(text);

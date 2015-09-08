@@ -7,7 +7,7 @@
 
     public class Lexer
     {
-        private static string[] delimiters = new string[] { "\"", ";", ".", "{", "}", "(", ")", "," , "...", "[", "]" };
+        private static string[] delimiters = new string[] { "\"", ";", ":", ".", "{", "}", "(", ")", ",", "...", "[", "]" };
         private static string[] operators = new string[] { "+", "-", "*", "/", "%", "==", "!=", "<", ">", "<=", ">=", "=", "&", "|", "^", "&^", "<<", ">>", "&&", "||", "!", "<-", ":=", "++", "--", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "&^=", "<<=", ">>=" };
         private static Dictionary<char, char> escaped = new Dictionary<char, char>() { { 'n', '\n' }, { 'r', '\r' }, { 't', '\t' }, { '"', '"' }, { '\\', '\\' }, };
 
