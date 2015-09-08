@@ -277,6 +277,14 @@
                 if (this.TryParseToken(TokenType.Delimiter, "["))
                 {
                     IExpressionNode expression = this.ParseExpressionNode();
+
+                    if (this.TryParseToken(TokenType.Delimiter, ":"))
+                    {
+                        IExpressionNode expression2 = this.ParseExpressionNode();
+                        this.ParseToken(TokenType.Delimiter, "]");
+                        return new SliceNode(token.Value, expression, expression2);
+                    }
+
                     this.ParseToken(TokenType.Delimiter, "]");
 
                     return new IndexedNode(token.Value, expression);
