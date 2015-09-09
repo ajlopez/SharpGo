@@ -42,6 +42,8 @@
         {
             if (this.TryParseName("int32"))
                 return TypeInfo.Int32;
+            if (this.TryParseName("bool"))
+                return TypeInfo.Bool;
 
             return null;
         }

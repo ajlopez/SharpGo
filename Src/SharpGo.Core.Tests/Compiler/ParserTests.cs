@@ -380,7 +380,7 @@
         }
 
         [TestMethod]
-        public void ParseVarDeclarationWithType()
+        public void ParseVarDeclarationWithInt32Type()
         {
             Parser parser = new Parser("var foo int32");
 
@@ -390,6 +390,22 @@
             Assert.IsInstanceOfType(node, typeof(VarNode));
             Assert.AreEqual("foo", ((VarNode)node).Name);
             Assert.AreEqual(TypeInfo.Int32, ((VarNode)node).TypeInfo);
+            Assert.IsNull(((VarNode)node).ExpressionNode);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseVarDeclarationWithBooleanType()
+        {
+            Parser parser = new Parser("var foo bool");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(VarNode));
+            Assert.AreEqual("foo", ((VarNode)node).Name);
+            Assert.AreEqual(TypeInfo.Bool, ((VarNode)node).TypeInfo);
             Assert.IsNull(((VarNode)node).ExpressionNode);
 
             Assert.IsNull(parser.ParseStatementNode());
