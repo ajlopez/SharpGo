@@ -10,20 +10,20 @@
     {
         private string name;
         private IExpressionNode low;
-        private IExpressionNode hight;
+        private IExpressionNode high;
 
         public SliceNode(string name, IExpressionNode low, IExpressionNode hight)
         {
             this.name = name;
             this.low = low;
-            this.hight = hight;
+            this.high = hight;
         }
 
         public string Name { get { return this.name; } }
 
         public IExpressionNode Low { get { return this.low; } }
 
-        public IExpressionNode Hight { get { return this.hight; } }
+        public IExpressionNode High { get { return this.high; } }
 
         public TypeInfo TypeInfo
         {

@@ -1008,9 +1008,51 @@
             Assert.IsNotNull(snode.Low);
             Assert.IsInstanceOfType(snode.Low, typeof(ConstantNode));
             Assert.AreEqual(1, ((ConstantNode)snode.Low).Value);
-            Assert.IsNotNull(snode.Hight);
-            Assert.IsInstanceOfType(snode.Hight, typeof(ConstantNode));
-            Assert.AreEqual(2, ((ConstantNode)snode.Hight).Value);
+            Assert.IsNotNull(snode.High);
+            Assert.IsInstanceOfType(snode.High, typeof(ConstantNode));
+            Assert.AreEqual(2, ((ConstantNode)snode.High).Value);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
+        [TestMethod]
+        public void ParseSimpleSliceWithMissingHigh()
+        {
+            Parser parser = new Parser("foo[1:]");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(SliceNode));
+
+            var snode = (SliceNode)node;
+
+            Assert.AreEqual("foo", snode.Name);
+            Assert.IsNotNull(snode.Low);
+            Assert.IsInstanceOfType(snode.Low, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)snode.Low).Value);
+            Assert.IsNull(snode.High);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
+        [TestMethod]
+        public void ParseSimpleSliceWithMissingLow()
+        {
+            Parser parser = new Parser("foo[:2]");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(SliceNode));
+
+            var snode = (SliceNode)node;
+
+            Assert.AreEqual("foo", snode.Name);
+            Assert.IsNull(snode.Low);
+            Assert.IsNotNull(snode.High);
+            Assert.IsInstanceOfType(snode.High, typeof(ConstantNode));
+            Assert.AreEqual(2, ((ConstantNode)snode.High).Value);
 
             Assert.IsNull(parser.ParseExpressionNode());
         }
