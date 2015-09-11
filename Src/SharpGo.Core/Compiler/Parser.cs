@@ -42,6 +42,8 @@
         {
             if (this.TryParseName("int32"))
                 return TypeInfo.Int32;
+            if (this.TryParseName("real64"))
+                return TypeInfo.Real64;
             if (this.TryParseName("bool"))
                 return TypeInfo.Bool;
             if (this.TryParseName("string"))
