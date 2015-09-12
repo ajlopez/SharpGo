@@ -48,6 +48,8 @@
                 return TypeInfo.Bool;
             if (this.TryParseName("string"))
                 return TypeInfo.String;
+            if (this.TryParseName("nil"))
+                return TypeInfo.Nil;
 
             return null;
         }

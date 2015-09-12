@@ -380,6 +380,23 @@
         }
 
         [TestMethod]
+        public void ParseNilConstantWithType()
+        {
+            var values = new object[] { true, false, null };
+            var text = "nil";
+
+            Parser parser = new Parser(text);
+
+            var node = parser.ParseExpressionNode();
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ConstantNode));
+            Assert.AreEqual(null, ((ConstantNode)node).Value);
+            Assert.AreSame(TypeInfo.Nil, ((ConstantNode)node).TypeInfo);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
+        [TestMethod]
         public void ParseVarDeclarationWithInt32Type()
         {
             Parser parser = new Parser("var foo int32");
@@ -438,6 +455,22 @@
             Assert.IsInstanceOfType(node, typeof(VarNode));
             Assert.AreEqual("foo", ((VarNode)node).Name);
             Assert.AreEqual(TypeInfo.String, ((VarNode)node).TypeInfo);
+            Assert.IsNull(((VarNode)node).ExpressionNode);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseVarDeclarationWithNilType()
+        {
+            Parser parser = new Parser("var foo nil");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(VarNode));
+            Assert.AreEqual("foo", ((VarNode)node).Name);
+            Assert.AreEqual(TypeInfo.Nil, ((VarNode)node).TypeInfo);
             Assert.IsNull(((VarNode)node).ExpressionNode);
 
             Assert.IsNull(parser.ParseStatementNode());
