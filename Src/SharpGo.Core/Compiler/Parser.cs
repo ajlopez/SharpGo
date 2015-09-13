@@ -10,9 +10,8 @@
 
     public class Parser
     {
-        private Stack<Token> tokens = new Stack<Token>();
-        private Lexer lexer;
-        private string[][] binaryoperators = new string[][] 
+        private static Dictionary<string, TypeInfo> types = new Dictionary<string, TypeInfo>() { { "int32", TypeInfo.Int32 }, { "real64", TypeInfo.Real64 }, { "string", TypeInfo.String }, { "bool", TypeInfo.Bool }, { "nil", TypeInfo.Nil }};
+        private static string[][] binaryoperators = new string[][] 
         {
             new string[] { "||" },
             new string[] { "&&" },
@@ -20,6 +19,9 @@
             new string[] { "+", "-" },
             new string[] { "*", "/" }
         };
+
+        private Stack<Token> tokens = new Stack<Token>();
+        private Lexer lexer;
 
         public Parser(string text)
         {
@@ -40,18 +42,15 @@
 
         public TypeInfo TryParseTypeInfo()
         {
-            if (this.TryParseName("int32"))
-                return TypeInfo.Int32;
-            if (this.TryParseName("real64"))
-                return TypeInfo.Real64;
-            if (this.TryParseName("bool"))
-                return TypeInfo.Bool;
-            if (this.TryParseName("string"))
-                return TypeInfo.String;
-            if (this.TryParseName("nil"))
-                return TypeInfo.Nil;
+            var token = this.NextToken();
 
-            return null;
+            if (token == null || token.Type != TokenType.Name || !types.ContainsKey(token.Value))
+            {
+                this.PushToken(token);
+                return null;
+            }
+
+            return types[token.Value];
         }
 
         public IExpressionNode ParseExpressionNode()
@@ -61,7 +60,7 @@
 
         private IExpressionNode ParseBinaryExpressionNode(int level)
         {
-            if (level >= this.binaryoperators.Length)
+            if (level >= binaryoperators.Length)
                 return this.ParseTerm();
 
             IExpressionNode expr = this.ParseBinaryExpressionNode(level + 1);
@@ -71,7 +70,7 @@
 
             var token = this.NextToken();
 
-            while (token != null && token.Type == TokenType.Operator && this.binaryoperators[level].Contains(token.Value))
+            while (token != null && token.Type == TokenType.Operator && binaryoperators[level].Contains(token.Value))
             {
                 if (token.Value == "+")
                     expr = new BinaryNode(expr, BinaryOperator.Add, this.ParseBinaryExpressionNode(level + 1));
