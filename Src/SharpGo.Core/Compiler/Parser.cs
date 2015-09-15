@@ -44,8 +44,14 @@
         {
             if (this.TryParseToken(TokenType.Delimiter, "["))
             {
+                IExpressionNode lexpr = this.ParseExpressionNode();
+
                 this.ParseToken(TokenType.Delimiter, "]");
-                return new SliceTypeInfo(this.TryParseTypeInfo());
+
+                if (lexpr == null)
+                    return new SliceTypeInfo(this.TryParseTypeInfo());
+                else
+                    return new ArrayTypeInfo(this.TryParseTypeInfo(), lexpr);
             }
 
             var token = this.NextToken();
