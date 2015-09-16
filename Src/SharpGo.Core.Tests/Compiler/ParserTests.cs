@@ -513,6 +513,24 @@
         }
 
         [TestMethod]
+        public void RaiseIfNoTypeInfoInArrayVar()
+        {
+            Parser parser = new Parser("var foo [10]");
+
+            try
+            {
+                parser.ParseStatementNode();
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOfType(ex, typeof(ParserException));
+                Assert.AreEqual("Expected type info", ex.Message);
+            }
+        }
+
+
+        [TestMethod]
         public void ParseVarDeclarationWithConstantExpression()
         {
             Parser parser = new Parser("var foo = 1");

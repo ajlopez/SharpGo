@@ -48,10 +48,15 @@
 
                 this.ParseToken(TokenType.Delimiter, "]");
 
+                TypeInfo typeinfo = this.TryParseTypeInfo();
+
+                if (typeinfo == null)
+                    throw new ParserException("Expected type info");
+
                 if (lexpr == null)
-                    return new SliceTypeInfo(this.TryParseTypeInfo());
+                    return new SliceTypeInfo(typeinfo);
                 else
-                    return new ArrayTypeInfo(this.TryParseTypeInfo(), lexpr);
+                    return new ArrayTypeInfo(typeinfo, lexpr);
             }
 
             var token = this.NextToken();
