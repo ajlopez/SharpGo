@@ -10,7 +10,7 @@
 
     public class Parser
     {
-        private static Dictionary<string, TypeInfo> types = new Dictionary<string, TypeInfo>() { { "int32", TypeInfo.Int32 }, { "real64", TypeInfo.Real64 }, { "string", TypeInfo.String }, { "bool", TypeInfo.Bool }, { "nil", TypeInfo.Nil } };
+        private static Dictionary<string, TypeInfo> types = new Dictionary<string, TypeInfo>() { { "int32", TypeInfo.Int32 }, { "int64", TypeInfo.Int64 }, { "real64", TypeInfo.Real64 }, { "string", TypeInfo.String }, { "bool", TypeInfo.Bool }, { "nil", TypeInfo.Nil } };
         private static string[][] binaryoperators = new string[][] 
         {
             new string[] { "||" },

@@ -11,6 +11,7 @@
         private static TypeInfo tibool = new TypeInfo("bool");
         private static TypeInfo tistring = new TypeInfo("string");
         private static TypeInfo tiint32 = new TypeInfo("int32");
+        private static TypeInfo tiint64 = new TypeInfo("int64");
         private static TypeInfo tireal64 = new TypeInfo("real64");
 
         private string name;
@@ -25,6 +26,8 @@
         public static TypeInfo String { get { return tistring; } }
 
         public static TypeInfo Int32 { get { return tiint32; } }
+
+        public static TypeInfo Int64 { get { return tiint64; } }
 
         public static TypeInfo Real64 { get { return tireal64; } }
 
