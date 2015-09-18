@@ -397,6 +397,22 @@
         }
 
         [TestMethod]
+        public void ParseVarDeclarationWithInt16Type()
+        {
+            Parser parser = new Parser("var foo int16");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(VarNode));
+            Assert.AreEqual("foo", ((VarNode)node).Name);
+            Assert.AreEqual(TypeInfo.Int16, ((VarNode)node).TypeInfo);
+            Assert.IsNull(((VarNode)node).ExpressionNode);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseVarDeclarationWithInt32Type()
         {
             Parser parser = new Parser("var foo int32");
