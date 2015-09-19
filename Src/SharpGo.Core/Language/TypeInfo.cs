@@ -13,6 +13,7 @@
         private static TypeInfo tiint16 = new TypeInfo("int16");
         private static TypeInfo tiint32 = new TypeInfo("int32");
         private static TypeInfo tiint64 = new TypeInfo("int64");
+        private static TypeInfo tifloat32 = new TypeInfo("float32");
         private static TypeInfo tireal64 = new TypeInfo("real64");
 
         private string name;
@@ -31,6 +32,8 @@
         public static TypeInfo Int32 { get { return tiint32; } }
 
         public static TypeInfo Int64 { get { return tiint64; } }
+
+        public static TypeInfo Float32 { get { return tifloat32; } }
 
         public static TypeInfo Real64 { get { return tireal64; } }
 
