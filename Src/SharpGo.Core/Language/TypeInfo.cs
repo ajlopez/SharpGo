@@ -14,7 +14,7 @@
         private static TypeInfo tiint32 = new TypeInfo("int32");
         private static TypeInfo tiint64 = new TypeInfo("int64");
         private static TypeInfo tifloat32 = new TypeInfo("float32");
-        private static TypeInfo tireal64 = new TypeInfo("real64");
+        private static TypeInfo tifloat64 = new TypeInfo("float64");
 
         private string name;
 
@@ -35,7 +35,7 @@
 
         public static TypeInfo Float32 { get { return tifloat32; } }
 
-        public static TypeInfo Real64 { get { return tireal64; } }
+        public static TypeInfo Float64 { get { return tifloat64; } }
 
         public static TypeInfo Nil { get { return tinil; } }
 
@@ -54,7 +54,7 @@
                 return tiint32;
 
             if (value is double)
-                return tireal64;
+                return tifloat64;
 
             throw new NotImplementedException();
         }

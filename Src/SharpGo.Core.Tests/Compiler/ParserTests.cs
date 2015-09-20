@@ -461,16 +461,16 @@
         }
 
         [TestMethod]
-        public void ParseVarDeclarationWithReal64Type()
+        public void ParseVarDeclarationWithFloat64Type()
         {
-            Parser parser = new Parser("var foo real64");
+            Parser parser = new Parser("var foo float64");
 
             var node = parser.ParseStatementNode();
 
             Assert.IsNotNull(node);
             Assert.IsInstanceOfType(node, typeof(VarNode));
             Assert.AreEqual("foo", ((VarNode)node).Name);
-            Assert.AreEqual(TypeInfo.Real64, ((VarNode)node).TypeInfo);
+            Assert.AreEqual(TypeInfo.Float64, ((VarNode)node).TypeInfo);
             Assert.IsNull(((VarNode)node).ExpressionNode);
 
             Assert.IsNull(parser.ParseStatementNode());
