@@ -42,5 +42,14 @@
             Assert.IsNotNull(result);
             Assert.AreSame(TypeInfo.Int32, result);
         }
+
+        [TestMethod]
+        public void GetInt64TypeInfo()
+        {
+            var result = TypeInfo.GetTypeInfo((long)42);
+
+            Assert.IsNotNull(result);
+            Assert.AreSame(TypeInfo.Int64, result);
+        }
     }
 }
