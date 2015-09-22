@@ -35,6 +35,15 @@
         }
 
         [TestMethod]
+        public void GetInt16TypeInfo()
+        {
+            var result = TypeInfo.GetTypeInfo((short)42);
+
+            Assert.IsNotNull(result);
+            Assert.AreSame(TypeInfo.Int16, result);
+        }
+
+        [TestMethod]
         public void GetInt32TypeInfo()
         {
             var result = TypeInfo.GetTypeInfo(42);

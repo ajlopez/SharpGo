@@ -50,6 +50,9 @@
             if (value is string)
                 return tistring;
 
+            if (value is short)
+                return tiint16;
+
             if (value is int)
                 return tiint32;
 
