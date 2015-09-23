@@ -59,6 +59,9 @@
             if (value is long)
                 return tiint64;
 
+            if (value is float)
+                return tifloat32;
+
             if (value is double)
                 return tifloat64;
 

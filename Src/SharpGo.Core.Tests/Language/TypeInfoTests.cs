@@ -53,6 +53,15 @@
         }
 
         [TestMethod]
+        public void GetFloat32TypeInfo()
+        {
+            var result = TypeInfo.GetTypeInfo((float)3.14);
+
+            Assert.IsNotNull(result);
+            Assert.AreSame(TypeInfo.Float32, result);
+        }
+
+        [TestMethod]
         public void GetInt64TypeInfo()
         {
             var result = TypeInfo.GetTypeInfo((long)42);
