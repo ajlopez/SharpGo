@@ -59,6 +59,16 @@
                     return new ArrayTypeInfo(typeinfo, lexpr);
             }
 
+            if (this.TryParseToken(TokenType.Operator, "*"))
+            {
+                TypeInfo typeinfo = this.TryParseTypeInfo();
+
+                if (typeinfo == null)
+                    throw new ParserException("Expected type info");
+
+                return new PointerTypeInfo(typeinfo);
+            }
+
             var token = this.NextToken();
 
             if (token == null || token.Type != TokenType.Name || !types.ContainsKey(token.Value))

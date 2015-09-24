@@ -542,6 +542,23 @@
         }
 
         [TestMethod]
+        public void ParseVarDeclarationWithPointerType()
+        {
+            Parser parser = new Parser("var foo *string");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(VarNode));
+            Assert.AreEqual("foo", ((VarNode)node).Name);
+            Assert.IsInstanceOfType(((VarNode)node).TypeInfo, typeof(PointerTypeInfo));
+            Assert.AreEqual(TypeInfo.String, ((PointerTypeInfo)((VarNode)node).TypeInfo).TypeInfo);
+            Assert.IsNull(((VarNode)node).ExpressionNode);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseVarDeclarationWithArrayType()
         {
             Parser parser = new Parser("var foo [10]string");
