@@ -35,6 +35,15 @@
         }
 
         [TestMethod]
+        public void GetByteTypeInfo()
+        {
+            var result = TypeInfo.GetTypeInfo((byte)42);
+
+            Assert.IsNotNull(result);
+            Assert.AreSame(TypeInfo.Byte, result);
+        }
+
+        [TestMethod]
         public void GetInt16TypeInfo()
         {
             var result = TypeInfo.GetTypeInfo((short)42);
