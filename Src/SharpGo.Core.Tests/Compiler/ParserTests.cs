@@ -626,7 +626,6 @@
             }
         }
 
-
         [TestMethod]
         public void ParseVarDeclarationWithConstantExpression()
         {
