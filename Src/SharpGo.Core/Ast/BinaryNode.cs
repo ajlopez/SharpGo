@@ -27,7 +27,12 @@
 
         public TypeInfo TypeInfo
         {
-            get { throw new NotImplementedException(); }
+            get {
+                if (LeftNode.TypeInfo.Equals(RightNode.TypeInfo))
+                    return LeftNode.TypeInfo;
+
+                throw new NotImplementedException(); 
+            }
         }
     }
 }

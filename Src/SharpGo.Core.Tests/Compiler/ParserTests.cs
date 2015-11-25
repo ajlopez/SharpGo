@@ -648,6 +648,29 @@
         }
 
         [TestMethod]
+        public void ParseVarDeclarationWithBinaryExpression()
+        {
+            Parser parser = new Parser("var foo = 1 + 2");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(VarNode));
+            Assert.AreEqual("foo", ((VarNode)node).Name);
+            Assert.AreEqual(TypeInfo.Int32, ((VarNode)node).TypeInfo);
+            Assert.IsNotNull(((VarNode)node).ExpressionNode);
+
+            var expr = ((VarNode)node).ExpressionNode;
+
+            Assert.IsInstanceOfType(expr, typeof(BinaryNode));
+
+            var lnode = ((BinaryNode)expr).LeftNode;
+            var rnode = ((BinaryNode)expr).RightNode;
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseShortVarDeclarationWithConstantExpression()
         {
             Parser parser = new Parser("foo := 1");
