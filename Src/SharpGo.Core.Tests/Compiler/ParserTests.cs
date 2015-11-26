@@ -461,6 +461,22 @@
         }
 
         [TestMethod]
+        public void ParseVarDeclarationWithUIntType()
+        {
+            Parser parser = new Parser("var foo uint");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(VarNode));
+            Assert.AreEqual("foo", ((VarNode)node).Name);
+            Assert.AreEqual(TypeInfo.UInt, ((VarNode)node).TypeInfo);
+            Assert.IsNull(((VarNode)node).ExpressionNode);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseVarDeclarationWithInt64Type()
         {
             Parser parser = new Parser("var foo int64");
