@@ -9,7 +9,7 @@
     {
         private static TypeInfo tinil = new TypeInfo("nil");
         private static TypeInfo tibool = new TypeInfo("bool");
-        private static TypeInfo tistring = new TypeInfo("string");
+        private static TypeInfo tistring = new TypeInfo("string", typeof(string));
         private static TypeInfo tibyte = new TypeInfo("byte");
         private static TypeInfo tiint = new TypeInfo("int");
         private static TypeInfo tiint16 = new TypeInfo("int16");
@@ -20,11 +20,20 @@
         private static TypeInfo tifloat64 = new TypeInfo("float64");
 
         private string name;
+        private Type nativetype;
 
         public TypeInfo(string name)
         {
             this.name = name;
         }
+
+        public TypeInfo(string name, Type nativetype)
+        {
+            this.name = name;
+            this.nativetype = nativetype;
+        }
+
+        public Type NativeType { get { return this.nativetype; } }
 
         public static TypeInfo Bool { get { return tibool; } }
 

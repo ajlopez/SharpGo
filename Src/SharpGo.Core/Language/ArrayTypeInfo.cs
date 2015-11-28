@@ -1,5 +1,6 @@
 ﻿namespace SharpGo.Core.Language
 {
+    using System;
     using SharpGo.Core.Ast;
 
     public class ArrayTypeInfo : SliceTypeInfo
@@ -13,5 +14,10 @@
         }
 
         public IExpressionNode LengthExpression { get { return this.lexpr; } }
+
+        public Array NewInstance()
+        {
+            return Array.CreateInstance(this.TypeInfo.NativeType, (int)((ConstantNode)this.lexpr).Value);
+        }
     }
 }
