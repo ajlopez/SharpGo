@@ -74,6 +74,7 @@
     <Compile Include="Compiler\Token.cs" />
     <Compile Include="Compiler\TokenType.cs" />
     <Compile Include="Language\ArrayTypeInfo.cs" />
+    <Compile Include="Language\AliasTypeInfo.cs" />
     <Compile Include="Language\PointerTypeInfo.cs" />
     <Compile Include="Language\SliceTypeInfo.cs" />
     <Compile Include="Language\StructMemberInfo.cs" />

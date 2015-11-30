@@ -57,6 +57,8 @@
 
         public static TypeInfo Nil { get { return tinil; } }
 
+        public string Name { get { return this.name; } }
+
         public static TypeInfo GetTypeInfo(object value)
         {
             if (value == null)

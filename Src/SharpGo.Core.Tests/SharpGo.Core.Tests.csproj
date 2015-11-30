@@ -48,6 +48,7 @@
     <Compile Include="Ast\ConstantNodeTests.cs" />
     <Compile Include="Compiler\LexerTests.cs" />
     <Compile Include="Compiler\ParserTests.cs" />
+    <Compile Include="Language\AliasTypeInfoTests.cs" />
     <Compile Include="Language\StructTypeInfoTests.cs" />
     <Compile Include="Language\TypeInfoTests.cs" />
     <Compile Include="Language\ArrayTypeInfoTests.cs" />
