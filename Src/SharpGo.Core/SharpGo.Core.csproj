@@ -47,6 +47,7 @@
     <Compile Include="Ast\BreakNode.cs" />
     <Compile Include="Ast\ContinueNode.cs" />
     <Compile Include="Ast\CallNode.cs" />
+    <Compile Include="Ast\AliasTypeNode.cs" />
     <Compile Include="Ast\SliceNode.cs" />
     <Compile Include="Ast\IndexedNode.cs" />
     <Compile Include="Ast\PackageNode.cs" />

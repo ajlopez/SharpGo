@@ -176,6 +176,14 @@
                 return new VarNode(name, typeinfo, expr);
             }
 
+            if (this.TryParseToken(TokenType.Name, "type"))
+            {
+                var name = this.ParseName();
+                TypeInfo typeinfo = this.TryParseTypeInfo();
+
+                return new AliasTypeNode(name, typeinfo);
+            }
+
             if (this.TryParseToken(TokenType.Name, "if"))
             {
                 var fstmt = this.ParseSimpleStatementNode();

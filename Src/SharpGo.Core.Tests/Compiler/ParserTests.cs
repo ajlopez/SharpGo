@@ -708,6 +708,21 @@
         }
 
         [TestMethod]
+        public void ParseAliasTypeDeclaration()
+        {
+            Parser parser = new Parser("type Day int");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(AliasTypeNode));
+            Assert.AreEqual("Day", ((AliasTypeNode)node).Name);
+            Assert.AreEqual(TypeInfo.Int32, ((AliasTypeNode)node).TypeInfo);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseSimpleReturnWithExpression()
         {
             Parser parser = new Parser("return 2");
