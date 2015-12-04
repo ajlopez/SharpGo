@@ -33,8 +33,6 @@
             this.nativetype = nativetype;
         }
 
-        public Type NativeType { get { return this.nativetype; } }
-
         public static TypeInfo Bool { get { return tibool; } }
 
         public static TypeInfo String { get { return tistring; } }
@@ -58,6 +56,8 @@
         public static TypeInfo Nil { get { return tinil; } }
 
         public string Name { get { return this.name; } }
+
+        public Type NativeType { get { return this.nativetype; } }
 
         public static TypeInfo GetTypeInfo(object value)
         {

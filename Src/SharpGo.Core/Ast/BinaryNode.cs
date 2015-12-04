@@ -27,9 +27,10 @@
 
         public TypeInfo TypeInfo
         {
-            get {
-                if (LeftNode.TypeInfo.Equals(RightNode.TypeInfo))
-                    return LeftNode.TypeInfo;
+            get 
+            {
+                if (this.LeftNode.TypeInfo.Equals(this.RightNode.TypeInfo))
+                    return this.LeftNode.TypeInfo;
 
                 throw new NotImplementedException(); 
             }

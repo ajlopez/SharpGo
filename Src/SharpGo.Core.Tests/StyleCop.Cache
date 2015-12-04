@@ -1,5 +1,8 @@
 <stylecopresultscache>
   <version>10</version>
+  <project key="-2127011686">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
   <sourcecode name="ConstantNodeTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>05/01/2014 08:31:29</timestamp>
@@ -16,6 +19,33 @@
     </settings>
     <timestamp>09/08/2015 07:02:49</timestamp>
     <milliseconds>163</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="AliasTypeInfoTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>05/01/2014 08:31:29</timestamp>
+      <milliseconds>910</milliseconds>
+    </settings>
+    <timestamp>12/04/2015 06:16:22</timestamp>
+    <milliseconds>713</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="ArrayTypeInfoTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>05/01/2014 08:31:29</timestamp>
+      <milliseconds>910</milliseconds>
+    </settings>
+    <timestamp>11/29/2015 07:27:11</timestamp>
+    <milliseconds>482</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="StructTypeInfoTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>05/01/2014 08:31:29</timestamp>
+      <milliseconds>910</milliseconds>
+    </settings>
+    <timestamp>12/04/2015 06:16:22</timestamp>
+    <milliseconds>717</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="TypeInfoTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
@@ -36,16 +66,13 @@
     <milliseconds>741</milliseconds>
     <violations />
   </sourcecode>
-  <project key="-2127011686">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="ParserTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>05/01/2014 08:31:29</timestamp>
       <milliseconds>910</milliseconds>
     </settings>
-    <timestamp>11/24/2015 06:32:57</timestamp>
-    <milliseconds>383</milliseconds>
+    <timestamp>11/26/2015 06:38:17</timestamp>
+    <milliseconds>107</milliseconds>
     <violations />
   </sourcecode>
 </stylecopresultscache>
