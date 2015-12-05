@@ -186,18 +186,28 @@
 
             if (this.TryParseToken(TokenType.Name, "if"))
             {
+                INode stmt = null;
+                
                 var fstmt = this.ParseSimpleStatementNode();
+
+                if (this.TryParseToken(TokenType.Delimiter, ";"))
+                {
+                    stmt = fstmt;
+
+                    fstmt = this.ParseSimpleStatementNode();
+                }
+
                 var expr = ((ExpressionStatementNode)fstmt).ExpressionNode;
                 this.ParseToken(TokenType.Delimiter, "{");
                 var stmts = new List<INode>();
 
                 while (!this.TryParseToken(TokenType.Delimiter, "}"))
                 {
-                    var stmt = this.ParseStatementNode();
-                    stmts.Add(stmt);
+                    var stm = this.ParseStatementNode();
+                    stmts.Add(stm);
                 }
 
-                return new IfNode(expr, new BlockNode(stmts));
+                return new IfNode(stmt, expr, new BlockNode(stmts));
             }
 
             if (this.TryParseToken(TokenType.Name, "for"))
