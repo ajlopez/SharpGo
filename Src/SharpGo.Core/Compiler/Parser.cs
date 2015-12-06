@@ -151,18 +151,8 @@
 
             this.PushToken(token);
 
-            if (this.TryParseToken(TokenType.Delimiter, "{"))
-            {
-                var stmts = new List<INode>();
-
-                while (!this.TryParseToken(TokenType.Delimiter, "}"))
-                {
-                    var stmt = this.ParseStatementNode();
-                    stmts.Add(stmt);
-                }
-
-                return new BlockNode(stmts);
-            }
+            if (token.Type == TokenType.Delimiter && token.Value == "{")
+                return this.ParseStatementBlock();
 
             if (this.TryParseToken(TokenType.Name, "var"))
             {
