@@ -7,9 +7,9 @@
 
     public class GoNode : INode
     {
-        private INode expression;
+        private IExpressionNode expression;
 
-        public GoNode(INode expression)
+        public GoNode(IExpressionNode expression)
         {
             this.expression = expression;
         }
