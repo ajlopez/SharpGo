@@ -198,31 +198,15 @@
                 }
 
                 var expr = ((ExpressionStatementNode)fstmt).ExpressionNode;
-                this.ParseToken(TokenType.Delimiter, "{");
-                var stmts = new List<INode>();
 
-                while (!this.TryParseToken(TokenType.Delimiter, "}"))
-                {
-                    var stm = this.ParseStatementNode();
-                    stmts.Add(stm);
-                }
-
-                return new IfNode(stmt, expr, new BlockNode(stmts));
+                return new IfNode(stmt, expr, this.ParseStatementBlock());
             }
 
             if (this.TryParseToken(TokenType.Name, "for"))
             {
                 var expr = this.ParseExpressionNode();
-                this.ParseToken(TokenType.Delimiter, "{");
-                var stmts = new List<INode>();
 
-                while (!this.TryParseToken(TokenType.Delimiter, "}"))
-                {
-                    var stmt = this.ParseStatementNode();
-                    stmts.Add(stmt);
-                }
-
-                return new ForNode(expr, new BlockNode(stmts));
+                return new ForNode(expr, this.ParseStatementBlock());
             }
 
             if (this.TryParseToken(TokenType.Name, "return"))
@@ -307,6 +291,20 @@
 
             var cmd = new ExpressionStatementNode(node);
             return cmd;
+        }
+
+        private BlockNode ParseStatementBlock()
+        {
+            this.ParseToken(TokenType.Delimiter, "{");
+            var stmts = new List<INode>();
+
+            while (!this.TryParseToken(TokenType.Delimiter, "}"))
+            {
+                var stm = this.ParseStatementNode();
+                stmts.Add(stm);
+            }
+
+            return new BlockNode(stmts);
         }
 
         private IExpressionNode ParseTerm()
