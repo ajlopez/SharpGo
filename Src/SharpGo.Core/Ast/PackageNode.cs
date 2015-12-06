@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class PackageNode : INode
+    public class PackageNode : IStatementNode
     {
         private string name;
 

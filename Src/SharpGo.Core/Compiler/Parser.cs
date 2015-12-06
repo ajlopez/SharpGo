@@ -31,7 +31,7 @@
 
         public INode ParseStatementNode()
         {
-            var node = this.ParseSimpleStatementNode();
+            var node = this.ParseSimpleStatementNode(true);
 
             if (node == null)
                 return null;
@@ -136,7 +136,7 @@
             return expr;
         }
 
-        private INode ParseSimpleStatementNode()
+        private IStatementNode ParseSimpleStatementNode(bool canHaveLabel = false)
         {
             var token = this.NextToken();
 
@@ -146,8 +146,13 @@
             if (token == null)
                 return null;
 
-            if (token.Type == TokenType.Name && this.TryParseToken(TokenType.Operator, ":="))
-                return new VarNode(token.Value, this.ParseExpressionNode());
+            if (token.Type == TokenType.Name) 
+            {
+                if (this.TryParseToken(TokenType.Operator, ":="))
+                    return new VarNode(token.Value, this.ParseExpressionNode());
+                if (this.TryParseToken(TokenType.Delimiter, ":"))
+                    return new LabelNode(token.Value, this.ParseSimpleStatementNode());
+            }
 
             this.PushToken(token);
 

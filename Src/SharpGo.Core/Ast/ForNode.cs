@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class ForNode : INode
+    public class ForNode : IStatementNode
     {
         private INode expression;
         private BlockNode block;

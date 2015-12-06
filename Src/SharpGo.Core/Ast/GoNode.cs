@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class GoNode : INode
+    public class GoNode : IStatementNode
     {
         private IExpressionNode expression;
 
@@ -14,6 +14,6 @@
             this.expression = expression;
         }
 
-        public INode ExpressionNode { get { return this.expression; } }
+        public IExpressionNode ExpressionNode { get { return this.expression; } }
     }
 }

@@ -5,15 +5,19 @@
     using System.Linq;
     using System.Text;
 
-    public class GotoNode : IStatementNode
+    public class LabelNode : IStatementNode
     {
         private string label;
+        private IStatementNode statement;
 
-        public GotoNode(string label)
+        public LabelNode(string label, IStatementNode statement)
         {
             this.label = label;
+            this.statement = statement;
         }
 
         public string Label { get { return this.label; } }
+
+        public IStatementNode StatementNode { get { return this.statement; } }
     }
 }

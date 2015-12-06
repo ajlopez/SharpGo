@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class IfNode : INode
+    public class IfNode : IStatementNode
     {
         private INode statement;
         private IExpressionNode expression;

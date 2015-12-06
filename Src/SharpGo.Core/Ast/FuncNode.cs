@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class FuncNode : INode
+    public class FuncNode : IStatementNode
     {
         private string name;
         private IList<NameNode> parameters;

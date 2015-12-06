@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class AssignmentNode : INode
+    public class AssignmentNode : IStatementNode
     {
         private INode target;
         private IExpressionNode expression;

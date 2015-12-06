@@ -967,6 +967,30 @@
         }
 
         [TestMethod]
+        public void ParseLabel()
+        {
+            Parser parser = new Parser("Process: go 1");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(LabelNode));
+
+            var lnode = (LabelNode)node;
+
+            Assert.IsNotNull(lnode.StatementNode);
+            Assert.IsInstanceOfType(lnode.StatementNode, typeof(GoNode));
+
+            var gonode = (GoNode)lnode.StatementNode;
+
+            Assert.IsNotNull(gonode.ExpressionNode);
+            Assert.IsInstanceOfType(gonode.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)gonode.ExpressionNode).Value);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseGoWithSemicolon()
         {
             Parser parser = new Parser("go 2;");

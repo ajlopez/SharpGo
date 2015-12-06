@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class ContinueNode : INode
+    public class ContinueNode : IStatementNode
     {
         private string label;
 

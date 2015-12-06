@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class BreakNode : INode
+    public class BreakNode : IStatementNode
     {
         private string label;
 

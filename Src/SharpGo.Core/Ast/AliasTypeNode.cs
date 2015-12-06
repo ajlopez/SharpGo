@@ -6,7 +6,7 @@
     using System.Text;
     using SharpGo.Core.Language;
 
-    public class AliasTypeNode : INode
+    public class AliasTypeNode : IStatementNode
     {
         private string name;
         private TypeInfo typeinfo;

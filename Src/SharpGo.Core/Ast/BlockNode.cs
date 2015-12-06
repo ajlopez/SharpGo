@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class BlockNode : INode
+    public class BlockNode : IStatementNode
     {
         private IList<INode> statements;
 

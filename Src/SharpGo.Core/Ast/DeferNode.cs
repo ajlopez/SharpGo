@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class DeferNode : INode
+    public class DeferNode : IStatementNode
     {
         private IExpressionNode expression;
 

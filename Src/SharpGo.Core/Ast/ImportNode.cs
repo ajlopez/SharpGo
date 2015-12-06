@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class ImportNode : INode
+    public class ImportNode : IStatementNode
     {
         private INode expression;
 

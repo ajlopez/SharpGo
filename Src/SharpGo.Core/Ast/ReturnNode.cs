@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class ReturnNode : INode
+    public class ReturnNode : IStatementNode
     {
         private IExpressionNode expression;
 
