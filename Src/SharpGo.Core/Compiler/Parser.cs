@@ -29,7 +29,7 @@
             this.lexer = new Lexer(text);
         }
 
-        public INode ParseStatementNode()
+        public IStatementNode ParseStatementNode()
         {
             var node = this.ParseSimpleStatementNode(true);
 
@@ -199,7 +199,18 @@
 
             if (this.TryParseToken(TokenType.Name, "for"))
             {
-                var expr = this.ParseExpressionNode();
+                IStatementNode initstmt = this.ParseSimpleStatementNode();
+                IExpressionNode expr = null;
+
+                if (this.TryParseToken(TokenType.Delimiter, ";"))
+                {
+                    expr = this.ParseExpressionNode();
+                    this.ParseToken(TokenType.Delimiter, ";");
+                    IStatementNode poststmt = this.ParseSimpleStatementNode();
+                    return new ForNode(initstmt, expr, poststmt, this.ParseStatementBlock());
+                }
+
+                expr = ((ExpressionStatementNode)initstmt).ExpressionNode;
 
                 return new ForNode(expr, this.ParseStatementBlock());
             }

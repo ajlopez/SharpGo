@@ -1124,6 +1124,9 @@
 
             var fornode = (ForNode)node;
 
+            Assert.IsNull(fornode.InitStatement);
+            Assert.IsNull(fornode.PostStatement);
+
             Assert.IsNotNull(fornode.Expression);
             Assert.IsInstanceOfType(fornode.Expression, typeof(BinaryNode));
 
@@ -1152,6 +1155,57 @@
 
             Assert.IsInstanceOfType(assign.TargetNode, typeof(NameNode));
             Assert.AreEqual("x", ((NameNode)assign.TargetNode).Name);
+            Assert.IsInstanceOfType(assign.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)assign.ExpressionNode).Value);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseForWithInitAndPostStatements()
+        {
+            Parser parser = new Parser("for x := 1; x < 10; x = x + 1 { y = 1 }");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ForNode));
+
+            var fornode = (ForNode)node;
+
+            Assert.IsNotNull(fornode.InitStatement);
+            Assert.IsInstanceOfType(fornode.InitStatement, typeof(VarNode));
+            Assert.IsNotNull(fornode.PostStatement);
+            Assert.IsInstanceOfType(fornode.PostStatement, typeof(AssignmentNode));
+
+            Assert.IsNotNull(fornode.Expression);
+            Assert.IsInstanceOfType(fornode.Expression, typeof(BinaryNode));
+
+            var expr = (BinaryNode)fornode.Expression;
+
+            Assert.IsNotNull(expr.LeftNode);
+            Assert.IsNotNull(expr.RightNode);
+            Assert.AreEqual(expr.Operator, BinaryOperator.Less);
+
+            Assert.IsInstanceOfType(expr.LeftNode, typeof(NameNode));
+            Assert.AreEqual("x", ((NameNode)expr.LeftNode).Name);
+            Assert.IsInstanceOfType(expr.RightNode, typeof(ConstantNode));
+            Assert.AreEqual(10, ((ConstantNode)expr.RightNode).Value);
+
+            Assert.IsNotNull(fornode.BlockNode);
+
+            var block = fornode.BlockNode;
+
+            Assert.AreEqual(1, block.Statements.Count);
+
+            var stmt = block.Statements[0];
+
+            Assert.IsInstanceOfType(stmt, typeof(AssignmentNode));
+
+            var assign = (AssignmentNode)stmt;
+
+            Assert.IsInstanceOfType(assign.TargetNode, typeof(NameNode));
+            Assert.AreEqual("y", ((NameNode)assign.TargetNode).Name);
             Assert.IsInstanceOfType(assign.ExpressionNode, typeof(ConstantNode));
             Assert.AreEqual(1, ((ConstantNode)assign.ExpressionNode).Value);
 
