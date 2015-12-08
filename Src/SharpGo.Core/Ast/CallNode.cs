@@ -8,16 +8,16 @@
 
     public class CallNode : IExpressionNode
     {
-        private string name;
+        private IExpressionNode expression;
         private IList<IExpressionNode> arguments;
 
-        public CallNode(string name, IList<IExpressionNode> arguments)
+        public CallNode(IExpressionNode expression, IList<IExpressionNode> arguments)
         {
-            this.name = name;
+            this.expression = expression;
             this.arguments = arguments;
         }
 
-        public string Name { get { return this.name; } }
+        public IExpressionNode ExpressionNode { get { return this.expression; } }
 
         public IList<IExpressionNode> Arguments { get { return this.arguments; } }
 

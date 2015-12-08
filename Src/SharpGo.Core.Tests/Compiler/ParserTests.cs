@@ -1339,7 +1339,9 @@
 
             var cnode = (CallNode)node;
 
-            Assert.AreEqual("foo", cnode.Name);
+            Assert.IsNotNull(cnode.ExpressionNode);
+            Assert.IsInstanceOfType(cnode.ExpressionNode, typeof(NameNode));
+            Assert.AreEqual("foo", ((NameNode)cnode.ExpressionNode).Name);
             Assert.IsNotNull(cnode.Arguments);
             Assert.AreEqual(0, cnode.Arguments.Count);
 
@@ -1358,7 +1360,9 @@
 
             var cnode = (CallNode)node;
 
-            Assert.AreEqual("foo", cnode.Name);
+            Assert.IsNotNull(cnode.ExpressionNode);
+            Assert.IsInstanceOfType(cnode.ExpressionNode, typeof(NameNode));
+            Assert.AreEqual("foo", ((NameNode)cnode.ExpressionNode).Name);
             Assert.IsNotNull(cnode.Arguments);
             Assert.AreEqual(1, cnode.Arguments.Count);
             Assert.IsInstanceOfType(cnode.Arguments[0], typeof(ConstantNode));
@@ -1379,7 +1383,9 @@
 
             var cnode = (CallNode)node;
 
-            Assert.AreEqual("foo", cnode.Name);
+            Assert.IsNotNull(cnode.ExpressionNode);
+            Assert.IsInstanceOfType(cnode.ExpressionNode, typeof(NameNode));
+            Assert.AreEqual("foo", ((NameNode)cnode.ExpressionNode).Name);
             Assert.IsNotNull(cnode.Arguments);
             Assert.AreEqual(3, cnode.Arguments.Count);
             Assert.IsInstanceOfType(cnode.Arguments[0], typeof(ConstantNode));

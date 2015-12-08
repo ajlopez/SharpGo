@@ -362,7 +362,7 @@
                     }
 
                     this.ParseToken(TokenType.Delimiter, ")");
-                    return new CallNode(token.Value, expressions);
+                    return new CallNode(new NameNode(token.Value), expressions);
                 }
 
                 if (this.TryParseToken(TokenType.Delimiter, "."))
