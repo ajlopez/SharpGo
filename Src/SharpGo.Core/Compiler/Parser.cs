@@ -302,7 +302,7 @@
         private BlockNode ParseStatementBlock()
         {
             this.ParseToken(TokenType.Delimiter, "{");
-            var stmts = new List<INode>();
+            var stmts = new List<IStatementNode>();
 
             while (!this.TryParseToken(TokenType.Delimiter, "}"))
             {

@@ -7,13 +7,13 @@
 
     public class BlockNode : IStatementNode
     {
-        private IList<INode> statements;
+        private IList<IStatementNode> statements;
 
-        public BlockNode(IList<INode> statements)
+        public BlockNode(IList<IStatementNode> statements)
         {
             this.statements = statements;
         }
 
-        public IList<INode> Statements { get { return this.statements; } }
+        public IList<IStatementNode> Statements { get { return this.statements; } }
     }
 }
