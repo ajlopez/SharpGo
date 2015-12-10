@@ -368,7 +368,7 @@
                 if (this.TryParseToken(TokenType.Delimiter, "."))
                 {
                     string name2 = this.ParseName();
-                    return new QualifiedNameNode(token.Value, name2);
+                    return new DotNode(new NameNode(token.Value), name2);
                 }
 
                 if (token.Value == "true")

@@ -66,16 +66,21 @@
         }
 
         [TestMethod]
-        public void ParseQualifiedName()
+        public void ParseQualifiedNameAsDotNode()
         {
             Parser parser = new Parser("math.foo");
 
             var node = parser.ParseExpressionNode();
 
             Assert.IsNotNull(node);
-            Assert.IsInstanceOfType(node, typeof(QualifiedNameNode));
-            Assert.AreEqual("math", ((QualifiedNameNode)node).PackageName);
-            Assert.AreEqual("foo", ((QualifiedNameNode)node).Name);
+            Assert.IsInstanceOfType(node, typeof(DotNode));
+
+            var dnode = (DotNode)node;
+
+            Assert.IsNotNull(dnode.ExpressionNode);
+            Assert.IsInstanceOfType(dnode.ExpressionNode, typeof(NameNode));
+            Assert.AreEqual("math", ((NameNode)dnode.ExpressionNode).Name);
+            Assert.AreEqual("foo", dnode.Name);
 
             Assert.IsNull(parser.ParseExpressionNode());
         }
