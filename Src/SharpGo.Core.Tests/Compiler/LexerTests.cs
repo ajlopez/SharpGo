@@ -313,6 +313,12 @@
         }
 
         [TestMethod]
+        public void GetAddressOperators()
+        {
+            GetOperators(new string[] { "&", "*" });
+        }
+
+        [TestMethod]
         public void GetBitwiseArithmeticOperators()
         {
             GetOperators(new string[] { "&", "|", "^", "&^", "<<", ">>" });
