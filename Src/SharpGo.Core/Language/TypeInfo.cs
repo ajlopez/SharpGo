@@ -19,6 +19,7 @@
         private static TypeInfo tifloat32 = new TypeInfo("float32");
         private static TypeInfo tifloat64 = new TypeInfo("float64");
         private static TypeInfo ticomplex64 = new TypeInfo("complex64");
+        private static TypeInfo ticomplex128 = new TypeInfo("complex128");
 
         private string name;
         private Type nativetype;
@@ -55,6 +56,8 @@
         public static TypeInfo Float64 { get { return tifloat64; } }
 
         public static TypeInfo Complex64 { get { return ticomplex64; } }
+
+        public static TypeInfo Complex128 { get { return ticomplex128; } }
 
         public static TypeInfo Nil { get { return tinil; } }
 

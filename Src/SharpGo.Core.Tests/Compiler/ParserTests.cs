@@ -664,6 +664,22 @@
         }
 
         [TestMethod]
+        public void ParseVarDeclarationWithComplex128Type()
+        {
+            Parser parser = new Parser("var foo complex128");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(VarNode));
+            Assert.AreEqual("foo", ((VarNode)node).Name);
+            Assert.AreEqual(TypeInfo.Complex128, ((VarNode)node).TypeInfo);
+            Assert.IsNull(((VarNode)node).ExpressionNode);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseVarDeclarationWithConstantExpression()
         {
             Parser parser = new Parser("var foo = 1");
