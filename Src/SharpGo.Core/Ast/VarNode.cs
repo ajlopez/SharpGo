@@ -6,7 +6,7 @@
     using System.Text;
     using SharpGo.Core.Language;
 
-    public class VarNode : ITypedNode, IStatementNode
+    public class VarNode : IStatementNode
     {
         private IExpressionNode expression;
         private string name;

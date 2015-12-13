@@ -6,7 +6,8 @@
     using System.Text;
     using SharpGo.Core.Language;
 
-    public interface IExpressionNode : ITypedNode
+    public interface IExpressionNode : INode
     {
+        TypeInfo TypeInfo { get; }
     }
 }
