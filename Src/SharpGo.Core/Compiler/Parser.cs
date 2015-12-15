@@ -70,6 +70,16 @@
                 return new PointerTypeInfo(typeinfo);
             }
 
+            if (this.TryParseToken(TokenType.Name, "chan"))
+            {
+                TypeInfo typeinfo = this.TryParseTypeInfo();
+
+                if (typeinfo == null)
+                    throw new ParserException("Expected type info");
+
+                return new ChannelTypeInfo(typeinfo);
+            }
+
             var token = this.NextToken();
 
             if (token == null || token.Type != TokenType.Name || !types.ContainsKey(token.Value))
