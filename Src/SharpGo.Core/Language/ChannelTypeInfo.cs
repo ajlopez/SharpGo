@@ -17,6 +17,13 @@
             this.receivetypeinfo = typeinfo;
         }
 
+        public ChannelTypeInfo(TypeInfo receivetypeinfo, TypeInfo sendtypeinfo)
+            : base("channel")
+        {
+            this.sendtypeinfo = sendtypeinfo;
+            this.receivetypeinfo = receivetypeinfo;
+        }
+
         public TypeInfo ReceiveTypeInfo { get { return this.receivetypeinfo; } }
 
         public TypeInfo SendTypeInfo { get { return this.sendtypeinfo; } }

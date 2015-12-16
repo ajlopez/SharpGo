@@ -72,10 +72,14 @@
 
             if (this.TryParseToken(TokenType.Name, "chan"))
             {
+                bool issend = this.TryParseToken(TokenType.Operator, "<-");
                 TypeInfo typeinfo = this.TryParseTypeInfo();
 
                 if (typeinfo == null)
                     throw new ParserException("Expected type info");
+
+                if (issend)
+                    return new ChannelTypeInfo(null, typeinfo);
 
                 return new ChannelTypeInfo(typeinfo);
             }
