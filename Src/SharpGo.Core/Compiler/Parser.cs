@@ -84,6 +84,14 @@
                 return new ChannelTypeInfo(typeinfo);
             }
 
+            if (this.TryParseToken(TokenType.Operator, "<-"))
+            {
+                this.ParseToken(TokenType.Name, "chan");
+                TypeInfo typeinfo = this.TryParseTypeInfo();
+
+                return new ChannelTypeInfo(typeinfo, null);
+            }
+
             var token = this.NextToken();
 
             if (token == null || token.Type != TokenType.Name || !types.ContainsKey(token.Value))
