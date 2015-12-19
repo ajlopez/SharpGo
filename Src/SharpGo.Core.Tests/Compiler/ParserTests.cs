@@ -649,6 +649,24 @@
         }
 
         [TestMethod]
+        public void ParseVarDeclarationWithMapType()
+        {
+            Parser parser = new Parser("var foo map[string]int");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(VarNode));
+            Assert.AreEqual("foo", ((VarNode)node).Name);
+            Assert.IsInstanceOfType(((VarNode)node).TypeInfo, typeof(MapTypeInfo));
+            Assert.AreEqual(TypeInfo.String, ((MapTypeInfo)((VarNode)node).TypeInfo).KeyTypeInfo);
+            Assert.AreEqual(TypeInfo.Int, ((MapTypeInfo)((VarNode)node).TypeInfo).ElementTypeInfo);
+            Assert.IsNull(((VarNode)node).ExpressionNode);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseVarDeclarationWithPointerType()
         {
             Parser parser = new Parser("var foo *string");

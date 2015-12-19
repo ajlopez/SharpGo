@@ -84,6 +84,24 @@
                 return new ChannelTypeInfo(typeinfo);
             }
 
+            if (this.TryParseToken(TokenType.Name, "map"))
+            {
+                this.ParseToken(TokenType.Delimiter, "[");
+                TypeInfo keytypeinfo = this.TryParseTypeInfo();
+
+                if (keytypeinfo == null)
+                    throw new ParserException("Expected type info");
+
+                this.ParseToken(TokenType.Delimiter, "]");
+
+                TypeInfo elementtypeinfo = this.TryParseTypeInfo();
+
+                if (elementtypeinfo == null)
+                    throw new ParserException("Expected type info");
+
+                return new MapTypeInfo(keytypeinfo, elementtypeinfo);
+            }
+
             if (this.TryParseToken(TokenType.Operator, "<-"))
             {
                 this.ParseToken(TokenType.Name, "chan");
