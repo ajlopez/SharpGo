@@ -41,7 +41,17 @@
             return node;
         }
 
-        public TypeInfo TryParseTypeInfo()
+        private TypeInfo ParseTypeInfo()
+        {
+            TypeInfo typeinfo = this.TryParseTypeInfo();
+
+            if (typeinfo == null)
+                throw new ParserException("Expected type info");
+
+            return typeinfo;
+        }
+
+        private TypeInfo TryParseTypeInfo()
         {
             if (this.TryParseToken(TokenType.Delimiter, "["))
             {
@@ -49,10 +59,7 @@
 
                 this.ParseToken(TokenType.Delimiter, "]");
 
-                TypeInfo typeinfo = this.TryParseTypeInfo();
-
-                if (typeinfo == null)
-                    throw new ParserException("Expected type info");
+                TypeInfo typeinfo = this.ParseTypeInfo();
 
                 if (lexpr == null)
                     return new SliceTypeInfo(typeinfo);
@@ -62,10 +69,7 @@
 
             if (this.TryParseToken(TokenType.Operator, "*"))
             {
-                TypeInfo typeinfo = this.TryParseTypeInfo();
-
-                if (typeinfo == null)
-                    throw new ParserException("Expected type info");
+                TypeInfo typeinfo = this.ParseTypeInfo();
 
                 return new PointerTypeInfo(typeinfo);
             }
@@ -73,10 +77,7 @@
             if (this.TryParseToken(TokenType.Name, "chan"))
             {
                 bool issend = this.TryParseToken(TokenType.Operator, "<-");
-                TypeInfo typeinfo = this.TryParseTypeInfo();
-
-                if (typeinfo == null)
-                    throw new ParserException("Expected type info");
+                TypeInfo typeinfo = this.ParseTypeInfo();
 
                 if (issend)
                     return new ChannelTypeInfo(null, typeinfo);
@@ -87,17 +88,11 @@
             if (this.TryParseToken(TokenType.Name, "map"))
             {
                 this.ParseToken(TokenType.Delimiter, "[");
-                TypeInfo keytypeinfo = this.TryParseTypeInfo();
-
-                if (keytypeinfo == null)
-                    throw new ParserException("Expected type info");
+                TypeInfo keytypeinfo = this.ParseTypeInfo();
 
                 this.ParseToken(TokenType.Delimiter, "]");
 
-                TypeInfo elementtypeinfo = this.TryParseTypeInfo();
-
-                if (elementtypeinfo == null)
-                    throw new ParserException("Expected type info");
+                TypeInfo elementtypeinfo = this.ParseTypeInfo();
 
                 return new MapTypeInfo(keytypeinfo, elementtypeinfo);
             }
@@ -105,7 +100,7 @@
             if (this.TryParseToken(TokenType.Operator, "<-"))
             {
                 this.ParseToken(TokenType.Name, "chan");
-                TypeInfo typeinfo = this.TryParseTypeInfo();
+                TypeInfo typeinfo = this.ParseTypeInfo();
 
                 return new ChannelTypeInfo(typeinfo, null);
             }
