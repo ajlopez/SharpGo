@@ -817,6 +817,27 @@
         }
 
         [TestMethod]
+        public void ParseShortVarDeclarationWithTypeInfoAndConstantExpression()
+        {
+            Parser parser = new Parser("foo := int 1");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(VarNode));
+            Assert.AreEqual("foo", ((VarNode)node).Name);
+            Assert.AreEqual(TypeInfo.Int32, ((VarNode)node).TypeInfo);
+            Assert.IsNotNull(((VarNode)node).ExpressionNode);
+
+            var expr = ((VarNode)node).ExpressionNode;
+
+            Assert.IsInstanceOfType(expr, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)expr).Value);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseAliasTypeDeclaration()
         {
             Parser parser = new Parser("type Day int");

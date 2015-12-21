@@ -184,7 +184,11 @@
             if (token.Type == TokenType.Name) 
             {
                 if (this.TryParseToken(TokenType.Operator, ":="))
-                    return new VarNode(token.Value, this.ParseExpressionNode());
+                {
+                    TypeInfo typeinfo = this.TryParseTypeInfo();
+                    return new VarNode(token.Value, typeinfo, this.ParseExpressionNode());
+                }
+
                 if (this.TryParseToken(TokenType.Delimiter, ":"))
                     return new LabelNode(token.Value, this.ParseSimpleStatementNode());
             }

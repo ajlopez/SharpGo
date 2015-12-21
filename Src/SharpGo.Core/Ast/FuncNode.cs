@@ -9,9 +9,9 @@
     {
         private string name;
         private IList<NameNode> parameters;
-        private INode body;
+        private IStatementNode body;
 
-        public FuncNode(string name, IList<NameNode> parameters, INode body)
+        public FuncNode(string name, IList<NameNode> parameters, IStatementNode body)
         {
             this.name = name;
             this.parameters = parameters;
@@ -22,6 +22,6 @@
 
         public IList<NameNode> Parameters { get { return this.parameters; } }
 
-        public INode BodyNode { get { return this.body; } }
+        public IStatementNode BodyNode { get { return this.body; } }
     }
 }
