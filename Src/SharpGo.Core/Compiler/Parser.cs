@@ -121,6 +121,24 @@
             return this.ParseBinaryExpressionNode(0);
         }
 
+        private IExpressionNode ParseBlockExpressionNode()
+        {
+            if (!this.TryParseToken(TokenType.Delimiter, "{"))
+                return null;
+
+            IList<IExpressionNode> exprs = new List<IExpressionNode>();
+
+            while (!this.TryParseToken(TokenType.Delimiter, "}"))
+            {
+                if (exprs.Count > 0)
+                    this.ParseToken(TokenType.Delimiter, ",");
+
+                exprs.Add(this.ParseExpressionNode());
+            }
+
+            return new ExpressionBlockNode(exprs);
+        }
+
         private IExpressionNode ParseBinaryExpressionNode(int level)
         {
             if (level >= binaryoperators.Length)
@@ -186,6 +204,10 @@
                 if (this.TryParseToken(TokenType.Operator, ":="))
                 {
                     TypeInfo typeinfo = this.TryParseTypeInfo();
+
+                    if (typeinfo is ArrayTypeInfo || typeinfo is SliceTypeInfo)
+                        return new VarNode(token.Value, typeinfo, this.ParseBlockExpressionNode());
+
                     return new VarNode(token.Value, typeinfo, this.ParseExpressionNode());
                 }
 
