@@ -115,6 +115,20 @@
         }
 
         [TestMethod]
+        public void GetHexadecimalIntegerWithUpperCaseX()
+        {
+            Lexer lexer = new Lexer("0Xface");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Integer, token.Type);
+            Assert.AreEqual("0Xface", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
         public void GetHexadecimalIntegerWithMixedLettersAndDigits()
         {
             Lexer lexer = new Lexer("0xBadFace42");

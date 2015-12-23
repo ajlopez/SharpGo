@@ -51,10 +51,11 @@
 
             if (IsDigit(ch))
             {
-                if (ch == '0' && this.position < this.length && this.text[this.position] == 'x')
+                if (ch == '0' && this.position < this.length && (this.text[this.position] == 'x' || this.text[this.position] == 'X'))
                 {
+                    char x = this.text[this.position];
                     this.position++;
-                    return this.NextHexadecimalInteger();
+                    return this.NextHexadecimalInteger(x);
                 }
 
                 return this.NextInteger(ch);
@@ -198,9 +199,9 @@
             return new Token(TokenType.Integer, value);
         }
 
-        private Token NextHexadecimalInteger()
+        private Token NextHexadecimalInteger(char chx)
         {
-            string value = "0x";
+            string value = "0" + chx;
 
             while (this.position < this.length)
             {
