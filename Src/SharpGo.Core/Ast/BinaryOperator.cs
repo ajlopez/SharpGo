@@ -11,6 +11,7 @@
         Substract,
         Multiply,
         Divide,
+        Mod,
         Equal,
         NotEqual,
         Less,

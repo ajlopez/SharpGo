@@ -138,6 +138,7 @@
             ParseBinaryOperation("7-8", BinaryOperator.Substract, 7, 8);
             ParseBinaryOperation("1*2", BinaryOperator.Multiply, 1, 2);
             ParseBinaryOperation("3/4", BinaryOperator.Divide, 3, 4);
+            ParseBinaryOperation("5%2", BinaryOperator.Mod, 5, 2);
         }
 
         [TestMethod]

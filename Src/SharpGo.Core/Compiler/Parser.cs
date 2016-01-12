@@ -18,7 +18,7 @@
             new string[] { "&&" },
             new string[] { "==", "<", ">", "<=", ">=", "!=" },
             new string[] { "+", "-" },
-            new string[] { "*", "/" }
+            new string[] { "*", "/", "%" }
         };
 
         private Stack<Token> tokens = new Stack<Token>();
@@ -161,6 +161,8 @@
                     expr = new BinaryNode(expr, BinaryOperator.Multiply, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "/")
                     expr = new BinaryNode(expr, BinaryOperator.Divide, this.ParseBinaryExpressionNode(level + 1));
+                else if (token.Value == "%")
+                    expr = new BinaryNode(expr, BinaryOperator.Mod, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "==")
                     expr = new BinaryNode(expr, BinaryOperator.Equal, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "!=")
