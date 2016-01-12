@@ -41,6 +41,11 @@
             return node;
         }
 
+        public IExpressionNode ParseExpressionNode()
+        {
+            return this.ParseBinaryExpressionNode(0);
+        }
+
         private TypeInfo ParseTypeInfo()
         {
             TypeInfo typeinfo = this.TryParseTypeInfo();
@@ -114,11 +119,6 @@
             }
 
             return types[token.Value];
-        }
-
-        public IExpressionNode ParseExpressionNode()
-        {
-            return this.ParseBinaryExpressionNode(0);
         }
 
         private IExpressionNode ParseBlockExpressionNode()

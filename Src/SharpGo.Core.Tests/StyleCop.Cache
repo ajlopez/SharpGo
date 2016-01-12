@@ -12,13 +12,22 @@
     <milliseconds>726</milliseconds>
     <violations />
   </sourcecode>
+  <sourcecode name="DotNodeTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>05/01/2014 08:31:29</timestamp>
+      <milliseconds>910</milliseconds>
+    </settings>
+    <timestamp>12/14/2015 06:08:45</timestamp>
+    <milliseconds>126</milliseconds>
+    <violations />
+  </sourcecode>
   <sourcecode name="LexerTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>05/01/2014 08:31:29</timestamp>
       <milliseconds>910</milliseconds>
     </settings>
-    <timestamp>09/08/2015 07:02:49</timestamp>
-    <milliseconds>163</milliseconds>
+    <timestamp>12/23/2015 06:56:27</timestamp>
+    <milliseconds>206</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="AliasTypeInfoTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
@@ -37,6 +46,24 @@
     </settings>
     <timestamp>11/29/2015 07:27:11</timestamp>
     <milliseconds>482</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="ChannelTypeInfoTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>05/01/2014 08:31:29</timestamp>
+      <milliseconds>910</milliseconds>
+    </settings>
+    <timestamp>01/12/2016 06:20:37</timestamp>
+    <milliseconds>374</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="MapTypeInfoTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>05/01/2014 08:31:29</timestamp>
+      <milliseconds>910</milliseconds>
+    </settings>
+    <timestamp>01/12/2016 06:20:37</timestamp>
+    <milliseconds>370</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="StructTypeInfoTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
@@ -71,8 +98,8 @@
       <timestamp>05/01/2014 08:31:29</timestamp>
       <milliseconds>910</milliseconds>
     </settings>
-    <timestamp>11/26/2015 06:38:17</timestamp>
-    <milliseconds>107</milliseconds>
+    <timestamp>12/22/2015 05:50:57</timestamp>
+    <milliseconds>498</milliseconds>
     <violations />
   </sourcecode>
 </stylecopresultscache>
