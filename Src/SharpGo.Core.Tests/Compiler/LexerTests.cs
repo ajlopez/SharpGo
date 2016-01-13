@@ -305,7 +305,7 @@
         [TestMethod]
         public void GetArithmeticOperators()
         {
-            GetOperators(new string[] { "+", "-", "*", "/", "%" });
+            GetOperators(new string[] { "+", "-", "*", "/", "%", "<<", ">>" });
         }
 
         [TestMethod]

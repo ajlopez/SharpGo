@@ -12,6 +12,7 @@
         Multiply,
         Divide,
         Mod,
+        LeftShift,
         Equal,
         NotEqual,
         Less,
