@@ -13,6 +13,7 @@
         Divide,
         Mod,
         LeftShift,
+        RightShift,
         Equal,
         NotEqual,
         Less,

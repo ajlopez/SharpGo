@@ -140,6 +140,7 @@
             ParseBinaryOperation("3/4", BinaryOperator.Divide, 3, 4);
             ParseBinaryOperation("5%2", BinaryOperator.Mod, 5, 2);
             ParseBinaryOperation("5<<2", BinaryOperator.LeftShift, 5, 2);
+            ParseBinaryOperation("5>>2", BinaryOperator.RightShift, 5, 2);
         }
 
         [TestMethod]
