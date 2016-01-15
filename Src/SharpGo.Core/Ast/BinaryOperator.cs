@@ -12,6 +12,7 @@
         Multiply,
         Divide,
         Mod,
+        BitwiseAnd,
         LeftShift,
         RightShift,
         Equal,
