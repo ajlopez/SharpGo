@@ -13,6 +13,7 @@
         Divide,
         Mod,
         BitwiseAnd,
+        BitwiseOr,
         LeftShift,
         RightShift,
         Equal,

@@ -142,6 +142,7 @@
             ParseBinaryOperation("5<<2", BinaryOperator.LeftShift, 5, 2);
             ParseBinaryOperation("5>>2", BinaryOperator.RightShift, 5, 2);
             ParseBinaryOperation("5&2", BinaryOperator.BitwiseAnd, 5, 2);
+            ParseBinaryOperation("5|2", BinaryOperator.BitwiseOr, 5, 2);
         }
 
         [TestMethod]
