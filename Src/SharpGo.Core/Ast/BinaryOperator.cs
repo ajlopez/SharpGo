@@ -14,6 +14,7 @@
         Mod,
         BitwiseAnd,
         BitwiseOr,
+        BitwiseXor,
         LeftShift,
         RightShift,
         Equal,
