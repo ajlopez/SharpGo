@@ -12,6 +12,7 @@ Work in Progress
 - [Go for C++ Programmers](https://code.google.com/p/go-wiki/wiki/GoForCPPProgrammers) 
 - [Google Go: The Good, the Bad, and the Meh](http://blog.carlsensei.com/post/42828735125)
 - [How to Write Go Code](http://golang.org/doc/code.html)
+- [Errors are Values](https://blog.golang.org/errors-are-values)
 
 ## License
 
