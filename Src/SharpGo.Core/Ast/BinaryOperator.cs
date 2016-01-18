@@ -15,6 +15,7 @@
         BitwiseAnd,
         BitwiseOr,
         BitwiseXor,
+        BitwiseAndNot,
         LeftShift,
         RightShift,
         Equal,

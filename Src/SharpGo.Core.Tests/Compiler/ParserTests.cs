@@ -144,6 +144,7 @@
             ParseBinaryOperation("5&2", BinaryOperator.BitwiseAnd, 5, 2);
             ParseBinaryOperation("5|2", BinaryOperator.BitwiseOr, 5, 2);
             ParseBinaryOperation("5^2", BinaryOperator.BitwiseXor, 5, 2);
+            ParseBinaryOperation("5&^2", BinaryOperator.BitwiseAndNot, 5, 2);
         }
 
         [TestMethod]
