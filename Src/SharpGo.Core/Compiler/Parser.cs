@@ -246,6 +246,17 @@
                 return new VarNode(name, typeinfo, expr);
             }
 
+            if (this.TryParseToken(TokenType.Name, "const"))
+            {
+                var name = this.ParseName();
+                TypeInfo typeinfo = this.TryParseTypeInfo();
+
+                this.ParseToken(TokenType.Operator, "=");
+                IExpressionNode expr = this.ParseExpressionNode();
+
+                return new ConstNode(name, typeinfo, expr);
+            }
+
             if (this.TryParseToken(TokenType.Name, "type"))
             {
                 var name = this.ParseName();
