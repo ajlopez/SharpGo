@@ -6,13 +6,13 @@
     using System.Text;
     using SharpGo.Core.Language;
 
-    public class VarNode : IStatementNode
+    public class ConstNode : IStatementNode
     {
         private IExpressionNode expression;
         private string name;
         private TypeInfo typeinfo;
 
-        public VarNode(string name, TypeInfo typeinfo, IExpressionNode expression)
+        public ConstNode(string name, TypeInfo typeinfo, IExpressionNode expression)
         {
             this.name = name;
             this.typeinfo = typeinfo;

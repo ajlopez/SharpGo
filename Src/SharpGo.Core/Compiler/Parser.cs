@@ -17,8 +17,8 @@
             new string[] { "||" },
             new string[] { "&&" },
             new string[] { "==", "<", ">", "<=", ">=", "!=" },
-            new string[] { "+", "-", "|" },
-            new string[] { "*", "/", "%", "<<", ">>", "&" }
+            new string[] { "+", "-", "|", "^" },
+            new string[] { "*", "/", "%", "<<", ">>", "&", "&^" }
         };
 
         private Stack<Token> tokens = new Stack<Token>();
@@ -171,6 +171,10 @@
                     expr = new BinaryNode(expr, BinaryOperator.BitwiseAnd, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "|")
                     expr = new BinaryNode(expr, BinaryOperator.BitwiseOr, this.ParseBinaryExpressionNode(level + 1));
+                else if (token.Value == "^")
+                    expr = new BinaryNode(expr, BinaryOperator.BitwiseXor, this.ParseBinaryExpressionNode(level + 1));
+                else if (token.Value == "&^")
+                    expr = new BinaryNode(expr, BinaryOperator.BitwiseAndNot, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "==")
                     expr = new BinaryNode(expr, BinaryOperator.Equal, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "!=")
@@ -240,6 +244,17 @@
                     expr = this.ParseExpressionNode();
 
                 return new VarNode(name, typeinfo, expr);
+            }
+
+            if (this.TryParseToken(TokenType.Name, "const"))
+            {
+                var name = this.ParseName();
+                TypeInfo typeinfo = this.TryParseTypeInfo();
+
+                this.ParseToken(TokenType.Operator, "=");
+                IExpressionNode expr = this.ParseExpressionNode();
+
+                return new ConstNode(name, typeinfo, expr);
             }
 
             if (this.TryParseToken(TokenType.Name, "type"))
@@ -433,6 +448,10 @@
                     }
 
                     this.ParseToken(TokenType.Delimiter, ")");
+
+                    if (types.ContainsKey(token.Value) && expressions.Count == 1)
+                        return new ConversionNode(types[token.Value], expressions[0]);
+
                     return new CallNode(new NameNode(token.Value), expressions);
                 }
 

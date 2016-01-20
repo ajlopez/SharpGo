@@ -143,6 +143,8 @@
             ParseBinaryOperation("5>>2", BinaryOperator.RightShift, 5, 2);
             ParseBinaryOperation("5&2", BinaryOperator.BitwiseAnd, 5, 2);
             ParseBinaryOperation("5|2", BinaryOperator.BitwiseOr, 5, 2);
+            ParseBinaryOperation("5^2", BinaryOperator.BitwiseXor, 5, 2);
+            ParseBinaryOperation("5&^2", BinaryOperator.BitwiseAndNot, 5, 2);
         }
 
         [TestMethod]
@@ -798,6 +800,69 @@
             var rnode = ((BinaryNode)expr).RightNode;
 
             Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseConsDeclarationWithConstantExpression()
+        {
+            Parser parser = new Parser("const foo = 1");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ConstNode));
+            Assert.AreEqual("foo", ((ConstNode)node).Name);
+            Assert.AreEqual(TypeInfo.Int32, ((ConstNode)node).TypeInfo);
+            Assert.IsNotNull(((ConstNode)node).ExpressionNode);
+
+            var expr = ((ConstNode)node).ExpressionNode;
+
+            Assert.IsInstanceOfType(expr, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)expr).Value);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseConsDeclarationWithBinaryExpression()
+        {
+            Parser parser = new Parser("const foo = 1 + 2");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ConstNode));
+            Assert.AreEqual("foo", ((ConstNode)node).Name);
+            Assert.AreEqual(TypeInfo.Int32, ((ConstNode)node).TypeInfo);
+            Assert.IsNotNull(((ConstNode)node).ExpressionNode);
+
+            var expr = ((ConstNode)node).ExpressionNode;
+
+            Assert.IsInstanceOfType(expr, typeof(BinaryNode));
+
+            var lnode = ((BinaryNode)expr).LeftNode;
+            var rnode = ((BinaryNode)expr).RightNode;
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseConversionExpression()
+        {
+            Parser parser = new Parser("string(1)");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ConversionNode));
+            Assert.AreEqual(TypeInfo.String, ((ConversionNode)node).TypeInfo);
+            Assert.IsNotNull(((ConversionNode)node).ExpressionNode);
+
+            var expr = ((ConversionNode)node).ExpressionNode;
+
+            Assert.IsInstanceOfType(expr, typeof(ConstantNode));
+
+            Assert.AreEqual(1, ((ConstantNode)expr).Value);
         }
 
         [TestMethod]
