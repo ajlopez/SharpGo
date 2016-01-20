@@ -448,6 +448,10 @@
                     }
 
                     this.ParseToken(TokenType.Delimiter, ")");
+
+                    if (types.ContainsKey(token.Value) && expressions.Count == 1)
+                        return new ConversionNode(types[token.Value], expressions[0]);
+
                     return new CallNode(new NameNode(token.Value), expressions);
                 }
 

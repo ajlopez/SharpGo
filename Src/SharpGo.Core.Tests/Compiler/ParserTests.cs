@@ -847,6 +847,25 @@
         }
 
         [TestMethod]
+        public void ParseConversionExpression()
+        {
+            Parser parser = new Parser("string(1)");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ConversionNode));
+            Assert.AreEqual(TypeInfo.String, ((ConversionNode)node).TypeInfo);
+            Assert.IsNotNull(((ConversionNode)node).ExpressionNode);
+
+            var expr = ((ConversionNode)node).ExpressionNode;
+
+            Assert.IsInstanceOfType(expr, typeof(ConstantNode));
+
+            Assert.AreEqual(1, ((ConstantNode)expr).Value);
+        }
+
+        [TestMethod]
         public void ParseShortVarDeclarationWithConstantExpression()
         {
             Parser parser = new Parser("foo := 1");
