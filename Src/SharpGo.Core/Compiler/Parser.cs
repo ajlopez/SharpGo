@@ -415,6 +415,18 @@
             if (token.Type == TokenType.String)
                 return new ConstantNode(token.Value);
 
+
+            if (token.Type == TokenType.Delimiter && token.Value == "(")
+            {
+                var ti = this.ParseTypeInfo();
+                this.ParseToken(TokenType.Delimiter, ")");
+                this.ParseToken(TokenType.Delimiter, "(");
+                var expr = this.ParseExpressionNode();
+                this.ParseToken(TokenType.Delimiter, ")");
+
+                return new ConversionNode(ti, expr);
+            }
+
             if (token.Type == TokenType.Name)
             {
                 if (this.TryParseToken(TokenType.Delimiter, "["))

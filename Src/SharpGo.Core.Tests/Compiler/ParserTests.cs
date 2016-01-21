@@ -866,6 +866,28 @@
         }
 
         [TestMethod]
+        public void ParseConversionToChannelExpression()
+        {
+            Parser parser = new Parser("(<-chan int)(x)");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ConversionNode));
+            Assert.IsInstanceOfType(((ConversionNode)node).TypeInfo, typeof(ChannelTypeInfo));
+
+            var ti = (ChannelTypeInfo)((ConversionNode)node).TypeInfo;
+            Assert.IsNull(ti.SendTypeInfo);
+            Assert.AreEqual(TypeInfo.Int, ti.ReceiveTypeInfo);
+
+            var expr = ((ConversionNode)node).ExpressionNode;
+
+            Assert.IsInstanceOfType(expr, typeof(NameNode));
+
+            Assert.AreEqual("x", ((NameNode)expr).Name);
+        }
+
+        [TestMethod]
         public void ParseShortVarDeclarationWithConstantExpression()
         {
             Parser parser = new Parser("foo := 1");
