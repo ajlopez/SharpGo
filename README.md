@@ -22,8 +22,8 @@ MIT
 
 ## Contribution
 
-Feel free to [file issues](https://github.com/ajlopez/DictSharp) and submit
-[pull requests](https://github.com/ajlopez/DictSharp/pulls) — contributions are
+Feel free to [file issues](https://github.com/ajlopez/SharpGo) and submit
+[pull requests](https://github.com/ajlopez/SharpGo/pulls) — contributions are
 welcome<
 
 If you submit a pull request, please be sure to add or update corresponding
