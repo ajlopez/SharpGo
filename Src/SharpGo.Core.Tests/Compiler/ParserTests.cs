@@ -148,6 +148,12 @@
         }
 
         [TestMethod]
+        public void ParseArithmeticBinaryOperationsInParens()
+        {
+            ParseBinaryOperation("(5+6)", BinaryOperator.Add, 5, 6);
+        }
+
+        [TestMethod]
         public void ParseArithmeticBinaryOperationsWithSamePrecedence()
         {
             ParseBinaryOperation("5+6+7", BinaryOperator.Add, 5, 6, BinaryOperator.Add, 7);

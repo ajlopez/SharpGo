@@ -418,13 +418,24 @@
 
             if (token.Type == TokenType.Delimiter && token.Value == "(")
             {
-                var ti = this.ParseTypeInfo();
-                this.ParseToken(TokenType.Delimiter, ")");
-                this.ParseToken(TokenType.Delimiter, "(");
-                var expr = this.ParseExpressionNode();
-                this.ParseToken(TokenType.Delimiter, ")");
+                var ti = this.TryParseTypeInfo();
 
-                return new ConversionNode(ti, expr);
+                if (ti != null)
+                {
+                    this.ParseToken(TokenType.Delimiter, ")");
+                    this.ParseToken(TokenType.Delimiter, "(");
+                    var expr = this.ParseExpressionNode();
+                    this.ParseToken(TokenType.Delimiter, ")");
+
+                    return new ConversionNode(ti, expr);
+                }
+                else
+                {
+                    var expr = this.ParseExpressionNode();
+                    this.ParseToken(TokenType.Delimiter, ")");
+
+                    return expr;
+                }
             }
 
             if (token.Type == TokenType.Name)
