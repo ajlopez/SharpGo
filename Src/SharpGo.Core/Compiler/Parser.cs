@@ -11,6 +11,7 @@
     public class Parser
     {
         private static Dictionary<string, TypeInfo> types = new Dictionary<string, TypeInfo>() { { "int", TypeInfo.Int }, { "int32", TypeInfo.Int32 }, { "uint", TypeInfo.UInt }, { "rune", TypeInfo.Int32 }, { "int16", TypeInfo.Int16 }, { "int64", TypeInfo.Int64 }, { "float32", TypeInfo.Float32 }, { "float64", TypeInfo.Float64 }, { "string", TypeInfo.String }, { "bool", TypeInfo.Bool }, { "nil", TypeInfo.Nil }, { "complex64", TypeInfo.Complex64 }, { "complex128", TypeInfo.Complex128 } };
+        private static Dictionary<string, BinaryOperator> bops = new Dictionary<string, BinaryOperator>() { { "+", BinaryOperator.Add }, { "-", BinaryOperator.Substract }, { "*", BinaryOperator.Multiply }, { "/", BinaryOperator.Divide }, { "%", BinaryOperator.Mod }, { "<", BinaryOperator.Less }, { "<=", BinaryOperator.LessEqual }, { ">", BinaryOperator.Greater }, { ">=", BinaryOperator.GreaterEqual } };
 
         private static string[][] binaryoperators = new string[][] 
         {
@@ -153,16 +154,8 @@
 
             while (token != null && token.Type == TokenType.Operator && binaryoperators[level].Contains(token.Value))
             {
-                if (token.Value == "+")
-                    expr = new BinaryNode(expr, BinaryOperator.Add, this.ParseBinaryExpressionNode(level + 1));
-                else if (token.Value == "-")
-                    expr = new BinaryNode(expr, BinaryOperator.Substract, this.ParseBinaryExpressionNode(level + 1));
-                else if (token.Value == "*")
-                    expr = new BinaryNode(expr, BinaryOperator.Multiply, this.ParseBinaryExpressionNode(level + 1));
-                else if (token.Value == "/")
-                    expr = new BinaryNode(expr, BinaryOperator.Divide, this.ParseBinaryExpressionNode(level + 1));
-                else if (token.Value == "%")
-                    expr = new BinaryNode(expr, BinaryOperator.Mod, this.ParseBinaryExpressionNode(level + 1));
+                if (bops.ContainsKey(token.Value))
+                    expr = new BinaryNode(expr, bops[token.Value], this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "<<")
                     expr = new BinaryNode(expr, BinaryOperator.LeftShift, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == ">>")
@@ -179,14 +172,6 @@
                     expr = new BinaryNode(expr, BinaryOperator.Equal, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "!=")
                     expr = new BinaryNode(expr, BinaryOperator.NotEqual, this.ParseBinaryExpressionNode(level + 1));
-                else if (token.Value == "<")
-                    expr = new BinaryNode(expr, BinaryOperator.Less, this.ParseBinaryExpressionNode(level + 1));
-                else if (token.Value == ">")
-                    expr = new BinaryNode(expr, BinaryOperator.Greater, this.ParseBinaryExpressionNode(level + 1));
-                else if (token.Value == "<=")
-                    expr = new BinaryNode(expr, BinaryOperator.LessEqual, this.ParseBinaryExpressionNode(level + 1));
-                else if (token.Value == ">=")
-                    expr = new BinaryNode(expr, BinaryOperator.GreaterEqual, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "&&")
                     expr = new BinaryNode(expr, BinaryOperator.And, this.ParseBinaryExpressionNode(level + 1));
                 else if (token.Value == "||")
