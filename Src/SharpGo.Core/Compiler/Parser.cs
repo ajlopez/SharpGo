@@ -388,7 +388,6 @@
             if (token.Type == TokenType.String)
                 return new ConstantNode(token.Value);
 
-
             if (token.Type == TokenType.Delimiter && token.Value == "(")
             {
                 var ti = this.TryParseTypeInfo();

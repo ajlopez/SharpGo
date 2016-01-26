@@ -3,15 +3,6 @@
   <project key="-2127011686">
     <configuration>DEBUG;TRACE</configuration>
   </project>
-  <sourcecode name="DotNodeTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>05/01/2014 08:31:29</timestamp>
-      <milliseconds>910</milliseconds>
-    </settings>
-    <timestamp>12/14/2015 06:08:45</timestamp>
-    <milliseconds>126</milliseconds>
-    <violations />
-  </sourcecode>
   <sourcecode name="ConstantNodeTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>05/01/2014 08:31:29</timestamp>
@@ -19,6 +10,15 @@
     </settings>
     <timestamp>07/09/2014 07:12:22</timestamp>
     <milliseconds>726</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="DotNodeTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>05/01/2014 08:31:29</timestamp>
+      <milliseconds>910</milliseconds>
+    </settings>
+    <timestamp>12/14/2015 06:08:45</timestamp>
+    <milliseconds>126</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="LexerTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
@@ -98,8 +98,8 @@
       <timestamp>05/01/2014 08:31:29</timestamp>
       <milliseconds>910</milliseconds>
     </settings>
-    <timestamp>01/20/2016 06:38:21</timestamp>
-    <milliseconds>143</milliseconds>
+    <timestamp>01/22/2016 06:51:25</timestamp>
+    <milliseconds>772</milliseconds>
     <violations />
   </sourcecode>
 </stylecopresultscache>
