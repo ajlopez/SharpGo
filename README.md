@@ -6,6 +6,8 @@ Work in Progress
 
 ## References
 
+### Golang
+
 - [A Tour of Go](http://tour.golang.org/#1)
 - [The Go Programming Language Specification](http://golang.org/ref/spec)
 - [Go for a Rubyist](http://supermar.in/go-for-a-rubyist/)
@@ -15,6 +17,12 @@ Work in Progress
 - [Go at Google: Language Design in the Service of Software Engineering](https://talks.golang.org/2012/splash.article)
 - [Errors are Values](https://blog.golang.org/errors-are-values)
 - [Go 1.6 Release Notes DRAFT](http://tip.golang.org/doc/go1.6)
+
+### Interpreters
+
+- [A Golang interpreter](https://github.com/go-interpreter/ssainterp)
+- [A simple interactive Go interpreter](https://github.com/sbinet/igo)
+- [Package interp](https://godoc.org/golang.org/x/tools/go/ssa/interp)
 
 ## License
 
