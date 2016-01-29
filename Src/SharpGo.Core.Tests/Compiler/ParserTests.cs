@@ -224,6 +224,7 @@
 
             var assignnode = (AssignmentNode)node;
 
+            Assert.AreEqual(AssignmentOperator.Set, assignnode.Operator);
             Assert.IsNotNull(assignnode.ExpressionNode);
             Assert.IsInstanceOfType(assignnode.ExpressionNode, typeof(ConstantNode));
             Assert.AreEqual(1, ((ConstantNode)assignnode.ExpressionNode).Value);

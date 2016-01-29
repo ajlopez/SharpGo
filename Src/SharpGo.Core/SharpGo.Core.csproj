@@ -50,6 +50,7 @@
     <Compile Include="Ast\AliasTypeNode.cs" />
     <Compile Include="Ast\ConstNode.cs" />
     <Compile Include="Ast\ConversionNode.cs" />
+    <Compile Include="Ast\AssigmentOperator.cs" />
     <Compile Include="Ast\ExpressionBlockNode.cs" />
     <Compile Include="Ast\DotNode.cs" />
     <Compile Include="Ast\LabelNode.cs" />
