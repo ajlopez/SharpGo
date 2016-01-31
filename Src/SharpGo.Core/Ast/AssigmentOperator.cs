@@ -9,6 +9,6 @@
     {
         Set,
         Add,
-        Multiply
+        Subtract
     }
 }
