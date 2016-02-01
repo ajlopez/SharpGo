@@ -1793,6 +1793,19 @@
             Assert.IsNull(parser.ParseExpressionNode());
         }
 
+        [TestMethod]
+        public void ParseEmptyStruct()
+        {
+            Parser parser = new Parser("struct {}");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(StructNode));
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
         private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
         {
             Parser parser = new Parser(text);

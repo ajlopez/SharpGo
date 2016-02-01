@@ -230,6 +230,14 @@
                 return new AliasTypeNode(name, typeinfo);
             }
 
+            if (this.TryParseToken(TokenType.Name, "struct"))
+            {
+                this.ParseToken(TokenType.Delimiter, "{");
+                this.ParseToken(TokenType.Delimiter, "}");
+
+                return new StructNode();
+            }
+
             if (this.TryParseToken(TokenType.Name, "if"))
             {
                 INode stmt = null;
