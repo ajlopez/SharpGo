@@ -6,27 +6,19 @@
     using System.Text;
     using SharpGo.Core.Language;
 
-    public class VarNode : IStatementNode
+    public class StructMemberNode : IExpressionNode
     {
-        private IExpressionNode expression;
         private string name;
         private TypeInfo typeinfo;
 
-        public VarNode(string name, TypeInfo typeinfo, IExpressionNode expression)
+        public StructMemberNode(string name, TypeInfo typeinfo)
         {
             this.name = name;
             this.typeinfo = typeinfo;
-            this.expression = expression;
-
-            if (typeinfo == null)
-                this.typeinfo = this.expression.TypeInfo;
         }
 
         public string Name { get { return this.name; } }
 
-        public IExpressionNode ExpressionNode { get { return this.expression; } }
-
         public TypeInfo TypeInfo { get { return this.typeinfo; } }
     }
 }
-

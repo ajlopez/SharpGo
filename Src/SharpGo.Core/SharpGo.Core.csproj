@@ -51,6 +51,7 @@
     <Compile Include="Ast\ConstNode.cs" />
     <Compile Include="Ast\ConversionNode.cs" />
     <Compile Include="Ast\AssigmentOperator.cs" />
+    <Compile Include="Ast\StructMemberNode.cs" />
     <Compile Include="Ast\StructNode.cs" />
     <Compile Include="Ast\ExpressionBlockNode.cs" />
     <Compile Include="Ast\DotNode.cs" />

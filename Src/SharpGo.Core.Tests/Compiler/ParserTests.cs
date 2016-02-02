@@ -1803,6 +1803,34 @@
             Assert.IsNotNull(node);
             Assert.IsInstanceOfType(node, typeof(StructNode));
 
+            var snode = (StructNode)node;
+
+            Assert.IsNotNull(snode.Members);
+            Assert.AreEqual(0, snode.Members.Count);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseStructWithOneIntegerMember()
+        {
+            Parser parser = new Parser("struct {\n a int\n}");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(StructNode));
+
+            var snode = (StructNode)node;
+
+            Assert.IsNotNull(snode.Members);
+            Assert.AreEqual(1, snode.Members.Count);
+
+            var mnode = snode.Members[0];
+
+            Assert.AreEqual("a", mnode.Name);
+            Assert.AreSame(TypeInfo.Int, mnode.TypeInfo);
+
             Assert.IsNull(parser.ParseStatementNode());
         }
 

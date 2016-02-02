@@ -232,10 +232,16 @@
 
             if (this.TryParseToken(TokenType.Name, "struct"))
             {
+                IList<StructMemberNode> members = new List<StructMemberNode>();
                 this.ParseToken(TokenType.Delimiter, "{");
+                this.ParseEndOfStatement();
+
+                for (var member = this.ParseStructMemberNode(); member != null; member = this.ParseStructMemberNode())
+                    members.Add(member);
+
                 this.ParseToken(TokenType.Delimiter, "}");
 
-                return new StructNode();
+                return new StructNode(members);
             }
 
             if (this.TryParseToken(TokenType.Name, "if"))
@@ -368,6 +374,20 @@
 
             var cmd = new ExpressionStatementNode(node);
             return cmd;
+        }
+
+        private StructMemberNode ParseStructMemberNode()
+        {
+            var name = this.TryParseName();
+
+            if (name == null)
+                return null;
+
+            var tinfo = this.TryParseTypeInfo();
+
+            this.ParseEndOfStatement();
+
+            return new StructMemberNode(name, tinfo);
         }
 
         private BlockNode ParseStatementBlock()
