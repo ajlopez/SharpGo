@@ -1834,6 +1834,29 @@
             Assert.IsNull(parser.ParseStatementNode());
         }
 
+        [TestMethod]
+        public void ParseStructWithOneAnonymousMember()
+        {
+            Parser parser = new Parser("struct {\n int\n}");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(StructNode));
+
+            var snode = (StructNode)node;
+
+            Assert.IsNotNull(snode.Members);
+            Assert.AreEqual(1, snode.Members.Count);
+
+            var mnode = snode.Members[0];
+
+            Assert.IsNull(mnode.Name);
+            Assert.AreSame(TypeInfo.Int, mnode.TypeInfo);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
         private static void ParseBinaryOperation(string text, BinaryOperator oper, int leftvalue, int rightvalue)
         {
             Parser parser = new Parser(text);

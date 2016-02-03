@@ -378,12 +378,19 @@
 
         private StructMemberNode ParseStructMemberNode()
         {
+            var tinfo = this.TryParseTypeInfo();
+
+            if (tinfo != null) {
+                this.ParseEndOfStatement();
+                return new StructMemberNode(null, tinfo);
+            }
+
             var name = this.TryParseName();
 
             if (name == null)
                 return null;
 
-            var tinfo = this.TryParseTypeInfo();
+            tinfo = this.ParseTypeInfo();
 
             this.ParseEndOfStatement();
 
