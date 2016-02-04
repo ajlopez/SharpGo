@@ -180,6 +180,9 @@
 
             if (token.Type == TokenType.Name) 
             {
+                if (token.Value == "var")
+                    return this.ParseVarNode();
+
                 if (this.TryParseToken(TokenType.Operator, ":="))
                 {
                     TypeInfo typeinfo = this.TryParseTypeInfo();
@@ -198,18 +201,6 @@
 
             if (token.Type == TokenType.Delimiter && token.Value == "{")
                 return this.ParseStatementBlock();
-
-            if (this.TryParseToken(TokenType.Name, "var"))
-            {
-                var name = this.ParseName();
-                IExpressionNode expr = null;
-                TypeInfo typeinfo = this.TryParseTypeInfo();
-
-                if (this.TryParseToken(TokenType.Operator, "="))
-                    expr = this.ParseExpressionNode();
-
-                return new VarNode(name, typeinfo, expr);
-            }
 
             if (this.TryParseToken(TokenType.Name, "const"))
             {
@@ -374,6 +365,18 @@
 
             var cmd = new ExpressionStatementNode(node);
             return cmd;
+        }
+
+        private VarNode ParseVarNode()
+        {
+            var name = this.ParseName();
+            IExpressionNode expr = null;
+            TypeInfo typeinfo = this.TryParseTypeInfo();
+
+            if (this.TryParseToken(TokenType.Operator, "="))
+                expr = this.ParseExpressionNode();
+
+            return new VarNode(name, typeinfo, expr);
         }
 
         private StructMemberNode ParseStructMemberNode()
