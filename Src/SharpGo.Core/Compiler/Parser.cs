@@ -184,14 +184,7 @@
                     return this.ParseVarNode();
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
-                {
-                    TypeInfo typeinfo = this.TryParseTypeInfo();
-
-                    if (typeinfo is ArrayTypeInfo || typeinfo is SliceTypeInfo)
-                        return new VarNode(token.Value, typeinfo, this.ParseBlockExpressionNode());
-
-                    return new VarNode(token.Value, typeinfo, this.ParseExpressionNode());
-                }
+                    return this.ParseVarAssignmentNode(token);
 
                 if (this.TryParseToken(TokenType.Delimiter, ":"))
                     return new LabelNode(token.Value, this.ParseSimpleStatementNode());
@@ -365,6 +358,16 @@
 
             var cmd = new ExpressionStatementNode(node);
             return cmd;
+        }
+
+        private IStatementNode ParseVarAssignmentNode(Token token)
+        {
+            TypeInfo typeinfo = this.TryParseTypeInfo();
+
+            if (typeinfo is ArrayTypeInfo || typeinfo is SliceTypeInfo)
+                return new VarNode(token.Value, typeinfo, this.ParseBlockExpressionNode());
+
+            return new VarNode(token.Value, typeinfo, this.ParseExpressionNode());
         }
 
         private VarNode ParseVarNode()
