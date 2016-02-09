@@ -182,6 +182,8 @@
             {
                 if (token.Value == "var")
                     return this.ParseVarNode();
+                if (token.Value == "const")
+                    return ParseConstNode();
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
@@ -194,17 +196,6 @@
 
             if (token.Type == TokenType.Delimiter && token.Value == "{")
                 return this.ParseStatementBlock();
-
-            if (this.TryParseToken(TokenType.Name, "const"))
-            {
-                var name = this.ParseName();
-                TypeInfo typeinfo = this.TryParseTypeInfo();
-
-                this.ParseToken(TokenType.Operator, "=");
-                IExpressionNode expr = this.ParseExpressionNode();
-
-                return new ConstNode(name, typeinfo, expr);
-            }
 
             if (this.TryParseToken(TokenType.Name, "type"))
             {
@@ -358,6 +349,17 @@
 
             var cmd = new ExpressionStatementNode(node);
             return cmd;
+        }
+
+        private IStatementNode ParseConstNode()
+        {
+            var name = this.ParseName();
+            TypeInfo typeinfo = this.TryParseTypeInfo();
+
+            this.ParseToken(TokenType.Operator, "=");
+            IExpressionNode expr = this.ParseExpressionNode();
+
+            return new ConstNode(name, typeinfo, expr);
         }
 
         private IStatementNode ParseVarAssignmentNode(Token token)
