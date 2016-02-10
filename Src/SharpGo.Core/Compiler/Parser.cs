@@ -184,6 +184,8 @@
                     return this.ParseVarNode();
                 if (token.Value == "const")
                     return ParseConstNode();
+                if (token.Value == "struct")
+                    return ParseStructNode();
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
@@ -203,20 +205,6 @@
                 TypeInfo typeinfo = this.TryParseTypeInfo();
 
                 return new AliasTypeNode(name, typeinfo);
-            }
-
-            if (this.TryParseToken(TokenType.Name, "struct"))
-            {
-                IList<StructMemberNode> members = new List<StructMemberNode>();
-                this.ParseToken(TokenType.Delimiter, "{");
-                this.ParseEndOfStatement();
-
-                for (var member = this.ParseStructMemberNode(); member != null; member = this.ParseStructMemberNode())
-                    members.Add(member);
-
-                this.ParseToken(TokenType.Delimiter, "}");
-
-                return new StructNode(members);
             }
 
             if (this.TryParseToken(TokenType.Name, "if"))
@@ -349,6 +337,20 @@
 
             var cmd = new ExpressionStatementNode(node);
             return cmd;
+        }
+
+        private IStatementNode ParseStructNode()
+        {
+            IList<StructMemberNode> members = new List<StructMemberNode>();
+            this.ParseToken(TokenType.Delimiter, "{");
+            this.ParseEndOfStatement();
+
+            for (var member = this.ParseStructMemberNode(); member != null; member = this.ParseStructMemberNode())
+                members.Add(member);
+
+            this.ParseToken(TokenType.Delimiter, "}");
+
+            return new StructNode(members);
         }
 
         private IStatementNode ParseConstNode()
