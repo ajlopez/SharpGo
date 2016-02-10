@@ -84,6 +84,15 @@
     <milliseconds>608</milliseconds>
     <violations />
   </sourcecode>
+  <sourcecode name="ParserTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>05/01/2014 08:31:29</timestamp>
+      <milliseconds>910</milliseconds>
+    </settings>
+    <timestamp>02/03/2016 15:18:00</timestamp>
+    <milliseconds>176</milliseconds>
+    <violations />
+  </sourcecode>
   <sourcecode name="AssemblyInfo.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>05/01/2014 08:31:29</timestamp>
@@ -91,15 +100,6 @@
     </settings>
     <timestamp>05/01/2014 08:26:30</timestamp>
     <milliseconds>741</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="ParserTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>05/01/2014 08:31:29</timestamp>
-      <milliseconds>910</milliseconds>
-    </settings>
-    <timestamp>01/22/2016 06:51:25</timestamp>
-    <milliseconds>772</milliseconds>
     <violations />
   </sourcecode>
 </stylecopresultscache>

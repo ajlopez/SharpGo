@@ -8,7 +8,7 @@
 
     public class StructNode : IStatementNode
     {
-        IList<StructMemberNode> members;
+        private IList<StructMemberNode> members;
 
         public StructNode(IList<StructMemberNode> members)
         {

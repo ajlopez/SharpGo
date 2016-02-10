@@ -183,9 +183,9 @@
                 if (token.Value == "var")
                     return this.ParseVarNode();
                 if (token.Value == "const")
-                    return ParseConstNode();
+                    return this.ParseConstNode();
                 if (token.Value == "struct")
-                    return ParseStructNode();
+                    return this.ParseStructNode();
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
@@ -390,7 +390,8 @@
         {
             var tinfo = this.TryParseTypeInfo();
 
-            if (tinfo != null) {
+            if (tinfo != null) 
+            {
                 this.ParseEndOfStatement();
                 return new StructMemberNode(null, tinfo);
             }
