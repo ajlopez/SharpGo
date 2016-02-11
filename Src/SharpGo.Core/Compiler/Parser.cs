@@ -186,6 +186,8 @@
                     return this.ParseConstNode();
                 if (token.Value == "struct")
                     return this.ParseStructNode();
+                if (token.Value == "if")
+                    return this.ParseIfNode();
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
@@ -205,24 +207,6 @@
                 TypeInfo typeinfo = this.TryParseTypeInfo();
 
                 return new AliasTypeNode(name, typeinfo);
-            }
-
-            if (this.TryParseToken(TokenType.Name, "if"))
-            {
-                INode stmt = null;
-                
-                var fstmt = this.ParseSimpleStatementNode();
-
-                if (this.TryParseToken(TokenType.Delimiter, ";"))
-                {
-                    stmt = fstmt;
-
-                    fstmt = this.ParseSimpleStatementNode();
-                }
-
-                var expr = ((ExpressionStatementNode)fstmt).ExpressionNode;
-
-                return new IfNode(stmt, expr, this.ParseStatementBlock());
             }
 
             if (this.TryParseToken(TokenType.Name, "for"))
@@ -337,6 +321,24 @@
 
             var cmd = new ExpressionStatementNode(node);
             return cmd;
+        }
+
+        private IStatementNode ParseIfNode()
+        {
+            INode stmt = null;
+
+            var fstmt = this.ParseSimpleStatementNode();
+
+            if (this.TryParseToken(TokenType.Delimiter, ";"))
+            {
+                stmt = fstmt;
+
+                fstmt = this.ParseSimpleStatementNode();
+            }
+
+            var expr = ((ExpressionStatementNode)fstmt).ExpressionNode;
+
+            return new IfNode(stmt, expr, this.ParseStatementBlock());
         }
 
         private IStatementNode ParseStructNode()
