@@ -188,6 +188,8 @@
                     return this.ParseStructNode();
                 if (token.Value == "if")
                     return this.ParseIfNode();
+                if (token.Value == "for")
+                    return this.ParseForNode();
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
@@ -207,24 +209,6 @@
                 TypeInfo typeinfo = this.TryParseTypeInfo();
 
                 return new AliasTypeNode(name, typeinfo);
-            }
-
-            if (this.TryParseToken(TokenType.Name, "for"))
-            {
-                IStatementNode initstmt = this.ParseSimpleStatementNode();
-                IExpressionNode expr = null;
-
-                if (this.TryParseToken(TokenType.Delimiter, ";"))
-                {
-                    expr = this.ParseExpressionNode();
-                    this.ParseToken(TokenType.Delimiter, ";");
-                    IStatementNode poststmt = this.ParseSimpleStatementNode();
-                    return new ForNode(initstmt, expr, poststmt, this.ParseStatementBlock());
-                }
-
-                expr = ((ExpressionStatementNode)initstmt).ExpressionNode;
-
-                return new ForNode(expr, this.ParseStatementBlock());
             }
 
             if (this.TryParseToken(TokenType.Name, "return"))
@@ -321,6 +305,24 @@
 
             var cmd = new ExpressionStatementNode(node);
             return cmd;
+        }
+
+        private IStatementNode ParseForNode()
+        {
+            IStatementNode initstmt = this.ParseSimpleStatementNode();
+            IExpressionNode expr = null;
+
+            if (this.TryParseToken(TokenType.Delimiter, ";"))
+            {
+                expr = this.ParseExpressionNode();
+                this.ParseToken(TokenType.Delimiter, ";");
+                IStatementNode poststmt = this.ParseSimpleStatementNode();
+                return new ForNode(initstmt, expr, poststmt, this.ParseStatementBlock());
+            }
+
+            expr = ((ExpressionStatementNode)initstmt).ExpressionNode;
+
+            return new ForNode(expr, this.ParseStatementBlock());
         }
 
         private IStatementNode ParseIfNode()
