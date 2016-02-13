@@ -190,6 +190,8 @@
                     return this.ParseIfNode();
                 if (token.Value == "for")
                     return this.ParseForNode();
+                if (token.Value == "func")
+                    return ParseFuncNode();
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
@@ -259,21 +261,6 @@
                 return new PackageNode(name);
             }
 
-            if (this.TryParseToken(TokenType.Name, "func"))
-            {
-                IList<NameNode> arguments = new List<NameNode>();
-
-                var name = this.ParseName();
-                this.ParseToken(TokenType.Delimiter, "(");
-                this.ParseToken(TokenType.Delimiter, ")");
-
-                this.EnsureToken(TokenType.Delimiter, "{");
-
-                var body = this.ParseStatementNode();
-
-                return new FuncNode(name, arguments, body);
-            }
-
             IExpressionNode node = this.ParseExpressionNode();
 
             if (node == null)
@@ -305,6 +292,21 @@
 
             var cmd = new ExpressionStatementNode(node);
             return cmd;
+        }
+
+        private IStatementNode ParseFuncNode()
+        {
+            IList<NameNode> arguments = new List<NameNode>();
+
+            var name = this.ParseName();
+            this.ParseToken(TokenType.Delimiter, "(");
+            this.ParseToken(TokenType.Delimiter, ")");
+
+            this.EnsureToken(TokenType.Delimiter, "{");
+
+            var body = this.ParseStatementNode();
+
+            return new FuncNode(name, arguments, body);
         }
 
         private IStatementNode ParseForNode()
