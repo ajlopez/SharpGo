@@ -192,6 +192,8 @@
                     return this.ParseForNode();
                 if (token.Value == "func")
                     return ParseFuncNode();
+                if (token.Value == "type")
+                    return ParseAliasTypeNode();
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
@@ -204,14 +206,6 @@
 
             if (token.Type == TokenType.Delimiter && token.Value == "{")
                 return this.ParseStatementBlock();
-
-            if (this.TryParseToken(TokenType.Name, "type"))
-            {
-                var name = this.ParseName();
-                TypeInfo typeinfo = this.TryParseTypeInfo();
-
-                return new AliasTypeNode(name, typeinfo);
-            }
 
             if (this.TryParseToken(TokenType.Name, "return"))
             {
@@ -292,6 +286,14 @@
 
             var cmd = new ExpressionStatementNode(node);
             return cmd;
+        }
+
+        private IStatementNode ParseAliasTypeNode()
+        {
+            var name = this.ParseName();
+            TypeInfo typeinfo = this.TryParseTypeInfo();
+
+            return new AliasTypeNode(name, typeinfo);
         }
 
         private IStatementNode ParseFuncNode()
