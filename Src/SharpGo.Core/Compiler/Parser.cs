@@ -191,9 +191,9 @@
                 if (token.Value == "for")
                     return this.ParseForNode();
                 if (token.Value == "func")
-                    return ParseFuncNode();
+                    return this.ParseFuncNode();
                 if (token.Value == "type")
-                    return ParseAliasTypeNode();
+                    return this.ParseAliasTypeNode();
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
