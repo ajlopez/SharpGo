@@ -291,7 +291,7 @@
         private IStatementNode ParseAliasTypeNode()
         {
             var name = this.ParseName();
-            TypeInfo typeinfo = this.TryParseTypeInfo();
+            TypeInfo typeinfo = this.ParseTypeInfo();
 
             return new AliasTypeNode(name, typeinfo);
         }
