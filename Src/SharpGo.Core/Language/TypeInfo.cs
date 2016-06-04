@@ -96,5 +96,10 @@
 
             throw new NotImplementedException();
         }
+
+        public static bool AreAssignable(TypeInfo source, TypeInfo target)
+        {
+            return source == target;
+        }
     }
 }

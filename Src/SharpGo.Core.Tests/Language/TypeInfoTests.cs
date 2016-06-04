@@ -78,5 +78,22 @@
             Assert.IsNotNull(result);
             Assert.AreSame(TypeInfo.Int64, result);
         }
+
+        [TestMethod]
+        public void SameTypesAreAssignable()
+        {
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Byte, TypeInfo.Byte));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Bool, TypeInfo.Bool));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Complex128, TypeInfo.Complex128));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Complex64, TypeInfo.Complex64));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Float32, TypeInfo.Float32));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Float64, TypeInfo.Float64));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Int, TypeInfo.Int));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Int16, TypeInfo.Int16));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Int32, TypeInfo.Int32));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Int64, TypeInfo.Int64));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.String, TypeInfo.String));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.UInt, TypeInfo.UInt));
+        }
     }
 }
