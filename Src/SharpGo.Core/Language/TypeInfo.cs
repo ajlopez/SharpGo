@@ -12,6 +12,7 @@
         private static TypeInfo tistring = new TypeInfo("string", typeof(string));
         private static TypeInfo tibyte = new TypeInfo("byte");
         private static TypeInfo tiint = new TypeInfo("int");
+        private static TypeInfo tiint8 = new TypeInfo("int8");
         private static TypeInfo tiint16 = new TypeInfo("int16");
         private static TypeInfo tiint32 = new TypeInfo("int32");
         private static TypeInfo tiint64 = new TypeInfo("int64");
@@ -42,6 +43,8 @@
         public static TypeInfo Byte { get { return tibyte; } }
 
         public static TypeInfo Int { get { return tiint32; } }
+
+        public static TypeInfo Int8 { get { return tiint8; } }
 
         public static TypeInfo Int16 { get { return tiint16; } }
 
@@ -97,9 +100,25 @@
             throw new NotImplementedException();
         }
 
+        public bool IsInteger()
+        {
+            return this.name.StartsWith("int");
+        }
+
+        public int Size()
+        {
+            return int.Parse(this.name.Substring(3));
+        }
+
         public static bool AreAssignable(TypeInfo source, TypeInfo target)
         {
-            return source == target;
+            if (source == target)
+                return true;
+
+            if (source.IsInteger() && target.IsInteger())
+                return source.Size() <= target.Size();
+
+            return false;
         }
     }
 }
