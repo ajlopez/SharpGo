@@ -118,6 +118,9 @@
             if (source.IsInteger() && target.IsInteger())
                 return source.Size() <= target.Size();
 
+            if (source == tifloat32 && target == tifloat64)
+                return true;
+
             return false;
         }
     }

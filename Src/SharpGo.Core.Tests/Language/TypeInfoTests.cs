@@ -107,5 +107,11 @@
             Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Int16, TypeInfo.Int64));
             Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Int32, TypeInfo.Int64));
         }
+
+        [TestMethod]
+        public void FloatAreAssignable()
+        {
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Float32, TypeInfo.Float64));
+        }
     }
 }
