@@ -121,6 +121,9 @@
             if (source == tifloat32 && target == tifloat64)
                 return true;
 
+            if (source == ticomplex64 && target == ticomplex128)
+                return true;
+
             return false;
         }
     }

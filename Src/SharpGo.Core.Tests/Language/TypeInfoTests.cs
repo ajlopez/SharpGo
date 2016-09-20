@@ -109,9 +109,15 @@
         }
 
         [TestMethod]
-        public void FloatAreAssignable()
+        public void FloatsAreAssignable()
         {
             Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Float32, TypeInfo.Float64));
+        }
+
+        [TestMethod]
+        public void ComplexesAreAssignable()
+        {
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Complex64, TypeInfo.Complex128));
         }
     }
 }
