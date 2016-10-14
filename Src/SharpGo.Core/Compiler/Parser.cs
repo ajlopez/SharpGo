@@ -487,26 +487,7 @@
                 }
 
                 if (this.TryParseToken(TokenType.Delimiter, "("))
-                {
-                    IList<IExpressionNode> expressions = new List<IExpressionNode>();
-
-                    for (var expr = this.ParseExpressionNode(); expr != null;)
-                    {
-                        expressions.Add(expr);
-
-                        if (!this.TryParseToken(TokenType.Delimiter, ","))
-                            break;
-
-                        expr = this.ParseExpressionNode();
-                    }
-
-                    this.ParseToken(TokenType.Delimiter, ")");
-
-                    if (types.ContainsKey(token.Value) && expressions.Count == 1)
-                        return new ConversionNode(types[token.Value], expressions[0]);
-
-                    return new CallNode(new NameNode(token.Value), expressions);
-                }
+                    return ParseCall(token);
 
                 if (this.TryParseToken(TokenType.Delimiter, "."))
                 {
@@ -527,6 +508,28 @@
             this.PushToken(token);
 
             return null;
+        }
+
+        private IExpressionNode ParseCall(Token token)
+        {
+            IList<IExpressionNode> expressions = new List<IExpressionNode>();
+
+            for (var expr = this.ParseExpressionNode(); expr != null; )
+            {
+                expressions.Add(expr);
+
+                if (!this.TryParseToken(TokenType.Delimiter, ","))
+                    break;
+
+                expr = this.ParseExpressionNode();
+            }
+
+            this.ParseToken(TokenType.Delimiter, ")");
+
+            if (types.ContainsKey(token.Value) && expressions.Count == 1)
+                return new ConversionNode(types[token.Value], expressions[0]);
+
+            return new CallNode(new NameNode(token.Value), expressions);
         }
 
         private string ParseName()
