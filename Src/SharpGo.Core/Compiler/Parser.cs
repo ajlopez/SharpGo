@@ -471,20 +471,7 @@
             if (token.Type == TokenType.Name)
             {
                 if (this.TryParseToken(TokenType.Delimiter, "["))
-                {
-                    IExpressionNode expression = this.ParseExpressionNode();
-
-                    if (this.TryParseToken(TokenType.Delimiter, ":"))
-                    {
-                        IExpressionNode expression2 = this.ParseExpressionNode();
-                        this.ParseToken(TokenType.Delimiter, "]");
-                        return new SliceNode(token.Value, expression, expression2);
-                    }
-
-                    this.ParseToken(TokenType.Delimiter, "]");
-
-                    return new IndexedNode(token.Value, expression);
-                }
+                    return ParseIndexExpression(token);
 
                 if (this.TryParseToken(TokenType.Delimiter, "("))
                     return ParseCall(token);
@@ -508,6 +495,22 @@
             this.PushToken(token);
 
             return null;
+        }
+
+        private IExpressionNode ParseIndexExpression(Token token)
+        {
+            IExpressionNode expression = this.ParseExpressionNode();
+
+            if (this.TryParseToken(TokenType.Delimiter, ":"))
+            {
+                IExpressionNode expression2 = this.ParseExpressionNode();
+                this.ParseToken(TokenType.Delimiter, "]");
+                return new SliceNode(token.Value, expression, expression2);
+            }
+
+            this.ParseToken(TokenType.Delimiter, "]");
+
+            return new IndexedNode(token.Value, expression);
         }
 
         private IExpressionNode ParseCall(Token token)
