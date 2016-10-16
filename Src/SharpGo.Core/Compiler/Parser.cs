@@ -477,10 +477,7 @@
                     return ParseCall(token);
 
                 if (this.TryParseToken(TokenType.Delimiter, "."))
-                {
-                    string name2 = this.ParseName();
-                    return new DotNode(new NameNode(token.Value), name2);
-                }
+                    return ParseDotName(token);
 
                 if (token.Value == "true")
                     return new ConstantNode(true);
@@ -495,6 +492,12 @@
             this.PushToken(token);
 
             return null;
+        }
+
+        private IExpressionNode ParseDotName(Token token)
+        {
+            string name2 = this.ParseName();
+            return new DotNode(new NameNode(token.Value), name2);
         }
 
         private IExpressionNode ParseIndexExpression(Token token)
