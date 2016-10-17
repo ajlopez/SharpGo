@@ -331,7 +331,7 @@
 
         private IStatementNode ParseIfNode()
         {
-            INode stmt = null;
+            IStatementNode stmt = null;
 
             var fstmt = this.ParseSimpleStatementNode();
 

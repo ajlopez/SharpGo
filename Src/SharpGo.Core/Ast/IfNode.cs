@@ -7,7 +7,7 @@
 
     public class IfNode : IStatementNode
     {
-        private INode statement;
+        private IStatementNode statement;
         private IExpressionNode expression;
         private BlockNode block;
 
@@ -16,14 +16,14 @@
         {
         }
 
-        public IfNode(INode statement, IExpressionNode expression, BlockNode block)
+        public IfNode(IStatementNode statement, IExpressionNode expression, BlockNode block)
         {
             this.statement = statement;
             this.expression = expression;
             this.block = block;
         }
 
-        public INode Statement { get { return this.statement; } }
+        public IStatementNode Statement { get { return this.statement; } }
 
         public INode Expression { get { return this.expression; } }
 
