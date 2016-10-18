@@ -365,6 +365,19 @@
         }
 
         [TestMethod]
+        public void ParseFallThroughStatement()
+        {
+            Parser parser = new Parser("fallthrough");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(FallthroughNode));
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseBlockStatement()
         {
             Parser parser = new Parser("{ a = 1 }");

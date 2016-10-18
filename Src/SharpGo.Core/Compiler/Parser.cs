@@ -207,6 +207,9 @@
             if (token.Type == TokenType.Delimiter && token.Value == "{")
                 return this.ParseStatementBlock();
 
+            if (this.TryParseToken(TokenType.Name, "fallthrough"))
+                return new FallthroughNode();
+
             if (this.TryParseToken(TokenType.Name, "return"))
             {
                 var expr = this.ParseExpressionNode();
