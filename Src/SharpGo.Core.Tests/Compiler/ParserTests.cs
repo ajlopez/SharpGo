@@ -378,6 +378,32 @@
         }
 
         [TestMethod]
+        public void ParseEmptyStatement()
+        {
+            Parser parser = new Parser("");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(EmptyNode));
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
+        public void ParseEmptyStatementWithSemicolon()
+        {
+            Parser parser = new Parser(";");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(EmptyNode));
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseBlockStatement()
         {
             Parser parser = new Parser("{ a = 1 }");
