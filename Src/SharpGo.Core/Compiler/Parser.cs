@@ -35,7 +35,10 @@
             var node = this.ParseSimpleStatementNode(true);
 
             if (node == null)
-                return null;
+                if (this.TryParseEndOfStatement())
+                    return new EmptyNode();
+                else
+                    return null;
 
             this.ParseEndOfStatement();
 
@@ -626,6 +629,27 @@
             return false;
         }
 
+        private bool TryParseEndOfStatement()
+        {
+            var token = this.NextToken();
+
+            if (token == null)
+                return false;
+
+            if (token.Type == TokenType.NewLine)
+                return true;
+
+            if (token.Type == TokenType.Delimiter && token.Value == ";")
+                return true;
+
+            if (token.Type == TokenType.Delimiter && token.Value == "}")
+            {
+                this.PushToken(token);
+                return true;
+            }
+
+            return false;
+        }
         private void ParseEndOfStatement()
         {
             var token = this.NextToken();

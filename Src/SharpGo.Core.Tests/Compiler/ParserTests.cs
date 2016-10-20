@@ -380,7 +380,7 @@
         [TestMethod]
         public void ParseEmptyStatement()
         {
-            Parser parser = new Parser("");
+            Parser parser = new Parser("\r\n");
 
             var node = parser.ParseStatementNode();
 
