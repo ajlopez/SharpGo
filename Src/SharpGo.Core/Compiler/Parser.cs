@@ -32,6 +32,13 @@
 
         public IStatementNode ParseStatementNode()
         {
+            var token = this.lexer.NextToken();
+
+            if (token != null && token.Type == TokenType.NewLine)
+                return new EmptyNode();
+
+            this.lexer.PushToken(token);
+
             var node = this.ParseSimpleStatementNode(true);
 
             if (node == null)
