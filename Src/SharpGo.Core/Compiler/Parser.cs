@@ -204,6 +204,8 @@
                     return this.ParseFuncNode();
                 if (token.Value == "type")
                     return this.ParseAliasTypeNode();
+                if (token.Value == "return")
+                    return new ReturnNode(this.ParseExpressionNode());
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
@@ -219,12 +221,6 @@
 
             if (this.TryParseToken(TokenType.Name, "fallthrough"))
                 return new FallthroughNode();
-
-            if (this.TryParseToken(TokenType.Name, "return"))
-            {
-                var expr = this.ParseExpressionNode();
-                return new ReturnNode(expr);
-            }
 
             if (this.TryParseToken(TokenType.Name, "defer"))
             {
