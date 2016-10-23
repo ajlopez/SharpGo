@@ -223,46 +223,25 @@
                 return new FallthroughNode();
 
             if (this.TryParseToken(TokenType.Name, "defer"))
-            {
-                var expr = this.ParseExpressionNode();
-                return new DeferNode(expr);
-            }
+                return new DeferNode(this.ParseExpressionNode());
 
             if (this.TryParseToken(TokenType.Name, "go"))
-            {
-                var expr = this.ParseExpressionNode();
-                return new GoNode(expr);
-            }
+                return new GoNode(this.ParseExpressionNode());
 
             if (this.TryParseToken(TokenType.Name, "import"))
-            {
-                var expr = this.ParseExpressionNode();
-                return new ImportNode(expr);
-            }
+                return new ImportNode(this.ParseExpressionNode());
 
             if (this.TryParseToken(TokenType.Name, "break"))
-            {
-                string label = this.TryParseName();
-                return new BreakNode(label);
-            }
+                return new BreakNode(this.TryParseName());
 
             if (this.TryParseToken(TokenType.Name, "continue"))
-            {
-                string label = this.TryParseName();
-                return new ContinueNode(label);
-            }
+                return new ContinueNode(this.TryParseName());
 
             if (this.TryParseToken(TokenType.Name, "goto"))
-            {
-                string label = this.ParseName();
-                return new GotoNode(label);
-            }
+                return new GotoNode(this.ParseName());
 
             if (this.TryParseToken(TokenType.Name, "package"))
-            {
-                string name = this.ParseName();
-                return new PackageNode(name);
-            }
+                return new PackageNode(this.ParseName());
 
             IExpressionNode node = this.ParseExpressionNode();
 
