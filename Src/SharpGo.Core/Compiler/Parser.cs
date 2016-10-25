@@ -32,12 +32,12 @@
 
         public IStatementNode ParseStatementNode()
         {
-            var token = this.lexer.NextToken();
+            var token = this.NextToken();
 
             if (token != null && token.Type == TokenType.NewLine)
                 return new EmptyNode();
 
-            this.lexer.PushToken(token);
+            this.PushToken(token);
 
             var node = this.ParseSimpleStatementNode(true);
 
@@ -407,6 +407,10 @@
         private BlockNode ParseStatementBlock()
         {
             this.ParseToken(TokenType.Delimiter, "{");
+
+            while (this.TryParseToken(TokenType.NewLine))
+                ;
+
             var stmts = new List<IStatementNode>();
 
             while (!this.TryParseToken(TokenType.Delimiter, "}"))
@@ -565,6 +569,21 @@
                 throw new ParserException(string.Format("Expected '{0}'", value));
 
             this.PushToken(token);
+        }
+
+        private bool TryParseToken(TokenType type)
+        {
+            var token = this.NextToken();
+
+            if (token == null)
+                return false;
+
+            if (token.Type == type)
+                return true;
+
+            this.PushToken(token);
+
+            return false;
         }
 
         private bool TryParseToken(TokenType type, string value)

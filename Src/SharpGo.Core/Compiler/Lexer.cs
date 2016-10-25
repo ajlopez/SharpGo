@@ -15,8 +15,6 @@
         private int length;
         private int position;
 
-        private Stack<Token> tokens = new Stack<Token>();
-
         public Lexer(string text)
         {
             this.text = text;
@@ -26,9 +24,6 @@
 
         public Token NextToken()
         {
-            if (this.tokens.Count > 0)
-                return this.tokens.Pop();
-
             while (this.position < this.length && IsWhiteSpace(this.text[this.position]))
                 this.position++;
 
@@ -106,11 +101,6 @@
                 return new Token(TokenType.Operator, str);
 
             throw new LexerException(string.Format("Unexpected '{0}'", ch));
-        }
-
-        public void PushToken(Token token)
-        {
-            this.tokens.Push(token);
         }
 
         private static bool IsLetter(char ch)
