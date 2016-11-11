@@ -206,6 +206,10 @@
                     return this.ParseAliasTypeNode();
                 if (token.Value == "return")
                     return new ReturnNode(this.ParseExpressionNode());
+                if (token.Value == "fallthrough")
+                    return new FallthroughNode();
+                if (token.Value == "defer")
+                    return new DeferNode(this.ParseExpressionNode());
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
@@ -218,12 +222,6 @@
 
             if (token.Type == TokenType.Delimiter && token.Value == "{")
                 return this.ParseStatementBlock();
-
-            if (this.TryParseToken(TokenType.Name, "fallthrough"))
-                return new FallthroughNode();
-
-            if (this.TryParseToken(TokenType.Name, "defer"))
-                return new DeferNode(this.ParseExpressionNode());
 
             if (this.TryParseToken(TokenType.Name, "go"))
                 return new GoNode(this.ParseExpressionNode());
