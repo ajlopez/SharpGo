@@ -17,6 +17,7 @@ Work in Progress
 - [Go at Google: Language Design in the Service of Software Engineering](https://talks.golang.org/2012/splash.article)
 - [Errors are Values](https://blog.golang.org/errors-are-values)
 - [Go 1.6 Release Notes DRAFT](http://tip.golang.org/doc/go1.6)
+- [Go Slices: usage and internals](https://blog.golang.org/go-slices-usage-and-internals)
 
 ### Interpreters
 
