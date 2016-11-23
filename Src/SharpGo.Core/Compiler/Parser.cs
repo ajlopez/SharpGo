@@ -210,6 +210,8 @@
                     return new FallthroughNode();
                 if (token.Value == "defer")
                     return new DeferNode(this.ParseExpressionNode());
+                if (token.Value == "go")
+                    return new GoNode(this.ParseExpressionNode());
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
@@ -222,9 +224,6 @@
 
             if (token.Type == TokenType.Delimiter && token.Value == "{")
                 return this.ParseStatementBlock();
-
-            if (this.TryParseToken(TokenType.Name, "go"))
-                return new GoNode(this.ParseExpressionNode());
 
             if (this.TryParseToken(TokenType.Name, "import"))
                 return new ImportNode(this.ParseExpressionNode());
