@@ -212,6 +212,8 @@
                     return new DeferNode(this.ParseExpressionNode());
                 if (token.Value == "go")
                     return new GoNode(this.ParseExpressionNode());
+                if (token.Value == "import")
+                    return new ImportNode(this.ParseExpressionNode());
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
