@@ -214,6 +214,8 @@
                     return new GoNode(this.ParseExpressionNode());
                 if (token.Value == "import")
                     return new ImportNode(this.ParseExpressionNode());
+                if (token.Value == "break")
+                    return new BreakNode(this.TryParseName());
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
@@ -226,12 +228,6 @@
 
             if (token.Type == TokenType.Delimiter && token.Value == "{")
                 return this.ParseStatementBlock();
-
-            if (this.TryParseToken(TokenType.Name, "import"))
-                return new ImportNode(this.ParseExpressionNode());
-
-            if (this.TryParseToken(TokenType.Name, "break"))
-                return new BreakNode(this.TryParseName());
 
             if (this.TryParseToken(TokenType.Name, "continue"))
                 return new ContinueNode(this.TryParseName());
