@@ -218,6 +218,8 @@
                     return new BreakNode(this.TryParseName());
                 if (token.Value == "continue")
                     return new ContinueNode(this.TryParseName());
+                if (token.Value == "goto")
+                    return new GotoNode(this.ParseName());
 
                 if (this.TryParseToken(TokenType.Operator, ":="))
                     return this.ParseVarAssignmentNode(token);
@@ -230,9 +232,6 @@
 
             if (token.Type == TokenType.Delimiter && token.Value == "{")
                 return this.ParseStatementBlock();
-
-            if (this.TryParseToken(TokenType.Name, "goto"))
-                return new GotoNode(this.ParseName());
 
             if (this.TryParseToken(TokenType.Name, "package"))
                 return new PackageNode(this.ParseName());
