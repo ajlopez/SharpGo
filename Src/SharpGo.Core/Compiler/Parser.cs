@@ -258,6 +258,12 @@
                 return cmdnode;
             }
 
+            if (this.TryParseToken(TokenType.Operator, "*="))
+            {
+                var cmdnode = new AssignmentNode(AssignmentOperator.Multiply, node, this.ParseExpressionNode());
+                return cmdnode;
+            }
+
             if (this.TryParseToken(TokenType.Operator, "<-"))
             {
                 var cmdnode = new SendNode(node, this.ParseExpressionNode());
@@ -265,6 +271,7 @@
             }
 
             var cmd = new ExpressionStatementNode(node);
+
             return cmd;
         }
 
