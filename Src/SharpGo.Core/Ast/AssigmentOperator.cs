@@ -10,6 +10,7 @@
         Set,
         Add,
         Subtract,
-        Multiply
+        Multiply,
+        Divide
     }
 }
