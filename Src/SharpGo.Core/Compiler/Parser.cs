@@ -270,6 +270,12 @@
                 return cmdnode;
             }
 
+            if (this.TryParseToken(TokenType.Operator, "%="))
+            {
+                var cmdnode = new AssignmentNode(AssignmentOperator.Modulus, node, this.ParseExpressionNode());
+                return cmdnode;
+            }
+
             if (this.TryParseToken(TokenType.Operator, "<-"))
             {
                 var cmdnode = new SendNode(node, this.ParseExpressionNode());

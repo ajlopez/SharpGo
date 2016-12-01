@@ -11,6 +11,7 @@
         Add,
         Subtract,
         Multiply,
-        Divide
+        Divide,
+        Modulus
     }
 }
