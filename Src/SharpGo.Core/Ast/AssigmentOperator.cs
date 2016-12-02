@@ -12,6 +12,7 @@
         Subtract,
         Multiply,
         Divide,
-        Modulus
+        Modulus,
+        LeftShift   
     }
 }
