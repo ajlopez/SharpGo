@@ -282,6 +282,12 @@
                 return cmdnode;
             }
 
+            if (this.TryParseToken(TokenType.Operator, ">>="))
+            {
+                var cmdnode = new AssignmentNode(AssignmentOperator.RightShift, node, this.ParseExpressionNode());
+                return cmdnode;
+            }
+
             if (this.TryParseToken(TokenType.Operator, "<-"))
             {
                 var cmdnode = new SendNode(node, this.ParseExpressionNode());
