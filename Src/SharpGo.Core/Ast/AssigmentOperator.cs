@@ -14,6 +14,7 @@
         Divide,
         Modulus,
         LeftShift,
-        RightShift
+        RightShift,
+        BitOr
     }
 }
