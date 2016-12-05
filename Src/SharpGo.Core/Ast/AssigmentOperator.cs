@@ -15,6 +15,7 @@
         Modulus,
         LeftShift,
         RightShift,
-        BitOr
+        BitOr,
+        BitAnd
     }
 }
