@@ -300,6 +300,12 @@
                 return cmdnode;
             }
 
+            if (this.TryParseToken(TokenType.Operator, "^="))
+            {
+                var cmdnode = new AssignmentNode(AssignmentOperator.BitXor, node, this.ParseExpressionNode());
+                return cmdnode;
+            }
+
             if (this.TryParseToken(TokenType.Operator, "<-"))
             {
                 var cmdnode = new SendNode(node, this.ParseExpressionNode());

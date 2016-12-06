@@ -16,6 +16,7 @@
         LeftShift,
         RightShift,
         BitOr,
-        BitAnd
+        BitAnd,
+        BitXor
     }
 }
