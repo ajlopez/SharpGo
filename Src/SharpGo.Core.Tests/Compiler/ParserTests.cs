@@ -477,6 +477,30 @@
         }
 
         [TestMethod]
+        public void ParseAssigmentStatementWithBitClearOperator()
+        {
+            Parser parser = new Parser("a &^= 2");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(AssignmentNode));
+
+            var assignnode = (AssignmentNode)node;
+
+            Assert.AreEqual(AssignmentOperator.BitClear, assignnode.Operator);
+            Assert.IsNotNull(assignnode.ExpressionNode);
+            Assert.IsInstanceOfType(assignnode.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual(2, ((ConstantNode)assignnode.ExpressionNode).Value);
+
+            Assert.IsNotNull(assignnode.TargetNode);
+            Assert.IsInstanceOfType(assignnode.TargetNode, typeof(NameNode));
+            Assert.AreEqual("a", ((NameNode)assignnode.TargetNode).Name);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseTwoAssigmentStatement()
         {
             Parser parser = new Parser("a = 1\r\nb=2");

@@ -17,6 +17,7 @@
         RightShift,
         BitOr,
         BitAnd,
-        BitXor
+        BitXor,
+        BitClear
     }
 }
