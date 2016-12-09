@@ -379,7 +379,13 @@
 
             var expr = ((ExpressionStatementNode)fstmt).ExpressionNode;
 
-            return new IfNode(stmt, expr, this.ParseStatementBlock());
+            var thenCmd = this.ParseStatementBlock();
+            BlockNode elseCmd = null;
+
+            if (this.TryParseName("else"))
+                elseCmd = this.ParseStatementBlock();
+
+            return new IfNode(stmt, expr, thenCmd, elseCmd);
         }
 
         private IStatementNode ParseStructNode()

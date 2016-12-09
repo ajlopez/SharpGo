@@ -1678,6 +1678,79 @@
         }
 
         [TestMethod]
+        public void ParseIfWithElse()
+        {
+            Parser parser = new Parser("if x := 1; x == 1 {\n y = 2; \n} else {\n y = 3; \n}");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(IfNode));
+
+            var ifnode = (IfNode)node;
+
+            Assert.IsNotNull(ifnode.Statement);
+            Assert.IsInstanceOfType(ifnode.Statement, typeof(VarNode));
+            Assert.IsNotNull(ifnode.Expression);
+            Assert.IsInstanceOfType(ifnode.Expression, typeof(BinaryNode));
+
+            var stmt = (VarNode)ifnode.Statement;
+
+            Assert.AreEqual("x", stmt.Name);
+            Assert.IsNotNull(stmt.ExpressionNode);
+            Assert.IsInstanceOfType(stmt.ExpressionNode, typeof(ConstantNode));
+
+            Assert.AreEqual(1, ((ConstantNode)stmt.ExpressionNode).Value);
+
+            var expr = (BinaryNode)ifnode.Expression;
+
+            Assert.IsNotNull(expr.LeftNode);
+            Assert.IsNotNull(expr.RightNode);
+            Assert.AreEqual(expr.Operator, BinaryOperator.Equal);
+
+            Assert.IsInstanceOfType(expr.LeftNode, typeof(NameNode));
+            Assert.AreEqual("x", ((NameNode)expr.LeftNode).Name);
+            Assert.IsInstanceOfType(expr.RightNode, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)expr.RightNode).Value);
+
+            Assert.IsNotNull(ifnode.ThenCommand);
+
+            var block = ifnode.ThenCommand;
+
+            Assert.AreEqual(1, block.Statements.Count);
+
+            var st = block.Statements[0];
+
+            Assert.IsInstanceOfType(st, typeof(AssignmentNode));
+
+            var assign = (AssignmentNode)st;
+
+            Assert.IsInstanceOfType(assign.TargetNode, typeof(NameNode));
+            Assert.AreEqual("y", ((NameNode)assign.TargetNode).Name);
+            Assert.IsInstanceOfType(assign.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual(2, ((ConstantNode)assign.ExpressionNode).Value);
+
+            Assert.IsNotNull(ifnode.ElseCommand);
+
+            block = ifnode.ElseCommand;
+
+            Assert.AreEqual(1, block.Statements.Count);
+
+            st = block.Statements[0];
+
+            Assert.IsInstanceOfType(st, typeof(AssignmentNode));
+
+            assign = (AssignmentNode)st;
+
+            Assert.IsInstanceOfType(assign.TargetNode, typeof(NameNode));
+            Assert.AreEqual("y", ((NameNode)assign.TargetNode).Name);
+            Assert.IsInstanceOfType(assign.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual(3, ((ConstantNode)assign.ExpressionNode).Value);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseSimpleFor()
         {
             Parser parser = new Parser("for x < 1 { x = 1 }");
