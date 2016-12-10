@@ -1680,7 +1680,7 @@
         [TestMethod]
         public void ParseIfWithElse()
         {
-            Parser parser = new Parser("if x := 1; x == 1 {\n y = 2; \n} else {\n y = 3; \n}");
+            Parser parser = new Parser("if x := 1; x == 1 { y = 2; } else { y = 3; }");
 
             var node = parser.ParseStatementNode();
 
