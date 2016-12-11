@@ -9,20 +9,20 @@
     {
         private IStatementNode statement;
         private IExpressionNode expression;
-        private BlockNode thenCommand;
-        private BlockNode elseCommand;
+        private IStatementNode thenCommand;
+        private IStatementNode elseCommand;
 
         public IfNode(IExpressionNode expression, BlockNode block)
             : this(null, expression, block)
         {
         }
 
-        public IfNode(IStatementNode statement, IExpressionNode expression, BlockNode thenNode)
+        public IfNode(IStatementNode statement, IExpressionNode expression, IStatementNode thenNode)
             : this(statement, expression, thenNode, null)
         {
         }
 
-        public IfNode(IStatementNode statement, IExpressionNode expression, BlockNode thenNode, BlockNode elseNode)
+        public IfNode(IStatementNode statement, IExpressionNode expression, IStatementNode thenNode, IStatementNode elseNode)
         {
             this.statement = statement;
             this.expression = expression;
@@ -34,8 +34,8 @@
 
         public INode Expression { get { return this.expression; } }
 
-        public BlockNode ThenCommand { get { return this.thenCommand; } }
+        public IStatementNode ThenCommand { get { return this.thenCommand; } }
 
-        public BlockNode ElseCommand { get { return this.elseCommand; } }
+        public IStatementNode ElseCommand { get { return this.elseCommand; } }
     }
 }

@@ -1602,8 +1602,9 @@
             Assert.AreEqual(1, ((ConstantNode)expr.RightNode).Value);
 
             Assert.IsNotNull(ifnode.ThenCommand);
+            Assert.IsInstanceOfType(ifnode.ThenCommand, typeof(BlockNode));
 
-            var block = ifnode.ThenCommand;
+            var block = (BlockNode)ifnode.ThenCommand;
 
             Assert.AreEqual(1, block.Statements.Count);
 
@@ -1658,8 +1659,9 @@
             Assert.AreEqual(1, ((ConstantNode)expr.RightNode).Value);
 
             Assert.IsNotNull(ifnode.ThenCommand);
+            Assert.IsInstanceOfType(ifnode.ThenCommand, typeof(BlockNode));
 
-            var block = ifnode.ThenCommand;
+            var block = (BlockNode)ifnode.ThenCommand;
 
             Assert.AreEqual(1, block.Statements.Count);
 
@@ -1714,8 +1716,9 @@
             Assert.AreEqual(1, ((ConstantNode)expr.RightNode).Value);
 
             Assert.IsNotNull(ifnode.ThenCommand);
+            Assert.IsInstanceOfType(ifnode.ThenCommand, typeof(BlockNode));
 
-            var block = ifnode.ThenCommand;
+            var block = (BlockNode)ifnode.ThenCommand;
 
             Assert.AreEqual(1, block.Statements.Count);
 
@@ -1731,8 +1734,9 @@
             Assert.AreEqual(2, ((ConstantNode)assign.ExpressionNode).Value);
 
             Assert.IsNotNull(ifnode.ElseCommand);
+            Assert.IsInstanceOfType(ifnode.ElseCommand, typeof(BlockNode));
 
-            block = ifnode.ElseCommand;
+            block = (BlockNode)ifnode.ElseCommand;
 
             Assert.AreEqual(1, block.Statements.Count);
 
