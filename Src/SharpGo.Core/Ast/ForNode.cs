@@ -10,19 +10,19 @@
         private IStatementNode initstmt;
         private IExpressionNode expression;
         private IStatementNode poststmt;
-        private BlockNode block;
+        private IStatementNode body;
 
-        public ForNode(IExpressionNode expression, BlockNode block)
-            : this(null, expression, null, block)
+        public ForNode(IExpressionNode expression, IStatementNode body)
+            : this(null, expression, null, body)
         {
         }
 
-        public ForNode(IStatementNode initstmt, IExpressionNode expression, IStatementNode poststmt, BlockNode block)
+        public ForNode(IStatementNode initstmt, IExpressionNode expression, IStatementNode poststmt, IStatementNode body)
         {
             this.initstmt = initstmt;
             this.expression = expression;
             this.poststmt = poststmt;
-            this.block = block;
+            this.body = body;
         }
 
         public IStatementNode InitStatement { get { return this.initstmt; } }
@@ -31,6 +31,6 @@
 
         public IStatementNode PostStatement { get { return this.poststmt; } }
 
-        public BlockNode BlockNode { get { return this.block; } }
+        public IStatementNode BodyNode { get { return this.body; } }
     }
 }

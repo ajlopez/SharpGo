@@ -1783,9 +1783,10 @@
             Assert.IsInstanceOfType(expr.RightNode, typeof(ConstantNode));
             Assert.AreEqual(1, ((ConstantNode)expr.RightNode).Value);
 
-            Assert.IsNotNull(fornode.BlockNode);
+            Assert.IsNotNull(fornode.BodyNode);
+            Assert.IsInstanceOfType(fornode.BodyNode, typeof(BlockNode));
 
-            var block = fornode.BlockNode;
+            var block = (BlockNode)fornode.BodyNode;
 
             Assert.AreEqual(1, block.Statements.Count);
 
@@ -1834,9 +1835,10 @@
             Assert.IsInstanceOfType(expr.RightNode, typeof(ConstantNode));
             Assert.AreEqual(10, ((ConstantNode)expr.RightNode).Value);
 
-            Assert.IsNotNull(fornode.BlockNode);
+            Assert.IsNotNull(fornode.BodyNode);
+            Assert.IsInstanceOfType(fornode.BodyNode, typeof(BlockNode));
 
-            var block = fornode.BlockNode;
+            var block = (BlockNode)fornode.BodyNode;
 
             Assert.AreEqual(1, block.Statements.Count);
 
