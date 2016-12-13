@@ -470,6 +470,8 @@
             {
                 var stm = this.ParseStatementNode();
                 stmts.Add(stm);
+                while (this.TryParseToken(TokenType.NewLine))
+                    ;
             }
 
             return new BlockNode(stmts);

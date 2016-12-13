@@ -1577,7 +1577,7 @@
         [TestMethod]
         public void ParseSimpleIf()
         {
-            Parser parser = new Parser("if x == 1 { y = 2 }");
+            Parser parser = new Parser("if x == 1 { \n y = 2;\n }");
 
             var node = parser.ParseStatementNode();
 
@@ -1625,7 +1625,7 @@
         [TestMethod]
         public void ParseIfWithSimpleStatement()
         {
-            Parser parser = new Parser("if x := 1; x == 1 { y = 2 }");
+            Parser parser = new Parser("if x := 1; x == 1 {\n y = 2;\n }");
 
             var node = parser.ParseStatementNode();
 
