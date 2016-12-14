@@ -1682,7 +1682,7 @@
         [TestMethod]
         public void ParseIfWithElse()
         {
-            Parser parser = new Parser("if x := 1; x == 1 { y = 2; } else { y = 3; }");
+            Parser parser = new Parser("if x := 1; x == 1 { \ny = 2;\n } else {\n y = 3;\n }");
 
             var node = parser.ParseStatementNode();
 
@@ -1757,7 +1757,7 @@
         [TestMethod]
         public void ParseSimpleFor()
         {
-            Parser parser = new Parser("for x < 1 { x = 1 }");
+            Parser parser = new Parser("for x < 1 {\n x = 1;\n }");
 
             var node = parser.ParseStatementNode();
 
@@ -1807,7 +1807,7 @@
         [TestMethod]
         public void ParseForWithInitAndPostStatements()
         {
-            Parser parser = new Parser("for x := 1; x < 10; x = x + 1 { y = 1 }");
+            Parser parser = new Parser("for x := 1; x < 10; x = x + 1 { \n y = 1;\n }");
 
             var node = parser.ParseStatementNode();
 
