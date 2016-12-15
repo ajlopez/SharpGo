@@ -1883,6 +1883,32 @@
         }
 
         [TestMethod]
+        public void ParseFuncWithoutParametersAndWithEmptyBodyWithNewLine()
+        {
+            Parser parser = new Parser("func foo() { \r\n }");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(FuncNode));
+
+            var fnode = (FuncNode)node;
+
+            Assert.AreEqual("foo", fnode.Name);
+            Assert.IsNotNull(fnode.Parameters);
+            Assert.AreEqual(0, fnode.Parameters.Count);
+            Assert.IsNotNull(fnode.BodyNode);
+            Assert.IsInstanceOfType(fnode.BodyNode, typeof(BlockNode));
+
+            var bnode = (BlockNode)fnode.BodyNode;
+
+            Assert.IsNotNull(bnode.Statements);
+            Assert.AreEqual(0, bnode.Statements.Count);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseFuncWithoutParametersAndWithAssignmentInBody()
         {
             Parser parser = new Parser("func foo() { a = 1 }");
