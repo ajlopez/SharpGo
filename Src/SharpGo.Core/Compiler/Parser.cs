@@ -343,7 +343,7 @@
 
             var body = this.ParseStatementNode();
 
-            return new FuncNode(name, arguments, body);
+            return new FuncNode(name, arguments, body, null);
         }
 
         private IStatementNode ParseForNode()
