@@ -1981,6 +1981,42 @@
         }
 
         [TestMethod]
+        public void ParseFuncWithReturnType()
+        {
+            Parser parser = new Parser("func foo() { \r\n return 42; \r\n} int");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(FuncNode));
+
+            var fnode = (FuncNode)node;
+
+            Assert.AreEqual("foo", fnode.Name);
+            Assert.IsNotNull(fnode.BodyNode);
+            Assert.IsInstanceOfType(fnode.BodyNode, typeof(BlockNode));
+
+            var bnode = (BlockNode)fnode.BodyNode;
+
+            Assert.IsNotNull(bnode.Statements);
+            Assert.AreEqual(1, bnode.Statements.Count);
+
+            var stmt = bnode.Statements[0];
+
+            Assert.IsInstanceOfType(stmt, typeof(ReturnNode));
+
+            var rstmt = (ReturnNode)stmt;
+
+            Assert.IsInstanceOfType(rstmt.Expression, typeof(ConstantNode));
+            Assert.AreEqual(42, ((ConstantNode)rstmt.Expression).Value);
+
+            Assert.IsNotNull(fnode.ReturnType);
+            Assert.AreSame(TypeInfo.Int, fnode.ReturnType);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void RaiseIfNoBlockInFunc()
         {
             Parser parser = new Parser("func foo() x = 1");
