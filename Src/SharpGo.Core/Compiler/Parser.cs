@@ -47,7 +47,8 @@
                 else
                     return null;
 
-            this.ParseEndOfStatement();
+            if (!(node is BlockNode))
+                this.ParseEndOfStatement();
 
             return node;
         }
@@ -342,8 +343,9 @@
             this.EnsureToken(TokenType.Delimiter, "{");
 
             var body = this.ParseStatementNode();
+            TypeInfo typeInfo = this.TryParseTypeInfo();
 
-            return new FuncNode(name, arguments, body, null);
+            return new FuncNode(name, arguments, body, typeInfo);
         }
 
         private IStatementNode ParseForNode()
