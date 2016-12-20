@@ -12,7 +12,7 @@
         private IStatementNode thenCommand;
         private IStatementNode elseCommand;
 
-        public IfNode(IExpressionNode expression, BlockNode block)
+        public IfNode(IExpressionNode expression, IStatementNode block)
             : this(null, expression, block)
         {
         }

@@ -382,7 +382,7 @@
             var expr = ((ExpressionStatementNode)fstmt).ExpressionNode;
 
             var thenCmd = this.ParseStatementBlock();
-            BlockNode elseCmd = null;
+            IStatementNode elseCmd = null;
 
             if (this.TryParseName("else"))
                 elseCmd = this.ParseStatementBlock();
