@@ -51,6 +51,8 @@
     <Compile Include="Ast\ConstNode.cs" />
     <Compile Include="Ast\ConversionNode.cs" />
     <Compile Include="Ast\AssigmentOperator.cs" />
+    <Compile Include="Ast\UnaryNode.cs" />
+    <Compile Include="Ast\UnaryOperator.cs" />
     <Compile Include="Ast\EmptyNode.cs" />
     <Compile Include="Ast\FallthroughNode.cs" />
     <Compile Include="Ast\StructMemberNode.cs" />
