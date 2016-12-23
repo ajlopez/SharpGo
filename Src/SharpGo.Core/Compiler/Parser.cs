@@ -495,6 +495,14 @@
             if (token.Type == TokenType.String)
                 return new ConstantNode(token.Value);
 
+            if (token.Type == TokenType.Operator)
+            {
+                if (token.Value == "++")
+                    return new UnaryNode(this.ParseTerm(), UnaryOperator.Increment);
+                if (token.Value == "--")
+                    return new UnaryNode(this.ParseTerm(), UnaryOperator.Decrement);
+            }
+
             if (token.Type == TokenType.Delimiter && token.Value == "(")
             {
                 var ti = this.TryParseTypeInfo();
