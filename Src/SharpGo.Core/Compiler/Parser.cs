@@ -501,6 +501,8 @@
                     return new UnaryNode(this.ParseTerm(), UnaryOperator.Increment);
                 if (token.Value == "--")
                     return new UnaryNode(this.ParseTerm(), UnaryOperator.Decrement);
+                if (token.Value == "!")
+                    return new UnaryNode(this.ParseTerm(), UnaryOperator.Negate);
             }
 
             if (token.Type == TokenType.Delimiter && token.Value == "(")
