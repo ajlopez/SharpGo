@@ -9,7 +9,8 @@
     {
         Increment,
         Decrement,
-        Negate
+        Negate,
+        PostIncrement
     }
 }
 
