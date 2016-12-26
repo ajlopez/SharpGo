@@ -10,7 +10,8 @@
         Increment,
         Decrement,
         Negate,
-        PostIncrement
+        PostIncrement,
+        PostDecrement
     }
 }
 
