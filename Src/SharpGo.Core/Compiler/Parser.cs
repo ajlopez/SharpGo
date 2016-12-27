@@ -153,10 +153,19 @@
 
         private IExpressionNode ParseBinaryExpressionNode(int level)
         {
-            if (level >= binaryoperators.Length)
-                return this.ParseTerm();
+            IExpressionNode expr;
 
-            IExpressionNode expr = this.ParseBinaryExpressionNode(level + 1);
+            if (level >= binaryoperators.Length)
+            {
+                expr = this.ParseTerm();
+
+                if (this.TryParseToken(TokenType.Operator, "++"))
+                    expr = new UnaryNode(expr, UnaryOperator.PostIncrement);
+
+                return expr;
+            }
+
+            expr = this.ParseBinaryExpressionNode(level + 1);
 
             if (expr == null)
                 return null;
