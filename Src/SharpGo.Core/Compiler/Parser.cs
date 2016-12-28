@@ -159,8 +159,16 @@
             {
                 expr = this.ParseTerm();
 
-                if (this.TryParseToken(TokenType.Operator, "++"))
-                    expr = new UnaryNode(expr, UnaryOperator.PostIncrement);
+                while (true)
+                {
+                    if (this.TryParseToken(TokenType.Operator, "++"))
+                    {
+                        expr = new UnaryNode(expr, UnaryOperator.PostIncrement);
+                        continue;
+                    }
+
+                    break;
+                }
 
                 return expr;
             }
