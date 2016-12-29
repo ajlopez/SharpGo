@@ -167,6 +167,12 @@
                         continue;
                     }
 
+                    if (this.TryParseToken(TokenType.Operator, "--"))
+                    {
+                        expr = new UnaryNode(expr, UnaryOperator.PostDecrement);
+                        continue;
+                    }
+
                     break;
                 }
 
