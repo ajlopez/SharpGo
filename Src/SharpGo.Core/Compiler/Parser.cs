@@ -520,6 +520,8 @@
 
             if (token.Type == TokenType.Operator)
             {
+                if (token.Value == "+")
+                    return new UnaryNode(this.ParseTerm(), UnaryOperator.Plus);
                 if (token.Value == "++")
                     return new UnaryNode(this.ParseTerm(), UnaryOperator.Increment);
                 if (token.Value == "--")
