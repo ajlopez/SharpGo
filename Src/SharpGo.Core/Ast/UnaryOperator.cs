@@ -8,6 +8,7 @@
     public enum UnaryOperator
     {
         Plus,
+        Minus,
         Increment,
         Decrement,
         Negate,

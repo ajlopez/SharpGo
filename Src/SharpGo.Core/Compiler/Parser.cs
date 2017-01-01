@@ -522,6 +522,8 @@
             {
                 if (token.Value == "+")
                     return new UnaryNode(this.ParseTerm(), UnaryOperator.Plus);
+                if (token.Value == "-")
+                    return new UnaryNode(this.ParseTerm(), UnaryOperator.Minus);
                 if (token.Value == "++")
                     return new UnaryNode(this.ParseTerm(), UnaryOperator.Increment);
                 if (token.Value == "--")
