@@ -12,6 +12,7 @@
         Increment,
         Decrement,
         Negate,
+        BitNegate,
         PostIncrement,
         PostDecrement
     }
