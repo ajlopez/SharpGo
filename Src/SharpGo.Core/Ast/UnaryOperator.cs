@@ -14,7 +14,8 @@
         Negate,
         BitNegate,
         PostIncrement,
-        PostDecrement
+        PostDecrement,
+        Address
     }
 }
 

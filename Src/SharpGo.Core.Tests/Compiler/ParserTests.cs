@@ -126,6 +126,26 @@
         }
 
         [TestMethod]
+        public void ParseAddressVariable()
+        {
+            Parser parser = new Parser("&a");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(UnaryNode));
+
+            var unode = (UnaryNode)node;
+
+            Assert.AreEqual(UnaryOperator.Address, unode.Operator);
+            Assert.IsNotNull(unode.ExpressionNode);
+            Assert.IsInstanceOfType(unode.ExpressionNode, typeof(NameNode));
+            Assert.AreEqual("a", ((NameNode)unode.ExpressionNode).Name);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
+        [TestMethod]
         public void ParsePreIncrementVariable()
         {
             Parser parser = new Parser("++a");
