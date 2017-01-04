@@ -534,6 +534,8 @@
                     return new UnaryNode(this.ParseTerm(), UnaryOperator.BitNegate);
                 if (token.Value == "&")
                     return new UnaryNode(this.ParseTerm(), UnaryOperator.Address);
+                if (token.Value == "*")
+                    return new UnaryNode(this.ParseTerm(), UnaryOperator.Pointer);
             }
 
             if (token.Type == TokenType.Delimiter && token.Value == "(")

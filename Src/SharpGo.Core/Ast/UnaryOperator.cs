@@ -15,7 +15,8 @@
         BitNegate,
         PostIncrement,
         PostDecrement,
-        Address
+        Address,
+        Pointer
     }
 }
 
