@@ -275,6 +275,20 @@
         }
 
         [TestMethod]
+        public void GetRightArrowAsOperator()
+        {
+            Lexer lexer = new Lexer("->");
+
+            var token = lexer.NextToken();
+
+            Assert.IsNotNull(token);
+            Assert.AreEqual(TokenType.Operator, token.Type);
+            Assert.AreEqual("->", token.Value);
+
+            Assert.IsNull(lexer.NextToken());
+        }
+
+        [TestMethod]
         public void GetEqualAsAssignmentOperator()
         {
             Lexer lexer = new Lexer("=");
