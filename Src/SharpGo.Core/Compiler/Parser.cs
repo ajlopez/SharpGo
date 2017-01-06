@@ -539,26 +539,7 @@
             }
 
             if (token.Type == TokenType.Delimiter && token.Value == "(")
-            {
-                var ti = this.TryParseTypeInfo();
-
-                if (ti != null)
-                {
-                    this.ParseToken(TokenType.Delimiter, ")");
-                    this.ParseToken(TokenType.Delimiter, "(");
-                    var expr = this.ParseExpressionNode();
-                    this.ParseToken(TokenType.Delimiter, ")");
-
-                    return new ConversionNode(ti, expr);
-                }
-                else
-                {
-                    var expr = this.ParseExpressionNode();
-                    this.ParseToken(TokenType.Delimiter, ")");
-
-                    return expr;
-                }
-            }
+                return ParseSubExpression();
 
             if (token.Type == TokenType.Name)
             {
@@ -584,6 +565,28 @@
             this.PushToken(token);
 
             return null;
+        }
+
+        private IExpressionNode ParseSubExpression()
+        {
+            var ti = this.TryParseTypeInfo();
+
+            if (ti != null)
+            {
+                this.ParseToken(TokenType.Delimiter, ")");
+                this.ParseToken(TokenType.Delimiter, "(");
+                var expr = this.ParseExpressionNode();
+                this.ParseToken(TokenType.Delimiter, ")");
+
+                return new ConversionNode(ti, expr);
+            }
+            else
+            {
+                var expr = this.ParseExpressionNode();
+                this.ParseToken(TokenType.Delimiter, ")");
+
+                return expr;
+            }
         }
 
         private IExpressionNode ParseDotName(Token token)
