@@ -520,22 +520,10 @@
 
             if (token.Type == TokenType.Operator)
             {
-                if (token.Value == "+")
-                    return new UnaryNode(this.ParseTerm(), UnaryOperator.Plus);
-                if (token.Value == "-")
-                    return new UnaryNode(this.ParseTerm(), UnaryOperator.Minus);
-                if (token.Value == "++")
-                    return new UnaryNode(this.ParseTerm(), UnaryOperator.Increment);
-                if (token.Value == "--")
-                    return new UnaryNode(this.ParseTerm(), UnaryOperator.Decrement);
-                if (token.Value == "!")
-                    return new UnaryNode(this.ParseTerm(), UnaryOperator.Negate);
-                if (token.Value == "~")
-                    return new UnaryNode(this.ParseTerm(), UnaryOperator.BitNegate);
-                if (token.Value == "&")
-                    return new UnaryNode(this.ParseTerm(), UnaryOperator.Address);
-                if (token.Value == "*")
-                    return new UnaryNode(this.ParseTerm(), UnaryOperator.Pointer);
+                UnaryNode uexpr = this.TryParseUnaryOperation(token.Value);
+
+                if (uexpr != null)
+                    return uexpr;
             }
 
             if (token.Type == TokenType.Delimiter && token.Value == "(")
@@ -563,6 +551,28 @@
             }
 
             this.PushToken(token);
+
+            return null;
+        }
+
+        private UnaryNode TryParseUnaryOperation(string oper)
+        {
+            if (oper == "+")
+                return new UnaryNode(this.ParseTerm(), UnaryOperator.Plus);
+            if (oper == "-")
+                return new UnaryNode(this.ParseTerm(), UnaryOperator.Minus);
+            if (oper == "++")
+                return new UnaryNode(this.ParseTerm(), UnaryOperator.Increment);
+            if (oper == "--")
+                return new UnaryNode(this.ParseTerm(), UnaryOperator.Decrement);
+            if (oper == "!")
+                return new UnaryNode(this.ParseTerm(), UnaryOperator.Negate);
+            if (oper == "~")
+                return new UnaryNode(this.ParseTerm(), UnaryOperator.BitNegate);
+            if (oper == "&")
+                return new UnaryNode(this.ParseTerm(), UnaryOperator.Address);
+            if (oper == "*")
+                return new UnaryNode(this.ParseTerm(), UnaryOperator.Pointer);
 
             return null;
         }
