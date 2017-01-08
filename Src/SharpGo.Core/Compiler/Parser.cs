@@ -530,29 +530,32 @@
                 return ParseSubExpression();
 
             if (token.Type == TokenType.Name)
-            {
-                if (this.TryParseToken(TokenType.Delimiter, "["))
-                    return ParseIndexExpression(token);
-
-                if (this.TryParseToken(TokenType.Delimiter, "("))
-                    return ParseCall(token);
-
-                if (this.TryParseToken(TokenType.Delimiter, "."))
-                    return ParseDotName(token);
-
-                if (token.Value == "true")
-                    return new ConstantNode(true);
-                if (token.Value == "false")
-                    return new ConstantNode(false);
-                if (token.Value == "nil")
-                    return new ConstantNode(null);
-
-                return new NameNode(token.Value);
-            }
+                return ParseNameExpression(token);
 
             this.PushToken(token);
 
             return null;
+        }
+
+        private IExpressionNode ParseNameExpression(Token token)
+        {
+            if (this.TryParseToken(TokenType.Delimiter, "["))
+                return ParseIndexExpression(token);
+
+            if (this.TryParseToken(TokenType.Delimiter, "("))
+                return ParseCall(token);
+
+            if (this.TryParseToken(TokenType.Delimiter, "."))
+                return ParseDotName(token);
+
+            if (token.Value == "true")
+                return new ConstantNode(true);
+            if (token.Value == "false")
+                return new ConstantNode(false);
+            if (token.Value == "nil")
+                return new ConstantNode(null);
+
+            return new NameNode(token.Value);
         }
 
         private UnaryNode TryParseUnaryOperation(string oper)
