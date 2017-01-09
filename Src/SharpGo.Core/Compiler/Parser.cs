@@ -214,44 +214,10 @@
 
             if (token.Type == TokenType.Name) 
             {
-                if (token.Value == "var")
-                    return this.ParseVarNode();
-                if (token.Value == "const")
-                    return this.ParseConstNode();
-                if (token.Value == "struct")
-                    return this.ParseStructNode();
-                if (token.Value == "if")
-                    return this.ParseIfNode();
-                if (token.Value == "for")
-                    return this.ParseForNode();
-                if (token.Value == "func")
-                    return this.ParseFuncNode();
-                if (token.Value == "type")
-                    return this.ParseAliasTypeNode();
-                if (token.Value == "return")
-                    return new ReturnNode(this.ParseExpressionNode());
-                if (token.Value == "fallthrough")
-                    return new FallthroughNode();
-                if (token.Value == "defer")
-                    return new DeferNode(this.ParseExpressionNode());
-                if (token.Value == "go")
-                    return new GoNode(this.ParseExpressionNode());
-                if (token.Value == "import")
-                    return new ImportNode(this.ParseExpressionNode());
-                if (token.Value == "break")
-                    return new BreakNode(this.TryParseName());
-                if (token.Value == "continue")
-                    return new ContinueNode(this.TryParseName());
-                if (token.Value == "goto")
-                    return new GotoNode(this.ParseName());
-                if (token.Value == "package")
-                    return new PackageNode(this.ParseName());
+                IStatementNode stmt = this.TryParseNameStatement(token.Value);
 
-                if (this.TryParseToken(TokenType.Operator, ":="))
-                    return this.ParseVarAssignmentNode(token);
-
-                if (this.TryParseToken(TokenType.Delimiter, ":"))
-                    return new LabelNode(token.Value, this.ParseSimpleStatementNode());
+                if (stmt != null)
+                    return stmt;
             }
 
             this.PushToken(token);
@@ -347,6 +313,50 @@
             return cmd;
         }
 
+        private IStatementNode TryParseNameStatement(string name)
+        {
+            if (name == "var")
+                return this.ParseVarNode();
+            if (name == "const")
+                return this.ParseConstNode();
+            if (name == "struct")
+                return this.ParseStructNode();
+            if (name == "if")
+                return this.ParseIfNode();
+            if (name == "for")
+                return this.ParseForNode();
+            if (name == "func")
+                return this.ParseFuncNode();
+            if (name == "type")
+                return this.ParseAliasTypeNode();
+            if (name == "return")
+                return new ReturnNode(this.ParseExpressionNode());
+            if (name == "fallthrough")
+                return new FallthroughNode();
+            if (name == "defer")
+                return new DeferNode(this.ParseExpressionNode());
+            if (name == "go")
+                return new GoNode(this.ParseExpressionNode());
+            if (name == "import")
+                return new ImportNode(this.ParseExpressionNode());
+            if (name == "break")
+                return new BreakNode(this.TryParseName());
+            if (name == "continue")
+                return new ContinueNode(this.TryParseName());
+            if (name == "goto")
+                return new GotoNode(this.ParseName());
+            if (name == "package")
+                return new PackageNode(this.ParseName());
+
+            if (this.TryParseToken(TokenType.Operator, ":="))
+                return this.ParseVarAssignmentNode(name);
+
+            if (this.TryParseToken(TokenType.Delimiter, ":"))
+                return new LabelNode(name, this.ParseSimpleStatementNode());
+
+            return null;
+        }
+
         private IStatementNode ParseAliasTypeNode()
         {
             var name = this.ParseName();
@@ -438,14 +448,14 @@
             return new ConstNode(name, typeinfo, expr);
         }
 
-        private IStatementNode ParseVarAssignmentNode(Token token)
+        private IStatementNode ParseVarAssignmentNode(string name)
         {
             TypeInfo typeinfo = this.TryParseTypeInfo();
 
             if (typeinfo is ArrayTypeInfo || typeinfo is SliceTypeInfo)
-                return new VarNode(token.Value, typeinfo, this.ParseBlockExpressionNode());
+                return new VarNode(name, typeinfo, this.ParseBlockExpressionNode());
 
-            return new VarNode(token.Value, typeinfo, this.ParseExpressionNode());
+            return new VarNode(name, typeinfo, this.ParseExpressionNode());
         }
 
         private VarNode ParseVarNode()
