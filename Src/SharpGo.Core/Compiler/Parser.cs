@@ -230,6 +230,24 @@
             if (node == null)
                 return null;
 
+            AssignmentNode anode = this.TryParseAssignmentNode(node);
+
+            if (anode != null)
+                return anode;
+
+            if (this.TryParseToken(TokenType.Operator, "<-"))
+            {
+                var cmdnode = new SendNode(node, this.ParseExpressionNode());
+                return cmdnode;
+            }
+
+            var cmd = new ExpressionStatementNode(node);
+
+            return cmd;
+        }
+
+        private AssignmentNode TryParseAssignmentNode(IExpressionNode node)
+        {
             if (this.TryParseToken(TokenType.Operator, "="))
             {
                 var cmdnode = new AssignmentNode(node, this.ParseExpressionNode());
@@ -302,15 +320,7 @@
                 return cmdnode;
             }
 
-            if (this.TryParseToken(TokenType.Operator, "<-"))
-            {
-                var cmdnode = new SendNode(node, this.ParseExpressionNode());
-                return cmdnode;
-            }
-
-            var cmd = new ExpressionStatementNode(node);
-
-            return cmd;
+            return null;
         }
 
         private IStatementNode TryParseNameStatement(string name)
