@@ -103,16 +103,7 @@
             }
 
             if (this.TryParseToken(TokenType.Name, "map"))
-            {
-                this.ParseToken(TokenType.Delimiter, "[");
-                TypeInfo keytypeinfo = this.ParseTypeInfo();
-
-                this.ParseToken(TokenType.Delimiter, "]");
-
-                TypeInfo elementtypeinfo = this.ParseTypeInfo();
-
-                return new MapTypeInfo(keytypeinfo, elementtypeinfo);
-            }
+                return ParseMapTypeInfo();
 
             if (this.TryParseToken(TokenType.Operator, "<-"))
             {
@@ -131,6 +122,18 @@
             }
 
             return types[token.Value];
+        }
+
+        private TypeInfo ParseMapTypeInfo()
+        {
+            this.ParseToken(TokenType.Delimiter, "[");
+            TypeInfo keytypeinfo = this.ParseTypeInfo();
+
+            this.ParseToken(TokenType.Delimiter, "]");
+
+            TypeInfo elementtypeinfo = this.ParseTypeInfo();
+
+            return new MapTypeInfo(keytypeinfo, elementtypeinfo);
         }
 
         private IExpressionNode ParseBlockExpressionNode()
