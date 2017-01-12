@@ -92,15 +92,7 @@
             }
 
             if (this.TryParseToken(TokenType.Name, "chan"))
-            {
-                bool issend = this.TryParseToken(TokenType.Operator, "<-");
-                TypeInfo typeinfo = this.ParseTypeInfo();
-
-                if (issend)
-                    return new ChannelTypeInfo(null, typeinfo);
-
-                return new ChannelTypeInfo(typeinfo);
-            }
+                return ParseChanTypeInfo();
 
             if (this.TryParseToken(TokenType.Name, "map"))
                 return ParseMapTypeInfo();
@@ -122,6 +114,17 @@
             }
 
             return types[token.Value];
+        }
+
+        private TypeInfo ParseChanTypeInfo()
+        {
+            bool issend = this.TryParseToken(TokenType.Operator, "<-");
+            TypeInfo typeinfo = this.ParseTypeInfo();
+
+            if (issend)
+                return new ChannelTypeInfo(null, typeinfo);
+
+            return new ChannelTypeInfo(typeinfo);
         }
 
         private TypeInfo ParseMapTypeInfo()
