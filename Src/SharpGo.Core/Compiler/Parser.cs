@@ -98,12 +98,7 @@
                 return ParseMapTypeInfo();
 
             if (this.TryParseToken(TokenType.Operator, "<-"))
-            {
-                this.ParseToken(TokenType.Name, "chan");
-                TypeInfo typeinfo = this.ParseTypeInfo();
-
-                return new ChannelTypeInfo(typeinfo, null);
-            }
+                return ParseChannelTypeInfo();
 
             var token = this.NextToken();
 
@@ -114,6 +109,14 @@
             }
 
             return types[token.Value];
+        }
+
+        private TypeInfo ParseChannelTypeInfo()
+        {
+            this.ParseToken(TokenType.Name, "chan");
+            TypeInfo typeinfo = this.ParseTypeInfo();
+
+            return new ChannelTypeInfo(typeinfo, null);
         }
 
         private TypeInfo ParseChanTypeInfo()
