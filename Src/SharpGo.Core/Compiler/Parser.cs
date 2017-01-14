@@ -71,18 +71,7 @@
         private TypeInfo TryParseTypeInfo()
         {
             if (this.TryParseToken(TokenType.Delimiter, "["))
-            {
-                IExpressionNode lexpr = this.ParseExpressionNode();
-
-                this.ParseToken(TokenType.Delimiter, "]");
-
-                TypeInfo typeinfo = this.ParseTypeInfo();
-
-                if (lexpr == null)
-                    return new SliceTypeInfo(typeinfo);
-                else
-                    return new ArrayTypeInfo(typeinfo, lexpr);
-            }
+                return ParseArraySliceTypeInfo();
 
             if (this.TryParseToken(TokenType.Operator, "*"))
             {
@@ -109,6 +98,20 @@
             }
 
             return types[token.Value];
+        }
+
+        private TypeInfo ParseArraySliceTypeInfo()
+        {
+            IExpressionNode lexpr = this.ParseExpressionNode();
+
+            this.ParseToken(TokenType.Delimiter, "]");
+
+            TypeInfo typeinfo = this.ParseTypeInfo();
+
+            if (lexpr == null)
+                return new SliceTypeInfo(typeinfo);
+            else
+                return new ArrayTypeInfo(typeinfo, lexpr);
         }
 
         private TypeInfo ParseChannelTypeInfo()
