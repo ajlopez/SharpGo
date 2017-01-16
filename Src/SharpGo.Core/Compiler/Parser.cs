@@ -165,31 +165,10 @@
 
         private IExpressionNode ParseBinaryExpressionNode(int level)
         {
-            IExpressionNode expr;
-
             if (level >= binaryoperators.Length)
-            {
-                expr = this.ParseTerm();
+                return ParseTermAndOperators();
 
-                while (true)
-                {
-                    if (this.TryParseToken(TokenType.Operator, "++"))
-                    {
-                        expr = new UnaryNode(expr, UnaryOperator.PostIncrement);
-                        continue;
-                    }
-
-                    if (this.TryParseToken(TokenType.Operator, "--"))
-                    {
-                        expr = new UnaryNode(expr, UnaryOperator.PostDecrement);
-                        continue;
-                    }
-
-                    break;
-                }
-
-                return expr;
-            }
+            IExpressionNode expr;
 
             expr = this.ParseBinaryExpressionNode(level + 1);
 
@@ -210,6 +189,30 @@
 
             if (token != null)
                 this.PushToken(token);
+
+            return expr;
+        }
+
+        private IExpressionNode ParseTermAndOperators()
+        {
+            IExpressionNode expr = this.ParseTerm();
+
+            while (true)
+            {
+                if (this.TryParseToken(TokenType.Operator, "++"))
+                {
+                    expr = new UnaryNode(expr, UnaryOperator.PostIncrement);
+                    continue;
+                }
+
+                if (this.TryParseToken(TokenType.Operator, "--"))
+                {
+                    expr = new UnaryNode(expr, UnaryOperator.PostDecrement);
+                    continue;
+                }
+
+                break;
+            }
 
             return expr;
         }
