@@ -12,7 +12,7 @@
     {
         private static Dictionary<string, TypeInfo> types = new Dictionary<string, TypeInfo>() { { "int", TypeInfo.Int }, { "int32", TypeInfo.Int32 }, { "uint", TypeInfo.UInt }, { "rune", TypeInfo.Int32 }, { "int16", TypeInfo.Int16 }, { "int64", TypeInfo.Int64 }, { "float32", TypeInfo.Float32 }, { "float64", TypeInfo.Float64 }, { "string", TypeInfo.String }, { "bool", TypeInfo.Bool }, { "nil", TypeInfo.Nil }, { "complex64", TypeInfo.Complex64 }, { "complex128", TypeInfo.Complex128 } };
         private static Dictionary<string, BinaryOperator> bops = new Dictionary<string, BinaryOperator>() { { "+", BinaryOperator.Add }, { "-", BinaryOperator.Substract }, { "*", BinaryOperator.Multiply }, { "/", BinaryOperator.Divide }, { "%", BinaryOperator.Mod }, { "<", BinaryOperator.Less }, { "<=", BinaryOperator.LessEqual }, { ">", BinaryOperator.Greater }, { ">=", BinaryOperator.GreaterEqual }, { "<<", BinaryOperator.LeftShift }, { ">>", BinaryOperator.RightShift }, { "&", BinaryOperator.BitwiseAnd }, { "|", BinaryOperator.BitwiseOr }, { "^", BinaryOperator.BitwiseXor }, { "&^", BinaryOperator.BitwiseAndNot }, { "&&", BinaryOperator.And }, { "||", BinaryOperator.Or }, { "==", BinaryOperator.Equal }, { "!=", BinaryOperator.NotEqual } };
-        private static Dictionary<string, AssignmentOperator> aops = new Dictionary<string, AssignmentOperator>() { { "+=", AssignmentOperator.Add }, { "-=", AssignmentOperator.Subtract }, { "*=", AssignmentOperator.Multiply }, { "/=", AssignmentOperator.Divide }, { "%=", AssignmentOperator.Modulus }, { "&=", AssignmentOperator.BitAnd }, { "|=", AssignmentOperator.BitOr }, { "^=", AssignmentOperator.BitXor }, { "&^=", AssignmentOperator.BitClear }, { "<<=", AssignmentOperator.LeftShift }, { ">>==", AssignmentOperator.RightShift } };
+        private static Dictionary<string, AssignmentOperator> aops = new Dictionary<string, AssignmentOperator>() { { "+=", AssignmentOperator.Add }, { "-=", AssignmentOperator.Subtract }, { "*=", AssignmentOperator.Multiply }, { "/=", AssignmentOperator.Divide }, { "%=", AssignmentOperator.Modulus }, { "&=", AssignmentOperator.BitAnd }, { "|=", AssignmentOperator.BitOr }, { "^=", AssignmentOperator.BitXor }, { "&^=", AssignmentOperator.BitClear }, { "<<=", AssignmentOperator.LeftShift }, { ">>=", AssignmentOperator.RightShift } };
 
         private static string[][] binaryoperators = new string[][] 
         {
@@ -270,71 +270,28 @@
                 return cmdnode;
             }
 
-            if (this.TryParseToken(TokenType.Operator, "+="))
+            Token token = this.TryParseAssignmentOperator();
+
+            if (token != null)
             {
-                var cmdnode = new AssignmentNode(AssignmentOperator.Add, node, this.ParseExpressionNode());
+                var cmdnode = new AssignmentNode(aops[token.Value], node, this.ParseExpressionNode());
                 return cmdnode;
             }
 
-            if (this.TryParseToken(TokenType.Operator, "-="))
-            {
-                var cmdnode = new AssignmentNode(AssignmentOperator.Subtract, node, this.ParseExpressionNode());
-                return cmdnode;
-            }
+            return null;
+        }
 
-            if (this.TryParseToken(TokenType.Operator, "*="))
-            {
-                var cmdnode = new AssignmentNode(AssignmentOperator.Multiply, node, this.ParseExpressionNode());
-                return cmdnode;
-            }
+        private Token TryParseAssignmentOperator()
+        {
+            Token token = this.NextToken();
 
-            if (this.TryParseToken(TokenType.Operator, "/="))
-            {
-                var cmdnode = new AssignmentNode(AssignmentOperator.Divide, node, this.ParseExpressionNode());
-                return cmdnode;
-            }
+            if (token == null)
+                return null;
 
-            if (this.TryParseToken(TokenType.Operator, "%="))
-            {
-                var cmdnode = new AssignmentNode(AssignmentOperator.Modulus, node, this.ParseExpressionNode());
-                return cmdnode;
-            }
+            if (token.Type == TokenType.Operator && aops.ContainsKey(token.Value))
+                return token;
 
-            if (this.TryParseToken(TokenType.Operator, "<<="))
-            {
-                var cmdnode = new AssignmentNode(AssignmentOperator.LeftShift, node, this.ParseExpressionNode());
-                return cmdnode;
-            }
-
-            if (this.TryParseToken(TokenType.Operator, ">>="))
-            {
-                var cmdnode = new AssignmentNode(AssignmentOperator.RightShift, node, this.ParseExpressionNode());
-                return cmdnode;
-            }
-
-            if (this.TryParseToken(TokenType.Operator, "|="))
-            {
-                var cmdnode = new AssignmentNode(AssignmentOperator.BitOr, node, this.ParseExpressionNode());
-                return cmdnode;
-            }
-
-            if (this.TryParseToken(TokenType.Operator, "&="))
-            {
-                var cmdnode = new AssignmentNode(AssignmentOperator.BitAnd, node, this.ParseExpressionNode());
-                return cmdnode;
-            }
-
-            if (this.TryParseToken(TokenType.Operator, "^="))
-            {
-                var cmdnode = new AssignmentNode(AssignmentOperator.BitXor, node, this.ParseExpressionNode());
-                return cmdnode;
-            }
-
-            if (this.TryParseToken(TokenType.Operator, "&^="))
-            {
-                var cmdnode = new AssignmentNode(AssignmentOperator.BitClear, node, this.ParseExpressionNode());
-                return cmdnode;
-            }
+            this.PushToken(token);
 
             return null;
         }
