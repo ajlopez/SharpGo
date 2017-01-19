@@ -11,10 +11,10 @@
     public class Parser
     {
         private static Dictionary<string, TypeInfo> types = new Dictionary<string, TypeInfo>() { { "int", TypeInfo.Int }, { "int32", TypeInfo.Int32 }, { "uint", TypeInfo.UInt }, { "rune", TypeInfo.Int32 }, { "int16", TypeInfo.Int16 }, { "int64", TypeInfo.Int64 }, { "float32", TypeInfo.Float32 }, { "float64", TypeInfo.Float64 }, { "string", TypeInfo.String }, { "bool", TypeInfo.Bool }, { "nil", TypeInfo.Nil }, { "complex64", TypeInfo.Complex64 }, { "complex128", TypeInfo.Complex128 } };
-        private static Dictionary<string, BinaryOperator> bops = new Dictionary<string, BinaryOperator>() { { "+", BinaryOperator.Add }, { "-", BinaryOperator.Substract }, { "*", BinaryOperator.Multiply }, { "/", BinaryOperator.Divide }, { "%", BinaryOperator.Mod }, { "<", BinaryOperator.Less }, { "<=", BinaryOperator.LessEqual }, { ">", BinaryOperator.Greater }, { ">=", BinaryOperator.GreaterEqual }, { "<<", BinaryOperator.LeftShift }, { ">>", BinaryOperator.RightShift }, { "&", BinaryOperator.BitwiseAnd }, { "|", BinaryOperator.BitwiseOr }, { "^", BinaryOperator.BitwiseXor }, { "&^", BinaryOperator.BitwiseAndNot }, { "&&", BinaryOperator.And }, { "||", BinaryOperator.Or }, { "==", BinaryOperator.Equal }, { "!=", BinaryOperator.NotEqual } };
-        private static Dictionary<string, AssignmentOperator> aops = new Dictionary<string, AssignmentOperator>() { { "+=", AssignmentOperator.Add }, { "-=", AssignmentOperator.Subtract }, { "*=", AssignmentOperator.Multiply }, { "/=", AssignmentOperator.Divide }, { "%=", AssignmentOperator.Modulus }, { "&=", AssignmentOperator.BitAnd }, { "|=", AssignmentOperator.BitOr }, { "^=", AssignmentOperator.BitXor }, { "&^=", AssignmentOperator.BitClear }, { "<<=", AssignmentOperator.LeftShift }, { ">>=", AssignmentOperator.RightShift } };
+        private static Dictionary<string, BinaryOperator> binaryOperators = new Dictionary<string, BinaryOperator>() { { "+", BinaryOperator.Add }, { "-", BinaryOperator.Substract }, { "*", BinaryOperator.Multiply }, { "/", BinaryOperator.Divide }, { "%", BinaryOperator.Mod }, { "<", BinaryOperator.Less }, { "<=", BinaryOperator.LessEqual }, { ">", BinaryOperator.Greater }, { ">=", BinaryOperator.GreaterEqual }, { "<<", BinaryOperator.LeftShift }, { ">>", BinaryOperator.RightShift }, { "&", BinaryOperator.BitwiseAnd }, { "|", BinaryOperator.BitwiseOr }, { "^", BinaryOperator.BitwiseXor }, { "&^", BinaryOperator.BitwiseAndNot }, { "&&", BinaryOperator.And }, { "||", BinaryOperator.Or }, { "==", BinaryOperator.Equal }, { "!=", BinaryOperator.NotEqual } };
+        private static Dictionary<string, AssignmentOperator> assignmentOperators = new Dictionary<string, AssignmentOperator>() { { "+=", AssignmentOperator.Add }, { "-=", AssignmentOperator.Subtract }, { "*=", AssignmentOperator.Multiply }, { "/=", AssignmentOperator.Divide }, { "%=", AssignmentOperator.Modulus }, { "&=", AssignmentOperator.BitAnd }, { "|=", AssignmentOperator.BitOr }, { "^=", AssignmentOperator.BitXor }, { "&^=", AssignmentOperator.BitClear }, { "<<=", AssignmentOperator.LeftShift }, { ">>=", AssignmentOperator.RightShift } };
 
-        private static string[][] binaryoperators = new string[][] 
+        private static string[][] binaryOperatorsByLevel = new string[][] 
         {
             new string[] { "||" },
             new string[] { "&&" },
@@ -166,7 +166,7 @@
 
         private IExpressionNode ParseBinaryExpressionNode(int level)
         {
-            if (level >= binaryoperators.Length)
+            if (level >= binaryOperatorsByLevel.Length)
                 return ParseTermAndOperators();
 
             IExpressionNode expr;
@@ -178,10 +178,10 @@
 
             var token = this.NextToken();
 
-            while (token != null && token.Type == TokenType.Operator && binaryoperators[level].Contains(token.Value))
+            while (token != null && token.Type == TokenType.Operator && binaryOperatorsByLevel[level].Contains(token.Value))
             {
-                if (bops.ContainsKey(token.Value))
-                    expr = new BinaryNode(expr, bops[token.Value], this.ParseBinaryExpressionNode(level + 1));
+                if (binaryOperators.ContainsKey(token.Value))
+                    expr = new BinaryNode(expr, binaryOperators[token.Value], this.ParseBinaryExpressionNode(level + 1));
                 else
                     break;
 
@@ -274,7 +274,7 @@
 
             if (token != null)
             {
-                var cmdnode = new AssignmentNode(aops[token.Value], node, this.ParseExpressionNode());
+                var cmdnode = new AssignmentNode(assignmentOperators[token.Value], node, this.ParseExpressionNode());
                 return cmdnode;
             }
 
@@ -288,7 +288,7 @@
             if (token == null)
                 return null;
 
-            if (token.Type == TokenType.Operator && aops.ContainsKey(token.Value))
+            if (token.Type == TokenType.Operator && assignmentOperators.ContainsKey(token.Value))
                 return token;
 
             this.PushToken(token);
