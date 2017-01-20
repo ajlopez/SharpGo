@@ -188,8 +188,7 @@
                 token = this.NextToken();
             }
 
-            if (token != null)
-                this.PushToken(token);
+            this.PushToken(token);
 
             return expr;
         }
@@ -659,7 +658,8 @@
 
         private void PushToken(Token token)
         {
-            this.tokens.Push(token);
+            if (token != null)
+                this.tokens.Push(token);
         }
 
         private void ParseToken(TokenType type, string value)
@@ -706,6 +706,7 @@
                 return true;
 
             this.PushToken(token);
+            
             return false;
         }
 
