@@ -323,6 +323,12 @@
         }
 
         [TestMethod]
+        public void GetArithmeticOperatorsWithSpace()
+        {
+            GetOperators(new string[] { "+ ", "- ", "* ", "/ ", "% ", "<< ", ">> ", "&^ ", "& ", "^ ", "| " });
+        }
+
+        [TestMethod]
         public void GetIncrementalOperators()
         {
             GetOperators(new string[] { "++", "--" });
@@ -587,7 +593,7 @@
 
                 Assert.IsNotNull(token);
                 Assert.AreEqual(TokenType.Operator, token.Type);
-                Assert.AreEqual(operators[k], token.Value);
+                Assert.AreEqual(operators[k].Trim(), token.Value);
             }
 
             Assert.IsNull(lexer.NextToken());
