@@ -123,7 +123,7 @@
 
             Assert.IsNotNull(token);
             Assert.AreEqual(TokenType.Integer, token.Type);
-            Assert.AreEqual("0Xface", token.Value);
+            Assert.AreEqual("0xface", token.Value);
 
             Assert.IsNull(lexer.NextToken());
         }

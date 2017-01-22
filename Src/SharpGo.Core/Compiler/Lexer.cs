@@ -53,9 +53,8 @@
             {
                 if (ch == '0' && this.position < this.length && (this.text[this.position] == 'x' || this.text[this.position] == 'X'))
                 {
-                    char x = this.text[this.position];
                     this.position++;
-                    return this.NextHexadecimalInteger(x);
+                    return this.NextHexadecimalInteger();
                 }
 
                 return this.NextInteger(ch);
@@ -199,9 +198,9 @@
             return new Token(TokenType.Integer, value);
         }
 
-        private Token NextHexadecimalInteger(char chx)
+        private Token NextHexadecimalInteger()
         {
-            string value = "0" + chx;
+            string value = "0x";
 
             while (this.position < this.length)
             {
