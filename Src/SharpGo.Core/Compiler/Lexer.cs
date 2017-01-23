@@ -36,15 +36,7 @@
                 return new Token(TokenType.NewLine, "\n");
 
             if (ch == '\r')
-            {
-                if (this.position < this.length && this.text[this.position] == '\n') 
-                {
-                    this.position++;
-                    return new Token(TokenType.NewLine, "\r\n");
-                }
-
-                return new Token(TokenType.NewLine, "\r");
-            }
+                return this.NextCarriageReturn();
 
             if (IsLetter(ch))
                 return this.NextName(ch);
@@ -100,6 +92,17 @@
                 return new Token(TokenType.Operator, str);
 
             throw new LexerException(string.Format("Unexpected '{0}'", ch));
+        }
+
+        private Token NextCarriageReturn()
+        {
+            if (this.position < this.length && this.text[this.position] == '\n')
+            {
+                this.position++;
+                return new Token(TokenType.NewLine, "\r\n");
+            }
+
+            return new Token(TokenType.NewLine, "\r");
         }
 
         private static bool IsLetter(char ch)
