@@ -365,8 +365,17 @@
 
         private IStatementNode ParseForNode()
         {
-            IStatementNode initstmt = this.ParseSimpleStatementNode();
             IExpressionNode expr = null;
+
+            if (this.TryParseToken(TokenType.Delimiter, ";"))
+            {
+                expr = this.ParseExpressionNode();
+                this.ParseToken(TokenType.Delimiter, ";");
+                IStatementNode poststmt = this.ParseSimpleStatementNode();
+                return new ForNode(null, expr, poststmt, this.ParseStatementBlock());
+            }
+
+            IStatementNode initstmt = this.ParseSimpleStatementNode();
 
             if (this.TryParseToken(TokenType.Delimiter, ";"))
             {
