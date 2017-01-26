@@ -42,15 +42,7 @@
                 return this.NextName(ch);
 
             if (IsDigit(ch))
-            {
-                if (ch == '0' && this.position < this.length && (this.text[this.position] == 'x' || this.text[this.position] == 'X'))
-                {
-                    this.position++;
-                    return this.NextHexadecimalInteger();
-                }
-
-                return this.NextInteger(ch);
-            }
+                return ParseNextNumber(ch);
 
             if (ch == '"')
                 return this.NextString();
@@ -92,6 +84,17 @@
                 return new Token(TokenType.Operator, str);
 
             throw new LexerException(string.Format("Unexpected '{0}'", ch));
+        }
+
+        private Token ParseNextNumber(char ch)
+        {
+            if (ch == '0' && this.position < this.length && (this.text[this.position] == 'x' || this.text[this.position] == 'X'))
+            {
+                this.position++;
+                return this.NextHexadecimalInteger();
+            }
+
+            return this.NextInteger(ch);
         }
 
         private Token NextCarriageReturn()
