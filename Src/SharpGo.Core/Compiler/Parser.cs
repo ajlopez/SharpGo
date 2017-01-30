@@ -371,7 +371,10 @@
             {
                 expr = this.ParseExpressionNode();
                 this.ParseToken(TokenType.Delimiter, ";");
-                return new ForNode(null, expr, null, this.ParseStatementBlock());
+                if (this.TryPeekToken(TokenType.Delimiter, "{"))
+                    return new ForNode(null, expr, null, this.ParseStatementBlock());
+                IStatementNode poststmt = this.ParseSimpleStatementNode();
+                return new ForNode(null, expr, poststmt, this.ParseStatementBlock());
             }
 
             IStatementNode initstmt = this.ParseSimpleStatementNode();
@@ -715,6 +718,21 @@
 
             this.PushToken(token);
             
+            return false;
+        }
+
+        private bool TryPeekToken(TokenType type, string value)
+        {
+            var token = this.NextToken();
+
+            this.PushToken(token);
+
+            if (token == null)
+                return false;
+
+            if (token.Type == type && token.Value == value)
+                return true;
+
             return false;
         }
 
