@@ -385,7 +385,7 @@
                 this.ParseToken(TokenType.Delimiter, ";");
                 IStatementNode poststmt = null;
 
-                if (!this.TryPeekToken(TokenType.Delimiter, "}"))
+                if (!this.TryPeekToken(TokenType.Delimiter, "{"))
                     poststmt = this.ParseSimpleStatementNode();
 
                 return new ForNode(initstmt, expr, poststmt, this.ParseStatementBlock());
