@@ -20,6 +20,11 @@ Work in Progress
 - [Go Slices: usage and internals](https://blog.golang.org/go-slices-usage-and-internals)
 - [Go Operators](https://www.tutorialspoint.com/go/go_operators.htm)
 - [Go Cheat Sheet](https://github.com/a8m/go-lang-cheat-sheet)
+- [A Guide to Types and Casting in Golang](http://blog.stoneriverelearning.com/a-guide-to-types-and-casting-in-golang/)
+- [Go Types](https://golang.org/ref/spec#Types)
+- [Go Assignability](https://golang.org/ref/spec#Assignability)
+- [Assignability in Go](https://medium.com/golangspec/assignability-in-go-27805bcd5874#.u1k8y1i3r)
+- [Identical types in Go](https://medium.com/golangspec/assignability-in-go-27805bcd5874#.u1k8y1i3r)
 
 ### Interpreters
 
