@@ -80,7 +80,7 @@
         }
 
         [TestMethod]
-        public void SameTypesAreAssignable()
+        public void SameSimpleTypesAreAssignable()
         {
             Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Byte, TypeInfo.Byte));
             Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Bool, TypeInfo.Bool));
@@ -98,14 +98,21 @@
         }
 
         [TestMethod]
-        public void SmallIntegersAreAssignableToBigIntegers()
+        public void DifferentIntegerTypesAreNotAssignable()
         {
-            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Int8, TypeInfo.Int16));
-            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Int8, TypeInfo.Int32));
-            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Int8, TypeInfo.Int64));
-            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Int16, TypeInfo.Int32));
-            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Int16, TypeInfo.Int64));
-            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Int32, TypeInfo.Int64));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Int8, TypeInfo.Int16));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Int8, TypeInfo.Int32));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Int8, TypeInfo.Int64));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Int16, TypeInfo.Int32));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Int16, TypeInfo.Int64));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Int32, TypeInfo.Int64));
+
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Int16, TypeInfo.Int8));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Int32, TypeInfo.Int8));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Int64, TypeInfo.Int8));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Int32, TypeInfo.Int16));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Int64, TypeInfo.Int16));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Int64, TypeInfo.Int32));
         }
 
         [TestMethod]
