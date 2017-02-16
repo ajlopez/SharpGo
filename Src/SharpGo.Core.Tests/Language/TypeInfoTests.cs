@@ -116,15 +116,31 @@
         }
 
         [TestMethod]
-        public void FloatsAreAssignable()
+        public void FloatsWithSameTypeAreAssignable()
         {
-            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Float32, TypeInfo.Float64));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Float32, TypeInfo.Float32));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Float64, TypeInfo.Float64));
         }
 
         [TestMethod]
-        public void ComplexesAreAssignable()
+        public void FloatsWithDifferentTypeAreNotAssignable()
         {
-            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Complex64, TypeInfo.Complex128));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Float32, TypeInfo.Float64));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Float64, TypeInfo.Float32));
+        }
+
+        [TestMethod]
+        public void ComplexesWithSameTypeAreAssignable()
+        {
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Complex64, TypeInfo.Complex64));
+            Assert.IsTrue(TypeInfo.AreAssignable(TypeInfo.Complex128, TypeInfo.Complex128));
+        }
+
+        [TestMethod]
+        public void ComplexesWithDifferentTypeAreAssignable()
+        {
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Complex64, TypeInfo.Complex128));
+            Assert.IsFalse(TypeInfo.AreAssignable(TypeInfo.Complex128, TypeInfo.Complex64));
         }
     }
 }
