@@ -12,11 +12,11 @@
         private IExpressionNode low;
         private IExpressionNode high;
 
-        public SliceNode(string name, IExpressionNode low, IExpressionNode hight)
+        public SliceNode(string name, IExpressionNode low, IExpressionNode high)
         {
             this.name = name;
             this.low = low;
-            this.high = hight;
+            this.high = high;
         }
 
         public string Name { get { return this.name; } }
