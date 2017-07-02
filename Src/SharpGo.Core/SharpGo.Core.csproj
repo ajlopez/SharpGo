@@ -92,6 +92,7 @@
     <Compile Include="Language\PointerTypeInfo.cs" />
     <Compile Include="Language\SliceTypeInfo.cs" />
     <Compile Include="Language\StructMemberInfo.cs" />
+    <Compile Include="Language\TypedArray.cs" />
     <Compile Include="Language\TypeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

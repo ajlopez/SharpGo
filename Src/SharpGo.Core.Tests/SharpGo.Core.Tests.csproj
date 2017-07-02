@@ -55,6 +55,7 @@
     <Compile Include="Language\StructTypeInfoTests.cs" />
     <Compile Include="Language\TypeInfoTests.cs" />
     <Compile Include="Language\ArrayTypeInfoTests.cs" />
+    <Compile Include="Language\TypeArrayTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
