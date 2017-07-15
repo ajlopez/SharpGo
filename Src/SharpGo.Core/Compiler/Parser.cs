@@ -536,6 +536,9 @@
             if (token.Type == TokenType.Delimiter && token.Value == "(")
                 return ParseSubExpression();
 
+            if (token.Type == TokenType.Delimiter && token.Value == "...")
+                return new NameNode(token.Value);
+
             if (token.Type == TokenType.Name)
                 return ParseNameExpression(token);
 
