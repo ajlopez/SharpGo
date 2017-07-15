@@ -5,7 +5,7 @@
     using SharpGo.Core.Language;
 
     [TestClass]
-    public class TypeArrayTests
+    public class TypedArrayTests
     {
         [TestMethod]
         public void CreateIntegerArray()

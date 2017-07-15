@@ -1521,6 +1521,46 @@
         }
 
         [TestMethod]
+        public void ParseShortVarDeclarationWithArrayTypeInfoAndListExpression()
+        {
+            Parser parser = new Parser("foo := [2]int { 1, 2 }");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(VarNode));
+            Assert.AreEqual("foo", ((VarNode)node).Name);
+            Assert.IsInstanceOfType(((VarNode)node).TypeInfo, typeof(ArrayTypeInfo));
+            Assert.IsNotNull(((VarNode)node).ExpressionNode);
+
+            var ati = (ArrayTypeInfo)((VarNode)node).TypeInfo;
+
+            Assert.IsNotNull(ati);
+            Assert.IsNotNull(ati.LengthExpression);
+            Assert.IsInstanceOfType(ati.LengthExpression, typeof(ConstantNode));
+            Assert.AreEqual(2, ((ConstantNode)ati.LengthExpression).Value);
+
+            var expr = ((VarNode)node).ExpressionNode;
+
+            Assert.IsInstanceOfType(expr, typeof(ExpressionBlockNode));
+
+            var bexpr = (ExpressionBlockNode)expr;
+
+            Assert.IsNotNull(bexpr.Expressions);
+            Assert.AreEqual(2, bexpr.Expressions.Count);
+
+            Assert.IsNotNull(bexpr.Expressions[0]);
+            Assert.IsInstanceOfType(bexpr.Expressions[0], typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)bexpr.Expressions[0]).Value);
+
+            Assert.IsNotNull(bexpr.Expressions[1]);
+            Assert.IsInstanceOfType(bexpr.Expressions[1], typeof(ConstantNode));
+            Assert.AreEqual(2, ((ConstantNode)bexpr.Expressions[1]).Value);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseAliasTypeDeclaration()
         {
             Parser parser = new Parser("type Day int");
