@@ -1577,8 +1577,8 @@
 
             Assert.IsNotNull(ati);
             Assert.IsNotNull(ati.LengthExpression);
-            Assert.IsInstanceOfType(ati.LengthExpression, typeof(ConstantNode));
-            Assert.AreEqual(2, ((ConstantNode)ati.LengthExpression).Value);
+            Assert.IsInstanceOfType(ati.LengthExpression, typeof(NameNode));
+            Assert.AreEqual("...", ((NameNode)ati.LengthExpression).Name);
 
             var expr = ((VarNode)node).ExpressionNode;
 
