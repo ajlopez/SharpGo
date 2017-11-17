@@ -86,6 +86,30 @@
         }
 
         [TestMethod]
+        public void ParseListOfNames()
+        {
+            Parser parser = new Parser("foo, bar");
+
+            var node = parser.ParseExpressionNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ListNode));
+
+            var lnode = (ListNode)node;
+
+            Assert.IsNotNull(lnode.Expressions);
+            Assert.AreEqual(2, lnode.Expressions.Count);
+
+            Assert.IsInstanceOfType(lnode.Expressions[0], typeof(NameNode));
+            Assert.AreEqual("foo", ((NameNode)lnode.Expressions[0]).Name);
+
+            Assert.IsInstanceOfType(lnode.Expressions[1], typeof(NameNode));
+            Assert.AreEqual("bar", ((NameNode)lnode.Expressions[1]).Name);
+
+            Assert.IsNull(parser.ParseExpressionNode());
+        }
+
+        [TestMethod]
         public void ParseUnaryPlusVariable()
         {
             Parser parser = new Parser("+a");

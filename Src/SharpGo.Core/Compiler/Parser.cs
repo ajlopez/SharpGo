@@ -67,7 +67,24 @@
 
         public IExpressionNode ParseExpressionNode()
         {
-            return this.ParseBinaryExpressionNode(0);
+            IExpressionNode expr = this.ParseBinaryExpressionNode(0);
+
+            if (expr == null)
+                return null;
+
+            if (this.TryParseToken(TokenType.Delimiter, ","))
+            {
+                List<IExpressionNode> list = new List<IExpressionNode>();
+                list.Add(expr);
+                list.Add(this.ParseBinaryExpressionNode(0));
+
+                while (this.TryParseToken(TokenType.Delimiter, ","))
+                    list.Add(this.ParseBinaryExpressionNode(0));
+
+                expr = new ListNode(list);
+            }
+
+            return expr;
         }
 
         private TypeInfo ParseTypeInfo()
