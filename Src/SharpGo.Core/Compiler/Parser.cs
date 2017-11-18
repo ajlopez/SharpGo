@@ -67,7 +67,7 @@
 
         public IExpressionNode ParseExpressionNode()
         {
-            IExpressionNode expr = this.ParseBinaryExpressionNode(0);
+            IExpressionNode expr = this.ParseSimpleExpressionNode();
 
             if (expr == null)
                 return null;
@@ -83,6 +83,13 @@
 
                 expr = new ListNode(list);
             }
+
+            return expr;
+        }
+
+        private IExpressionNode ParseSimpleExpressionNode()
+        {
+            IExpressionNode expr = this.ParseBinaryExpressionNode(0);
 
             return expr;
         }
@@ -186,7 +193,7 @@
                 if (exprs.Count > 0)
                     this.ParseToken(TokenType.Delimiter, ",");
 
-                exprs.Add(this.ParseExpressionNode());
+                exprs.Add(this.ParseSimpleExpressionNode());
             }
 
             return new ExpressionBlockNode(exprs);
@@ -490,7 +497,7 @@
             TypeInfo typeinfo = this.TryParseTypeInfo();
 
             if (this.TryParseToken(TokenType.Operator, "="))
-                expr = this.ParseExpressionNode();
+                expr = this.ParseSimpleExpressionNode();
 
             return new VarNode(name, typeinfo, expr);
         }
@@ -652,14 +659,14 @@
         {
             IList<IExpressionNode> expressions = new List<IExpressionNode>();
 
-            for (var expr = this.ParseExpressionNode(); expr != null; )
+            for (var expr = this.ParseSimpleExpressionNode(); expr != null; )
             {
                 expressions.Add(expr);
 
                 if (!this.TryParseToken(TokenType.Delimiter, ","))
                     break;
 
-                expr = this.ParseExpressionNode();
+                expr = this.ParseSimpleExpressionNode();
             }
 
             this.ParseToken(TokenType.Delimiter, ")");
