@@ -400,6 +400,9 @@
 
         private IStatementNode ParseForNode()
         {
+            if (this.TryPeekToken(TokenType.Delimiter, "{"))
+                return new ForNode(null, null, null, this.ParseStatementBlock());
+
             IExpressionNode expr = null;
 
             if (this.TryParseToken(TokenType.Delimiter, ";"))

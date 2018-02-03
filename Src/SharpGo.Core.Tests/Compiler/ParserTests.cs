@@ -2157,6 +2157,43 @@
         }
 
         [TestMethod]
+        public void ParseWithoutParts()
+        {
+            Parser parser = new Parser("for {\n x = 1;\n }");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(ForNode));
+
+            var fornode = (ForNode)node;
+
+            Assert.IsNull(fornode.InitStatement);
+            Assert.IsNull(fornode.Expression);
+            Assert.IsNull(fornode.PostStatement);
+
+            Assert.IsNotNull(fornode.BodyNode);
+            Assert.IsInstanceOfType(fornode.BodyNode, typeof(BlockNode));
+
+            var block = (BlockNode)fornode.BodyNode;
+
+            Assert.AreEqual(1, block.Statements.Count);
+
+            var stmt = block.Statements[0];
+
+            Assert.IsInstanceOfType(stmt, typeof(AssignmentNode));
+
+            var assign = (AssignmentNode)stmt;
+
+            Assert.IsInstanceOfType(assign.TargetNode, typeof(NameNode));
+            Assert.AreEqual("x", ((NameNode)assign.TargetNode).Name);
+            Assert.IsInstanceOfType(assign.ExpressionNode, typeof(ConstantNode));
+            Assert.AreEqual(1, ((ConstantNode)assign.ExpressionNode).Value);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseSimpleForWithEmptySemicolons()
         {
             Parser parser = new Parser("for ;x < 1; {\n x = 1;\n }");
