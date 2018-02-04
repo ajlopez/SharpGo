@@ -7,13 +7,13 @@
 
     public class ImportNode : IStatementNode
     {
-        private INode expression;
+        private IExpressionNode expression;
 
-        public ImportNode(INode expression)
+        public ImportNode(IExpressionNode expression)
         {
             this.expression = expression;
         }
 
-        public INode ExpressionNode { get { return this.expression; } }
+        public IExpressionNode ExpressionNode { get { return this.expression; } }
     }
 }
