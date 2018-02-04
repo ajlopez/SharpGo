@@ -493,9 +493,13 @@
             return new VarNode(name, typeinfo, this.ParseExpressionNode());
         }
 
-        private VarNode ParseVarNode()
+        private IStatementNode ParseVarNode()
         {
             var name = this.ParseName();
+
+            if (this.TryParseToken(TokenType.Delimiter, ","))
+                return this.ParseVarsNode(name);
+
             IExpressionNode expr = null;
             TypeInfo typeinfo = this.TryParseTypeInfo();
 
@@ -503,6 +507,24 @@
                 expr = this.ParseSimpleExpressionNode();
 
             return new VarNode(name, typeinfo, expr);
+        }
+
+        private VarsNode ParseVarsNode(string name)
+        {
+            IList<string> names = new List<string>();
+            names.Add(name);
+
+            while (true)
+            {
+                names.Add(this.ParseName());
+
+                if (!this.TryParseToken(TokenType.Delimiter, ","))
+                    break;
+            }
+
+            TypeInfo typeinfo = this.ParseTypeInfo();
+
+            return new VarsNode(names, typeinfo, null);
         }
 
         private StructMemberNode ParseStructMemberNode()

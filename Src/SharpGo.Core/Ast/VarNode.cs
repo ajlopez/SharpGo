@@ -8,9 +8,9 @@
 
     public class VarNode : IStatementNode
     {
-        private IExpressionNode expression;
         private string name;
         private TypeInfo typeinfo;
+        private IExpressionNode expression;
 
         public VarNode(string name, TypeInfo typeinfo, IExpressionNode expression)
         {

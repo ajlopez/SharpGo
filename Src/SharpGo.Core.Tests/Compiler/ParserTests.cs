@@ -1055,6 +1055,29 @@
         }
 
         [TestMethod]
+        public void ParseVarsDeclarationWithIntType()
+        {
+            Parser parser = new Parser("var foo, bar int");
+
+            var node = parser.ParseStatementNode();
+
+            Assert.IsNotNull(node);
+            Assert.IsInstanceOfType(node, typeof(VarsNode));
+
+            VarsNode vnode = (VarsNode)node;
+
+            Assert.IsNotNull(vnode.Names);
+            Assert.AreEqual(2, vnode.Names.Count);
+            Assert.AreEqual("foo", vnode.Names[0]);
+            Assert.AreEqual("bar", vnode.Names[1]);
+
+            Assert.AreEqual(TypeInfo.Int, vnode.TypeInfo);
+            Assert.IsNull(vnode.ExpressionNodes);
+
+            Assert.IsNull(parser.ParseStatementNode());
+        }
+
+        [TestMethod]
         public void ParseVarDeclarationWithUIntType()
         {
             Parser parser = new Parser("var foo uint");
