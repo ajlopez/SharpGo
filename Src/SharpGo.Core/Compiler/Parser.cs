@@ -76,10 +76,10 @@
             {
                 List<IExpressionNode> list = new List<IExpressionNode>();
                 list.Add(expr);
-                list.Add(this.ParseBinaryExpressionNode(0));
+                list.Add(this.ParseSimpleExpressionNode());
 
                 while (this.TryParseToken(TokenType.Delimiter, ","))
-                    list.Add(this.ParseBinaryExpressionNode(0));
+                    list.Add(this.ParseSimpleExpressionNode());
 
                 expr = new ListNode(list);
             }
