@@ -42,7 +42,7 @@
                 return this.NextName(ch);
 
             if (IsDigit(ch))
-                return ParseNextNumber(ch);
+                return this.ParseNextNumber(ch);
 
             if (ch == '"')
                 return this.NextString();
@@ -86,28 +86,6 @@
             throw new LexerException(string.Format("Unexpected '{0}'", ch));
         }
 
-        private Token ParseNextNumber(char ch)
-        {
-            if (ch == '0' && this.position < this.length && (this.text[this.position] == 'x' || this.text[this.position] == 'X'))
-            {
-                this.position++;
-                return this.NextHexadecimalInteger();
-            }
-
-            return this.NextInteger(ch);
-        }
-
-        private Token NextCarriageReturn()
-        {
-            if (this.position < this.length && this.text[this.position] == '\n')
-            {
-                this.position++;
-                return new Token(TokenType.NewLine, "\r\n");
-            }
-
-            return new Token(TokenType.NewLine, "\r");
-        }
-
         private static bool IsLetter(char ch)
         {
             return ch == '_' || char.IsLetter(ch);
@@ -129,6 +107,28 @@
                 return false;
 
             return char.IsWhiteSpace(ch);
+        }
+
+        private Token ParseNextNumber(char ch)
+        {
+            if (ch == '0' && this.position < this.length && (this.text[this.position] == 'x' || this.text[this.position] == 'X'))
+            {
+                this.position++;
+                return this.NextHexadecimalInteger();
+            }
+
+            return this.NextInteger(ch);
+        }
+
+        private Token NextCarriageReturn()
+        {
+            if (this.position < this.length && this.text[this.position] == '\n')
+            {
+                this.position++;
+                return new Token(TokenType.NewLine, "\r\n");
+            }
+
+            return new Token(TokenType.NewLine, "\r");
         }
 
         private Token NextString()

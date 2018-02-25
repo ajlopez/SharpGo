@@ -107,7 +107,7 @@
         private TypeInfo TryParseTypeInfo()
         {
             if (this.TryParseToken(TokenType.Delimiter, "["))
-                return ParseArraySliceTypeInfo();
+                return this.ParseArraySliceTypeInfo();
 
             if (this.TryParseToken(TokenType.Operator, "*"))
             {
@@ -117,13 +117,13 @@
             }
 
             if (this.TryParseToken(TokenType.Name, "chan"))
-                return ParseChanTypeInfo();
+                return this.ParseChanTypeInfo();
 
             if (this.TryParseToken(TokenType.Name, "map"))
-                return ParseMapTypeInfo();
+                return this.ParseMapTypeInfo();
 
             if (this.TryParseToken(TokenType.Operator, "<-"))
-                return ParseChannelTypeInfo();
+                return this.ParseChannelTypeInfo();
 
             var token = this.NextToken();
 
@@ -202,7 +202,7 @@
         private IExpressionNode ParseBinaryExpressionNode(int level)
         {
             if (level >= binaryOperatorsByLevel.Length)
-                return ParseTermAndOperators();
+                return this.ParseTermAndOperators();
 
             IExpressionNode expr;
 
@@ -554,7 +554,7 @@
             this.ParseToken(TokenType.Delimiter, "{");
 
             while (this.TryParseToken(TokenType.NewLine))
-                ;
+                continue;
 
             var stmts = new List<IStatementNode>();
 
@@ -563,7 +563,7 @@
                 var stm = this.ParseStatementNode();
                 stmts.Add(stm);
                 while (this.TryParseToken(TokenType.NewLine))
-                    ;
+                    continue;
             }
 
             return new BlockNode(stmts);
@@ -594,13 +594,13 @@
             }
 
             if (token.Type == TokenType.Delimiter && token.Value == "(")
-                return ParseSubExpression();
+                return this.ParseSubExpression();
 
             if (token.Type == TokenType.Delimiter && token.Value == "...")
                 return new NameNode(token.Value);
 
             if (token.Type == TokenType.Name)
-                return ParseNameExpression(token);
+                return this.ParseNameExpression(token);
 
             this.PushToken(token);
 
@@ -610,13 +610,13 @@
         private IExpressionNode ParseNameExpression(Token token)
         {
             if (this.TryParseToken(TokenType.Delimiter, "["))
-                return ParseIndexExpression(token);
+                return this.ParseIndexExpression(token);
 
             if (this.TryParseToken(TokenType.Delimiter, "("))
-                return ParseCall(token);
+                return this.ParseCall(token);
 
             if (this.TryParseToken(TokenType.Delimiter, "."))
-                return ParseDotName(token);
+                return this.ParseDotName(token);
 
             if (token.Value == "true")
                 return new ConstantNode(true);
@@ -684,7 +684,7 @@
         {
             IList<IExpressionNode> expressions = new List<IExpressionNode>();
 
-            for (var expr = this.ParseSimpleExpressionNode(); expr != null; )
+            for (var expr = this.ParseSimpleExpressionNode(); expr != null;)
             {
                 expressions.Add(expr);
 

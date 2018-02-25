@@ -68,6 +68,14 @@
 
         public Type NativeType { get { return this.nativetype; } }
 
+        public static bool AreAssignable(TypeInfo source, TypeInfo target)
+        {
+            if (source == target)
+                return true;
+
+            return false;
+        }
+
         public static TypeInfo GetTypeInfo(object value)
         {
             if (value == null)
@@ -108,14 +116,6 @@
         public int Size()
         {
             return int.Parse(this.name.Substring(3));
-        }
-
-        public static bool AreAssignable(TypeInfo source, TypeInfo target)
-        {
-            if (source == target)
-                return true;
-
-            return false;
         }
     }
 }

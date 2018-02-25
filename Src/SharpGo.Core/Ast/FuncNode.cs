@@ -1,10 +1,10 @@
 ﻿namespace SharpGo.Core.Ast
 {
-    using SharpGo.Core.Language;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using SharpGo.Core.Language;
 
     public class FuncNode : IStatementNode
     {

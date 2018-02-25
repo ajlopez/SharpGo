@@ -1,8 +1,5 @@
 <stylecopresultscache>
   <version>10</version>
-  <project key="-2127011686">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="ConstantNodeTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>05/01/2014 08:31:29</timestamp>
@@ -19,24 +16,6 @@
     </settings>
     <timestamp>12/14/2015 06:08:45</timestamp>
     <milliseconds>126</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="LexerTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>05/01/2014 08:31:29</timestamp>
-      <milliseconds>910</milliseconds>
-    </settings>
-    <timestamp>01/16/2016 07:59:05</timestamp>
-    <milliseconds>515</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="ParserTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>05/01/2014 08:31:29</timestamp>
-      <milliseconds>910</milliseconds>
-    </settings>
-    <timestamp>02/03/2016 15:18:00</timestamp>
-    <milliseconds>176</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="AliasTypeInfoTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
@@ -84,15 +63,6 @@
     <milliseconds>370</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="TypeInfoTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>05/01/2014 08:31:29</timestamp>
-      <milliseconds>910</milliseconds>
-    </settings>
-    <timestamp>09/25/2015 07:04:57</timestamp>
-    <milliseconds>608</milliseconds>
-    <violations />
-  </sourcecode>
   <sourcecode name="AssemblyInfo.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>05/01/2014 08:31:29</timestamp>
@@ -100,6 +70,45 @@
     </settings>
     <timestamp>05/01/2014 08:26:30</timestamp>
     <milliseconds>741</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="-2127011686">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="LexerTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>05/01/2014 08:31:29</timestamp>
+      <milliseconds>910</milliseconds>
+    </settings>
+    <timestamp>01/27/2017 06:59:20</timestamp>
+    <milliseconds>553</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="TypedArrayTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>05/01/2014 08:31:29</timestamp>
+      <milliseconds>910</milliseconds>
+    </settings>
+    <timestamp>10/20/2017 23:34:23</timestamp>
+    <milliseconds>273</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="TypeInfoTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>05/01/2014 08:31:29</timestamp>
+      <milliseconds>910</milliseconds>
+    </settings>
+    <timestamp>06/24/2017 20:57:01</timestamp>
+    <milliseconds>848</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="ParserTests.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>05/01/2014 08:31:29</timestamp>
+      <milliseconds>910</milliseconds>
+    </settings>
+    <timestamp>02/04/2018 19:12:26</timestamp>
+    <milliseconds>151</milliseconds>
     <violations />
   </sourcecode>
 </stylecopresultscache>
