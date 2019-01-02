@@ -25,6 +25,7 @@ Work in Progress
 - [Go Assignability](https://golang.org/ref/spec#Assignability)
 - [Assignability in Go](https://medium.com/golangspec/assignability-in-go-27805bcd5874#.u1k8y1i3r)
 - [Identical types in Go](https://medium.com/golangspec/assignability-in-go-27805bcd5874#.u1k8y1i3r)
+- [Go Books](https://github.com/dariubs/GoBooks)
 
 ### Interpreters
 
