@@ -23,11 +23,14 @@
         private static TypeInfo ticomplex128 = new TypeInfo("complex128");
 
         private string name;
+        private bool isInteger;
         private Type nativetype;
 
         public TypeInfo(string name)
         {
             this.name = name;
+
+            this.isInteger = name.StartsWith("int");
         }
 
         public TypeInfo(string name, Type nativetype)
@@ -110,7 +113,7 @@
 
         public bool IsInteger()
         {
-            return this.name.StartsWith("int");
+            return this.isInteger;
         }
 
         public int Size()
