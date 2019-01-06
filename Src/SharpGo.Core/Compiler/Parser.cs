@@ -7,6 +7,7 @@
     using System.Text;
     using SharpGo.Core.Ast;
     using SharpGo.Core.Language;
+    using SharpGo.Core.Language.TypeInfos;
 
     public class Parser
     {

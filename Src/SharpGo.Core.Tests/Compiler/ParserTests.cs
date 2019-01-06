@@ -5,6 +5,7 @@
     using SharpGo.Core.Ast;
     using SharpGo.Core.Compiler;
     using SharpGo.Core.Language;
+    using SharpGo.Core.Language.TypeInfos;
 
     [TestClass]
     public class ParserTests

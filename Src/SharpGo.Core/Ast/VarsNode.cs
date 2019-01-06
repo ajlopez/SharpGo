@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
     using SharpGo.Core.Language;
+    using SharpGo.Core.Language.TypeInfos;
 
     public class VarsNode : IStatementNode
     {

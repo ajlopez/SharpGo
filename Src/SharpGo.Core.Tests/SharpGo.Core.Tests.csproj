@@ -49,12 +49,12 @@
     <Compile Include="Ast\DotNodeTests.cs" />
     <Compile Include="Compiler\LexerTests.cs" />
     <Compile Include="Compiler\ParserTests.cs" />
-    <Compile Include="Language\AliasTypeInfoTests.cs" />
-    <Compile Include="Language\ChannelTypeInfoTests.cs" />
-    <Compile Include="Language\MapTypeInfoTests.cs" />
-    <Compile Include="Language\StructTypeInfoTests.cs" />
-    <Compile Include="Language\TypeInfoTests.cs" />
-    <Compile Include="Language\ArrayTypeInfoTests.cs" />
+    <Compile Include="Language\TypeInfos\AliasTypeInfoTests.cs" />
+    <Compile Include="Language\TypeInfos\ChannelTypeInfoTests.cs" />
+    <Compile Include="Language\TypeInfos\MapTypeInfoTests.cs" />
+    <Compile Include="Language\TypeInfos\StructTypeInfoTests.cs" />
+    <Compile Include="Language\TypeInfos\TypeInfoTests.cs" />
+    <Compile Include="Language\TypeInfos\ArrayTypeInfoTests.cs" />
     <Compile Include="Language\TypedArrayTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

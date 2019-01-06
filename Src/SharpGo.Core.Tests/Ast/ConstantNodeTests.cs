@@ -4,6 +4,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SharpGo.Core.Ast;
     using SharpGo.Core.Language;
+    using SharpGo.Core.Language.TypeInfos;
 
     [TestClass]
     public class ConstantNodeTests
