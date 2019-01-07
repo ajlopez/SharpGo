@@ -1,14 +1,10 @@
 ﻿namespace SharpGo.Core.Ast
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using SharpGo.Core.Language;
 
     public class StructNode : IStatementNode
     {
-        private IList<StructMemberNode> members;
+        private readonly IList<StructMemberNode> members;
 
         public StructNode(IList<StructMemberNode> members)
         {

@@ -7,8 +7,8 @@
 
     public class SendNode : IStatementNode
     {
-        private INode target;
-        private IExpressionNode expression;
+        private readonly INode target;
+        private readonly IExpressionNode expression;
 
         public SendNode(INode target, IExpressionNode expression)
         {

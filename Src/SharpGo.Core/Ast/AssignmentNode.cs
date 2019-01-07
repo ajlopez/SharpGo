@@ -1,15 +1,10 @@
 ﻿namespace SharpGo.Core.Ast
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     public class AssignmentNode : IStatementNode
     {
-        private AssignmentOperator oper;
-        private INode target;
-        private IExpressionNode expression;
+        private readonly AssignmentOperator oper;
+        private readonly INode target;
+        private readonly IExpressionNode expression;
 
         public AssignmentNode(INode target, IExpressionNode expression)
             : this(AssignmentOperator.Set, target, expression)

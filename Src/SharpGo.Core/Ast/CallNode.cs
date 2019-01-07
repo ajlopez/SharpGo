@@ -2,15 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using SharpGo.Core.Language;
     using SharpGo.Core.Language.TypeInfos;
 
     public class CallNode : IExpressionNode
     {
-        private IExpressionNode expression;
-        private IList<IExpressionNode> arguments;
+        private readonly IExpressionNode expression;
+        private readonly IList<IExpressionNode> arguments;
 
         public CallNode(IExpressionNode expression, IList<IExpressionNode> arguments)
         {

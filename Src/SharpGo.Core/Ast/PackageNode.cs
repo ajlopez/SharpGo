@@ -7,7 +7,7 @@
 
     public class PackageNode : IStatementNode
     {
-        private string name;
+        private readonly string name;
 
         public PackageNode(string name)
         {

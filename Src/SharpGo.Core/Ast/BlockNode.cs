@@ -1,13 +1,10 @@
 ﻿namespace SharpGo.Core.Ast
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public class BlockNode : IStatementNode
     {
-        private IList<IStatementNode> statements;
+        private readonly IList<IStatementNode> statements;
 
         public BlockNode(IList<IStatementNode> statements)
         {

@@ -1,18 +1,14 @@
 ﻿namespace SharpGo.Core.Ast
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using SharpGo.Core.Language;
     using SharpGo.Core.Language.TypeInfos;
 
     public class FuncNode : IStatementNode
     {
-        private string name;
-        private IList<NameNode> parameters;
-        private IStatementNode body;
-        private TypeInfo returnType;
+        private readonly string name;
+        private readonly IList<NameNode> parameters;
+        private readonly IStatementNode body;
+        private readonly TypeInfo returnType;
 
         public FuncNode(string name, IList<NameNode> parameters, IStatementNode body, TypeInfo returnType)
         {

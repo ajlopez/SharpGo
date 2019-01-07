@@ -7,7 +7,7 @@
 
     public class ExpressionStatementNode : IStatementNode
     {
-        private IExpressionNode expression;
+        private readonly IExpressionNode expression;
 
         public ExpressionStatementNode(IExpressionNode expression)
         {

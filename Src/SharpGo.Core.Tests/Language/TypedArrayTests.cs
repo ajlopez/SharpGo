@@ -1,6 +1,5 @@
 ﻿namespace SharpGo.Core.Tests.Language
 {
-    using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SharpGo.Core.Language;
 

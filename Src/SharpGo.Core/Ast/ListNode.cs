@@ -2,14 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using SharpGo.Core.Language;
     using SharpGo.Core.Language.TypeInfos;
 
     public class ListNode : IExpressionNode
     {
-        private List<IExpressionNode> expressions;
+        private readonly List<IExpressionNode> expressions;
 
         public ListNode(List<IExpressionNode> expressions)
         {

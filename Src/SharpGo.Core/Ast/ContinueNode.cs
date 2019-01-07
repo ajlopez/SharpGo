@@ -7,7 +7,7 @@
 
     public class ContinueNode : IStatementNode
     {
-        private string label;
+        private readonly string label;
 
         public ContinueNode(string label)
         {

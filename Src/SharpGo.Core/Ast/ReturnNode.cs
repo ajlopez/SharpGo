@@ -1,13 +1,8 @@
 ﻿namespace SharpGo.Core.Ast
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     public class ReturnNode : IStatementNode
     {
-        private IExpressionNode expression;
+        private readonly IExpressionNode expression;
 
         public ReturnNode(IExpressionNode expression)
         {

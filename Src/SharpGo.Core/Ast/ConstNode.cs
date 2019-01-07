@@ -1,17 +1,12 @@
 ﻿namespace SharpGo.Core.Ast
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using SharpGo.Core.Language;
     using SharpGo.Core.Language.TypeInfos;
 
     public class ConstNode : IStatementNode
     {
-        private IExpressionNode expression;
-        private string name;
-        private TypeInfo typeinfo;
+        private readonly IExpressionNode expression;
+        private readonly string name;
+        private readonly TypeInfo typeinfo;
 
         public ConstNode(string name, TypeInfo typeinfo, IExpressionNode expression)
         {

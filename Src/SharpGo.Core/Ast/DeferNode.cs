@@ -7,7 +7,7 @@
 
     public class DeferNode : IStatementNode
     {
-        private IExpressionNode expression;
+        private readonly IExpressionNode expression;
 
         public DeferNode(IExpressionNode expression)
         {

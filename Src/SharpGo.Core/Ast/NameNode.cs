@@ -1,15 +1,11 @@
 ﻿namespace SharpGo.Core.Ast
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using SharpGo.Core.Language;
     using SharpGo.Core.Language.TypeInfos;
 
     public class NameNode : IExpressionNode
     {
-        private string name;
+        private readonly string name;
 
         public NameNode(string name)
         {

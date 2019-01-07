@@ -1,16 +1,11 @@
 ﻿namespace SharpGo.Core.Ast
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     public class IfNode : IStatementNode
     {
-        private IStatementNode statement;
-        private IExpressionNode expression;
-        private IStatementNode thenCommand;
-        private IStatementNode elseCommand;
+        private readonly IStatementNode statement;
+        private readonly IExpressionNode expression;
+        private readonly IStatementNode thenCommand;
+        private readonly IStatementNode elseCommand;
 
         public IfNode(IExpressionNode expression, IStatementNode block)
             : this(null, expression, block)

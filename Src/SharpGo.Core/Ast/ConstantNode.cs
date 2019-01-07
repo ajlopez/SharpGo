@@ -1,16 +1,11 @@
 ﻿namespace SharpGo.Core.Ast
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using SharpGo.Core.Language;
     using SharpGo.Core.Language.TypeInfos;
 
     public class ConstantNode : IExpressionNode
     {
-        private TypeInfo typeinfo;
-        private object value;
+        private readonly TypeInfo typeinfo;
+        private readonly object value;
 
         public ConstantNode(object value)
         {

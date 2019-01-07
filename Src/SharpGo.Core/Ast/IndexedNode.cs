@@ -1,16 +1,12 @@
 ﻿namespace SharpGo.Core.Ast
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using SharpGo.Core.Language;
     using SharpGo.Core.Language.TypeInfos;
 
     public class IndexedNode : IExpressionNode
     {
-        private string name;
-        private IExpressionNode index;
+        private readonly string name;
+        private readonly IExpressionNode index;
 
         public IndexedNode(string name, IExpressionNode index)
         {

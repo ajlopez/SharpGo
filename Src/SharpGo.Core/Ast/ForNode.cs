@@ -7,10 +7,10 @@
 
     public class ForNode : IStatementNode
     {
-        private IStatementNode initstmt;
-        private IExpressionNode expression;
-        private IStatementNode poststmt;
-        private IStatementNode body;
+        private readonly IStatementNode initstmt;
+        private readonly IExpressionNode expression;
+        private readonly IStatementNode poststmt;
+        private readonly IStatementNode body;
 
         public ForNode(IExpressionNode expression, IStatementNode body)
             : this(null, expression, null, body)

@@ -1,14 +1,9 @@
 ﻿namespace SharpGo.Core.Ast
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     public class LabelNode : IStatementNode
     {
-        private string label;
-        private IStatementNode statement;
+        private readonly string label;
+        private readonly IStatementNode statement;
 
         public LabelNode(string label, IStatementNode statement)
         {

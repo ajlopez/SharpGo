@@ -1,16 +1,12 @@
 ﻿namespace SharpGo.Core.Ast
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-using SharpGo.Core.Language;
     using SharpGo.Core.Language.TypeInfos;
 
     public class ExpressionBlockNode : IExpressionNode
     {
-        private IList<IExpressionNode> expressions;
-        private TypeInfo typeinfo;
+        private readonly IList<IExpressionNode> expressions;
+        private readonly TypeInfo typeinfo;
 
         public ExpressionBlockNode(IList<IExpressionNode> expressions)
         {

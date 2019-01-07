@@ -7,7 +7,7 @@
 
     public class GotoNode : IStatementNode
     {
-        private string label;
+        private readonly string label;
 
         public GotoNode(string label)
         {
